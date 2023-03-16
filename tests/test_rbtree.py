@@ -1,4 +1,4 @@
-from rbtree import RedBlackTree, Node
+from rbtree import RedBlackTree
 
 
 def check_node_valid(bst, node):
@@ -33,9 +33,10 @@ def check_valid_recur(bst, node):
 
     assert left_count == right_count
 
-    cur_count = left_count # doesn't matter which one we choose because they're the same
+    # doesn't matter which one we choose because they're the same
+    cur_count = left_count
     if node.color == 0:
-        cur_count += 1 
+        cur_count += 1
 
     return cur_count
 
@@ -53,7 +54,7 @@ def test_insert():
     assert bst.search(55).item == 55
     bst.insert(40)
     assert bst.search(40).item == 40
-    bst.insert(58)    
+    bst.insert(58)
     assert bst.search(58).item == 58
     bst.insert(42)
     assert bst.search(42).item == 42
@@ -88,7 +89,7 @@ def test_search():
     assert bst.search(60) == bst.TNULL
     bst.insert(30)
     assert bst.search(30).item == 30
-    
+
 
 def test_delete():
     bst = RedBlackTree()
@@ -198,7 +199,7 @@ def test_accessors():
     assert bst.predecessor(bst.search(55)).item == 42
     assert bst.predecessor(bst.search(58)).item == 55
 
-    bst.insert(57) 
+    bst.insert(57)
     assert bst.predecessor(bst.search(57)).item == 55
 
 
