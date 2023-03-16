@@ -331,7 +331,7 @@ class RedBlackTree():
             y.left = node
         else:
             y.right = node
-        
+
         self.size += 1
 
         if node.parent is None:
