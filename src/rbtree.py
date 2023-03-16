@@ -7,6 +7,7 @@ import sys
 # Node creation
 class Node():
     next_id = 0
+
     def __init__(self, item):
         self.id = Node.next_id
         Node.next_id += 1
@@ -21,7 +22,8 @@ class Node():
         return self.id == other.id
 
     def __repr__(self):
-        return "ID: " + str(self.id) + " Value: " + str(self.item)        
+        return "ID: " + str(self.id) + " Value: " + str(self.item)
+
 
 class RedBlackTree():
     def __init__(self):
