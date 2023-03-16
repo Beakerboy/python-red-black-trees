@@ -135,7 +135,7 @@ def test_delete():
 def test_complex_delete():
     bst = RedBlackTree()
 
-    with open("small_input.txt") as infile:
+    with open("tests/small_input.txt") as infile:
         for line in infile:
             sline = line.split()
             # print(sline, bst.searchTree(int(sline[1])) == bst.TNULL)
@@ -152,7 +152,7 @@ def test_complex_delete():
 def test_long():
     bst = RedBlackTree()
 
-    with open("test_input.txt") as infile:
+    with open("tests/test_input.txt") as infile:
         for line in infile:
             sline = line.split()
             # print(sline, bst.searchTree(int(sline[1])) == bst.TNULL)
