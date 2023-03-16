@@ -22,7 +22,7 @@ class Node():
         self.color = 1
         self.value = None
 
-    def __eq__(self: T, other):
+    def __eq__(self: T, other: T):
         return self.id == other.id
 
     def __repr__(self: T) -> str:
