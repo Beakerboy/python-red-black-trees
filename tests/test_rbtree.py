@@ -1,7 +1,7 @@
-from rbtree import RedBlackTree
+from rbtree import RedBlackTree, Node
 
 
-def check_node_valid(bst, node) -> None:
+def check_node_valid(bst: RedBlackTree, node: Node) -> None:
     if node == bst.TNULL:
         assert node.color == 0
         return
@@ -16,7 +16,7 @@ def check_node_valid(bst, node) -> None:
         assert node.item <= node.right.item
 
 
-def check_valid_recur(bst, node) -> int:
+def check_valid_recur(bst: RedBlackTree, node: Node) -> int:
     check_node_valid(bst, node)
 
     if node == bst.TNULL:
@@ -41,7 +41,7 @@ def check_valid_recur(bst, node) -> int:
     return cur_count
 
 
-def check_valid(bst) -> None:
+def check_valid(bst: RedBlackTree) -> None:
     root = bst.get_root()
     assert root.color == 0
 
