@@ -52,7 +52,7 @@ def test_insert():
     bst.insert(55)
     assert bst.search(55).item == 55
     bst.insert(40)
-    assert bst.search(40).item == 40    
+    assert bst.search(40).item == 40
     bst.insert(58)    
     assert bst.search(58).item == 58
     bst.insert(42)
@@ -70,7 +70,7 @@ def test_insert():
     bst.insert(10)
     bst.insert(15)
     bst.insert(11)
-    bst.insert(100)    
+    bst.insert(100)
     bst.insert(101)
     bst.insert(103)
     bst.insert(106)
@@ -99,15 +99,15 @@ def test_delete():
 
     bst.insert(73)
     bst.insert(48)
-    bst.insert(100)    
+    bst.insert(100)
     bst.insert(42)
     bst.insert(55)
     bst.insert(40)
-    bst.insert(58)    
+    bst.insert(58)
     bst.insert(42)
     bst.insert(55)
     bst.insert(40)
-    bst.insert(58)    
+    bst.insert(58)
     bst.insert(42)
 
     assert bst.size == 12
@@ -120,7 +120,7 @@ def test_delete():
     assert bst.size == 9
     assert bst.search(42).item == 42
     bst.delete(42)
-    assert bst.search(42) == bst.TNULL    
+    assert bst.search(42) == bst.TNULL
     assert bst.size == 8
     bst.delete(100)
     assert bst.size == 7
@@ -175,7 +175,7 @@ def test_get_root():
     bst = RedBlackTree()
     assert bst.get_root() == bst.TNULL
     bst.insert(3)
-    assert bst.get_root().item == 3    
+    assert bst.get_root().item == 3
 
 
 def test_accessors():
@@ -185,7 +185,7 @@ def test_accessors():
 
     bst.insert(55)
     bst.insert(40)
-    bst.insert(58)    
+    bst.insert(58)
     bst.insert(42)
     # bst.print_tree()
 
@@ -196,26 +196,26 @@ def test_accessors():
     assert bst.successor(bst.search(55)).item == 58
     assert bst.predecessor(bst.search(42)).item == 40
     assert bst.predecessor(bst.search(55)).item == 42
-    assert bst.predecessor(bst.search(58)).item == 55   
+    assert bst.predecessor(bst.search(58)).item == 55
 
     bst.insert(57) 
     assert bst.predecessor(bst.search(57)).item == 55
 
 
 def test_print():
-    bst = RedBlackTree()    
+    bst = RedBlackTree()
     bst.insert(73)
     print(bst.get_root())
     bst.insert(48)
-    bst.insert(100)    
+    bst.insert(100)
     bst.insert(42)
     bst.insert(55)
     bst.insert(40)
-    bst.insert(58)    
+    bst.insert(58)
     bst.insert(42)
     bst.insert(55)
     bst.insert(40)
-    bst.insert(58)    
+    bst.insert(58)
     bst.insert(42)
 
     bst.print_tree()
@@ -228,7 +228,7 @@ def test_elaborate_delete():
     bst = RedBlackTree()
     bst.insert(55)
     bst.insert(40)
-    bst.insert(58)    
+    bst.insert(58)
     bst.insert(42)
     bst.insert(42)
     bst.insert(42)
@@ -242,7 +242,7 @@ def test_elaborate_delete():
     bst.insert(10)
     bst.insert(15)
     bst.insert(11)
-    bst.insert(100)    
+    bst.insert(100)
     bst.insert(101)
     bst.insert(103)
     bst.insert(106)
@@ -266,7 +266,7 @@ def test_elaborate_delete():
     bst.delete(42)
 
     bst.print_tree()
-    check_valid(bst)    
+    check_valid(bst)
     # assert False
 
 
@@ -274,7 +274,6 @@ def test_duplicates():
     bst = RedBlackTree()
     bst.insert(42)
     bst.insert(42)
-    bst.insert(42)    
     bst.insert(42)
     bst.insert(42)
     bst.insert(42)
@@ -288,7 +287,8 @@ def test_duplicates():
     bst.insert(42)
     bst.insert(42)
     bst.insert(42)
-    bst.insert(42)    
+    bst.insert(42)
+    bst.insert(42)
     bst.insert(42)
     bst.insert(42)
     bst.insert(42)
@@ -302,5 +302,5 @@ def test_duplicates():
     bst.delete(42)
     bst.delete(42)
     bst.delete(42)
-    bst.delete(42)                        
+    bst.delete(42)
     check_valid(bst)
