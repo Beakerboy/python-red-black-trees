@@ -22,7 +22,7 @@ class Node():
         self.color = 1
         self.value = None
 
-    def __eq__(self: T, other: T):
+    def __eq__(self: T, other: T) -> bool:
         return self.id == other.id
 
     def __repr__(self: T) -> str:
@@ -214,7 +214,7 @@ class RedBlackTree():
         self.root.color = 0
 
     # Printing the tree
-    def __print_helper(self: T, node: Node, indent, last) -> None:
+    def __print_helper(self: T, node: Node, indent: str, last: bool) -> None:
         if node != self.TNULL:
             sys.stdout.write(indent)
             if last:
@@ -241,7 +241,7 @@ class RedBlackTree():
     def search(self: T, k: int) -> Node:
         return self.search_tree_helper(self.root, k)
 
-    def minimum(self: T, node: Node=None) -> Node:
+    def minimum(self: T, node: Node = None) -> Node:
         if node is None:
             node = self.root
         if node == self.TNULL:
@@ -250,7 +250,7 @@ class RedBlackTree():
             node = node.left
         return node
 
-    def maximum(self: T, node: Node=None) -> Node:
+    def maximum(self: T, node: Node = None) -> Node:
         if node is None:
             node = self.root
         if node == self.TNULL:
@@ -312,7 +312,7 @@ class RedBlackTree():
         y.right = x
         x.parent = y
 
-    def insert(self: T, key) -> None:
+    def insert(self: T, key: int) -> None:
         node = Node(key)
         node.parent = None
         node.item = key
@@ -358,7 +358,7 @@ class RedBlackTree():
     def print_tree(self: T) -> None:
         self.__print_helper(self.root, "", True)
 
-    def __getitem__(self: T, key: int):
+    def __getitem__(self: T, key: int) -> int:
         return self.search(key).value
 
     def __setitem__(self: T, key: int, value) -> None:
