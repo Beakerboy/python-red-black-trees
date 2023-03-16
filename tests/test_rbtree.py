@@ -115,7 +115,7 @@ def test_delete():
 
     bst.delete(48)
     assert bst.size == 11
-    bst.delete(42)    
+    bst.delete(42)
     assert bst.size == 10
     bst.delete(42)
     assert bst.size == 9
