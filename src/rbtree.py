@@ -358,7 +358,7 @@ class RedBlackTree():
     def print_tree(self: T) -> None:
         self.__print_helper(self.root, "", True)
 
-    def __getitem__(self: T: T, key):
+    def __getitem__(self: T, key):
         return self.search(key).value
 
     def __setitem__(self: T, key, value) -> None:
