@@ -12,7 +12,7 @@ T = TypeVar('T', bound='Node')
 class Node():
     next_id = 0
 
-    def __init__(self: T, item) -> None:
+    def __init__(self: T, item: int) -> None:
         self.id = Node.next_id
         Node.next_id += 1
         self.item = item
@@ -63,7 +63,7 @@ class RedBlackTree():
             sys.stdout.write(str(node.item) + " ")
 
     # Search the tree
-    def search_tree_helper(self: T, node: Node, key) -> Node:
+    def search_tree_helper(self: T, node: Node, key: int) -> Node:
         if node == self.TNULL or key == node.item:
             return node
 
@@ -238,10 +238,10 @@ class RedBlackTree():
     def postorder(self: T) -> None:
         self.post_order_helper(self.root)
 
-    def search(self: T, k):
+    def search(self: T, k: int) -> Node:
         return self.search_tree_helper(self.root, k)
 
-    def minimum(self: T, node: Node=None):
+    def minimum(self: T, node: Node=None) -> Node:
         if node is None:
             node = self.root
         if node == self.TNULL:
@@ -312,7 +312,7 @@ class RedBlackTree():
         y.right = x
         x.parent = y
 
-    def insert(self: T, key):
+    def insert(self: T, key) -> None:
         node = Node(key)
         node.parent = None
         node.item = key
@@ -358,8 +358,8 @@ class RedBlackTree():
     def print_tree(self: T) -> None:
         self.__print_helper(self.root, "", True)
 
-    def __getitem__(self: T, key):
+    def __getitem__(self: T, key: int):
         return self.search(key).value
 
-    def __setitem__(self: T, key, value) -> None:
+    def __setitem__(self: T, key: int, value) -> None:
         self.search(key).value = value
