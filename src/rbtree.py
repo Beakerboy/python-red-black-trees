@@ -358,23 +358,3 @@ class RedBlackTree():
 
     def __setitem__(self, key, value):
         self.search(key).value = value
-
-
-# if __name__ == "__main__":
-#     bst = RedBlackTree()
-
-#     bst.insert(55)
-#     bst.insert(40)
-#     bst.insert(65)
-#     bst.insert(60)
-#     bst.insert(75)
-#     bst.insert(57)
-
-#     bst[67] = 8
-#     print(bst[67])
-
-#     bst.print_tree()
-
-#     print("\nAfter deleting an element")
-#     bst.delete(40)
-#     bst.print_tree()
