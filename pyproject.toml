@@ -19,7 +19,7 @@ classifiers = [
 
 [project.urls]
 "Homepage" = "https://github.com/emilydolson/python-red-black-trees"
-"Bug Tracker" = https://github.com/emilydolson/python-red-black-trees/issues"
+"Bug Tracker" = "https://github.com/emilydolson/python-red-black-trees/issues"
 
 [tool.pytest.ini_options]
 pythonpath = "src"
