@@ -65,9 +65,6 @@ class RedBlackTree():
 
     # Balancing the tree after deletion
     def delete_fix(self, x):
-        # print(x.item, x == self.TNULL, x is None, self.size, x.parent, x.parent.left, x.parent.right, x.parent.right.left, x.parent.right.right)
-        # if x.parent.right.right is None:
-        #     self.print_tree()
         while x != self.root and x.color == 0:
             if x == x.parent.left:
                 s = x.parent.right
