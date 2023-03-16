@@ -28,7 +28,7 @@ class Node():
     def __repr__(self: T) -> str:
         return "ID: " + str(self.id) + " Value: " + str(self.item)
 
-T = TypeVar('T', bound='Node')
+T = TypeVar('T', bound='RedBlackTree')
 
 
 class RedBlackTree():
