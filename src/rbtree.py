@@ -133,7 +133,7 @@ class RedBlackTree():
         v.parent = u.parent
 
     # Node deletion
-    def delete_node_helper(self: T, node: Node, key) -> None:
+    def delete_node_helper(self: T, node: Node, key: int) -> None:
         z = self.TNULL
         while node != self.TNULL:
             if node.item == key:
@@ -270,7 +270,7 @@ class RedBlackTree():
             y = y.parent
         return y
 
-    def predecessor(self,  x: Node) -> Node:
+    def predecessor(self: T,  x: Node) -> Node:
         if (x.left != self.TNULL):
             return self.maximum(x.left)
 
@@ -353,7 +353,7 @@ class RedBlackTree():
     def get_root(self: T) -> Node:
         return self.root
 
-    def delete(self: T, item) -> None:
+    def delete(self: T, item: int) -> None:
         self.delete_node_helper(self.root, item)
 
     def print_tree(self: T) -> None:
@@ -362,5 +362,5 @@ class RedBlackTree():
     def __getitem__(self: T, key: int) -> int:
         return self.search(key).value
 
-    def __setitem__(self: T, key: int, value) -> None:
+    def __setitem__(self: T, key: int, value: int) -> None:
         self.search(key).value = value
