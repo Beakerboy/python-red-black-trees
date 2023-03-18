@@ -42,18 +42,6 @@ class RedBlackTree():
         self.root = self.TNULL
         self.size = 0
 
-    # Preorder
-    def pre_order_helper(self: T, node: Node) -> None:
-        pass
-
-    # Inorder
-    def in_order_helper(self: T, node: Node) -> None:
-        pass
-
-    # Postorder
-    def post_order_helper(self: T, node: Node) -> None:
-        pass
-
     # Search the tree
     def search_tree_helper(self: T, node: Node, key: int) -> Node:
         if node == self.TNULL or key == node.item:
@@ -355,3 +343,18 @@ class RedBlackTree():
 
     def __setitem__(self: T, key: int, value: int) -> None:
         self.search(key).value = value
+
+    # Preorder
+    def _mindmap_helper(self: T, node: Node, levels: int) -> str:
+        output = ""
+        if node != self.TNULL:
+            color = "white" if self.color == 0 else "red"
+            output += "*" * (levels + 1) + "[#" + color + "] <latex>\rotatebox{90}{" + node.item + "}</latex>\n"
+            output +=  self._mindmap_helper(node.right, levels + 1)
+            output +=  self._mindmap_helper(node.left, levels + 1)
+        return output
+
+    def to_mindmap(self) -> str:
+        output = "@startmindmap\n"
+        output += self._mindmap_helper(self.root, 0)
+        return output + "@endmindmap"
