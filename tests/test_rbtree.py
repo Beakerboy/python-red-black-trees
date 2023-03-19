@@ -315,6 +315,7 @@ def test_string() -> None:
     bst.insert("Foo")
     check_valid(bst)
 
+
 def test_to_mindmap() -> None:
     bst = RedBlackTree()
     bst.insert(1)
