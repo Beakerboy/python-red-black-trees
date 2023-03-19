@@ -345,7 +345,7 @@ class RedBlackTree():
             color = "white" if node.color == 0 else "red"
             output += ("*" * (levels + 1)
                        + "[#" + color + "] <latex>\rotatebox{90}{"
-                       + node.item
+                       + str(node.item)
                        + "}</latex>\n")
             output += self._mindmap_helper(node.right, levels + 1)
             output += self._mindmap_helper(node.left, levels + 1)
