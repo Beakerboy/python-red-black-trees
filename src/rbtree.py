@@ -10,11 +10,8 @@ T = TypeVar('T', bound='Node')
 
 # Node creation
 class Node():
-    next_id = 0
 
     def __init__(self: T, item: Any) -> None:
-        self.id = Node.next_id
-        Node.next_id += 1
         self.item = item
         self.parent = None
         self.left = None
@@ -26,7 +23,7 @@ class Node():
         return self.id == other.id
 
     def __repr__(self: T) -> str:
-        return "ID: " + str(self.id) + " Value: " + str(self.item)
+        return "Key: " + str(self.item) + " Value: " + str(self.value)
 
 
 T = TypeVar('T', bound='RedBlackTree')
