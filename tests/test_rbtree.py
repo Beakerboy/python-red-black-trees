@@ -294,3 +294,16 @@ def test_duplicates() -> None:
     bst.delete(42)
     bst.delete(42)
     check_valid(bst)
+
+def test_to_mindmap() -> None:
+    bst = RedBlackTree()
+    bst.insert(1)
+    bst.insert(3)
+    bst.insert(2)
+    lat = " <latex>\\rotatebox{90}{"
+    expected = ("@startmindmap\n"
+                + "*[#white]" + lat + "2}</latex>\n"
+                + "**[#red]" + lat + "3}</latex>\n"
+                + "**[#red]" + lat + "1}</latex>\n"
+                + "@endmindmap"
+    assert bst.to_mindmap() == expected
