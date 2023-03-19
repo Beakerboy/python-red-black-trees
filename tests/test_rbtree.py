@@ -295,6 +295,7 @@ def test_duplicates() -> None:
     bst.delete(42)
     check_valid(bst)
 
+
 def test_to_mindmap() -> None:
     bst = RedBlackTree()
     bst.insert(1)
