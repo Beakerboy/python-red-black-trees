@@ -350,11 +350,11 @@ class RedBlackTree():
         if node != self.TNULL:
             color = "white" if self.color == 0 else "red"
             output += "*" * (levels + 1) + "[#" + color + "] <latex>\rotatebox{90}{" + node.item + "}</latex>\n"
-            output +=  self._mindmap_helper(node.right, levels + 1)
-            output +=  self._mindmap_helper(node.left, levels + 1)
+            output += self._mindmap_helper(node.right, levels + 1)
+            output += self._mindmap_helper(node.left, levels + 1)
         return output
 
-    def to_mindmap(self) -> str:
+    def to_mindmap(self: T) -> str:
         output = "@startmindmap\n"
         output += self._mindmap_helper(self.root, 0)
         return output + "@endmindmap"
