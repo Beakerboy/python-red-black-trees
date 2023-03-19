@@ -2,7 +2,7 @@
 # Adapted from https://www.programiz.com/dsa/red-black-tree
 
 import sys
-from typing import TypeVar
+from typing import TypeVar, Any
 
 
 T = TypeVar('T', bound='Node')
@@ -12,7 +12,7 @@ T = TypeVar('T', bound='Node')
 class Node():
     next_id = 0
 
-    def __init__(self: T, item: int) -> None:
+    def __init__(self: T, item: Any) -> None:
         self.id = Node.next_id
         Node.next_id += 1
         self.item = item
@@ -43,7 +43,7 @@ class RedBlackTree():
         self.size = 0
 
     # Search the tree
-    def search_tree_helper(self: T, node: Node, key: int) -> Node:
+    def search_tree_helper(self: T, node: Node, key: Any) -> Node:
         if node == self.TNULL or key == node.item:
             return node
 
@@ -209,17 +209,11 @@ class RedBlackTree():
             self.__print_helper(node.left, indent, False)
             self.__print_helper(node.right, indent, True)
 
-    def preorder(self: T) -> None:
-        self.pre_order_helper(self.root)
-
-    def inorder(self: T) -> None:
-        self.in_order_helper(self.root)
-
-    def postorder(self: T) -> None:
-        self.post_order_helper(self.root)
-
-    def search(self: T, k: int) -> Node:
-        return self.search_tree_helper(self.root, k)
+    def search(self: T, key: int) -> Node:
+        """
+        Find the node with the given key
+        """
+        return self.search_tree_helper(self.root, key)
 
     def minimum(self: T, node: Node = None) -> Node:
         if node is None:
@@ -292,7 +286,7 @@ class RedBlackTree():
         y.right = x
         x.parent = y
 
-    def insert(self: T, key: int) -> None:
+    def insert(self: T, key: Any) -> None:
         node = Node(key)
         node.parent = None
         node.item = key
@@ -332,16 +326,16 @@ class RedBlackTree():
     def get_root(self: T) -> Node:
         return self.root
 
-    def delete(self: T, item: int) -> None:
+    def delete(self: T, item: Any) -> None:
         self.delete_node_helper(self.root, item)
 
     def print_tree(self: T) -> None:
         self.__print_helper(self.root, "", True)
 
-    def __getitem__(self: T, key: int) -> int:
+    def __getitem__(self: T, key: Any) -> Any:
         return self.search(key).value
 
-    def __setitem__(self: T, key: int, value: int) -> None:
+    def __setitem__(self: T, key: Any, value: Any) -> None:
         self.search(key).value = value
 
     # Preorder
