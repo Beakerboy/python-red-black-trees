@@ -293,14 +293,14 @@ def tes_duplicates() -> None:
     check_valid(bst)
 
 
-def test_non_int_float():
+def test_non_int_float() -> None:
     bst = RedBlackTree()
     bst.insert(42)
     bst.insert(42.5)
     check_valid(bst)
 
 
-def test_tuple():
+def test_tuple() -> None:
     bst = RedBlackTree()
     bst.insert((2, 6))
     bst.insert((1, 42))
@@ -308,7 +308,7 @@ def test_tuple():
     check_valid(bst)
 
 
-def test_string():
+def test_string() -> None:
     bst = RedBlackTree()
     bst.insert("foo")
     bst.insert("bar")
