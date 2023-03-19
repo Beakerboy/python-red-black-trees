@@ -257,7 +257,7 @@ def test_elaborate_delete() -> None:
     check_valid(bst)
 
 
-def test_duplicates() -> None:
+def tes_duplicates() -> None:
     bst = RedBlackTree()
     bst.insert(42)
     bst.insert(42)
@@ -292,6 +292,28 @@ def test_duplicates() -> None:
     bst.delete(42)
     check_valid(bst)
 
+
+def test_non_int_float():
+    bst = RedBlackTree()
+    bst.insert(42)
+    bst.insert(42.5)
+    check_valid(bst)
+
+
+def test_tuple():
+    bst = RedBlackTree()
+    bst.insert((2, 6))
+    bst.insert((1, 42))
+    bst.insert((1, 16))
+    check_valid(bst)
+
+
+def test_string():
+    bst = RedBlackTree()
+    bst.insert("foo")
+    bst.insert("bar")
+    bst.insert("Foo")
+    check_valid(bst)
 
 def test_to_mindmap() -> None:
     bst = RedBlackTree()
