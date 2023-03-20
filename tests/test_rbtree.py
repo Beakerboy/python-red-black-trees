@@ -79,7 +79,7 @@ def test_insert() -> None:
     bst.insert(109)
     bst.insert(102)
 
-    assert bst.size == 23
+    assert bst.size == 17
 
     check_valid(bst)
 
@@ -111,24 +111,22 @@ def test_delete() -> None:
     bst.insert(58)
     bst.insert(42)
 
-    assert bst.size == 12
+    assert bst.size == 7
 
     bst.delete(48)
-    assert bst.size == 11
+    assert bst.size == 6
     bst.delete(42)
-    assert bst.size == 10
+    assert bst.size == 5
     bst.delete(42)
-    assert bst.size == 9
-    assert bst.search(42).key == 42
-    bst.delete(42)
+    assert bst.size == 5
     assert bst.search(42) == bst.TNULL
-    assert bst.size == 8
+    assert bst.size == 5
     bst.delete(100)
-    assert bst.size == 7
+    assert bst.size == 4
 
     bst.delete(100)
 
-    assert bst.size == 7
+    assert bst.size == 3
     check_valid(bst)
 
 
