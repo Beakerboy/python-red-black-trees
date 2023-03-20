@@ -63,16 +63,16 @@ class RedBlackTree():
         """
         left = []
         right = []
-        selfnode = []
+        basenode = []
         if node != self.TNULL:
-            selfnode = [self]
+            basenode = [node]
             left = self.pre_order_helper(node.left, include_nulls)
             right = self.pre_order_helper(node.right, include_nulls)
         if include_nulls:
-            selfnode = [self]
-        selfnode.append(left)
-        selfnode.append(right)
-        return selfnode
+            basenode = [node]
+        basenode.append(left)
+        basenode.append(right)
+        return basenode
 
     def in_order_helper(self: T, node: Node) -> None:
         """
