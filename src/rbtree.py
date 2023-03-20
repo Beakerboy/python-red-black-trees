@@ -306,7 +306,7 @@ class RedBlackTree():
             node = self.root
         if node.is_null():
             return self.TNULL
-        while not(node.left.is_null():
+        while not(node.left.is_null()):
             node = node.left
         return node
 
