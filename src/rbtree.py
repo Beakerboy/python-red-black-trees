@@ -46,7 +46,7 @@ class RedBlackTree():
         self.search(key).value = value
 
         # Preorder
-    def pre_order_helper(self: T, node: Node) -> list[Node]:
+    def pre_order_helper(self: T, node: Node) -> list:
         if node != self.TNULL:
             left = self.pre_order_helper(node.left)
             right = self.pre_order_helper(node.right)
