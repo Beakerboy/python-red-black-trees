@@ -42,7 +42,7 @@ class RedBlackTree():
 
     def __iter__(self: T) -> Iterator:
         nulls = self._iterator_include_nulls
-        return self.preorder(nulls).__iter__()
+        return iter(self.preorder(nulls))
 
     def __getitem__(self: T, key: Any) -> Any:
         return self.search(key).value
