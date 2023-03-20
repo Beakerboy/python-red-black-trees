@@ -21,6 +21,7 @@ class Node():
 
     def __repr__(self: T) -> str:
         return "Key: " + str(self.key) + " Value: " + str(self.value)
+
     def __lt__(self: T, other: Node) -> bool:
         return self.key < other.key
 
