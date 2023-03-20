@@ -424,10 +424,11 @@ class RedBlackTree():
         self._iterator_include_nulls = True
         output = "@startmindmap\n"
         for node in self:
+            key = "" if node.key == 0 else node.key
             color = "white" if node.color == 0 else "red"
             output += ("-" * (node.depth() + 1)
                        + "[#" + color + "] <latex>\\rotatebox{-90}{"
-                       + str(node.key)
+                       + str(key)
                        + "}</latex>\n")
         self._iterator_include_nulls = original
         return output + "@endmindmap"
