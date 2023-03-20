@@ -321,7 +321,7 @@ def test_preorder() -> None:
     bst.insert(1)
     bst.insert(3)
     bst.insert(2)
-    assert len(bar.preorder()) == 3
+    assert len(bst.preorder()) == 3
 
 def test_to_mindmap() -> None:
     bst = RedBlackTree()
