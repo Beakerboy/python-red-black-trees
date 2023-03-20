@@ -66,7 +66,7 @@ class RedBlackTree():
             self.post_order_helper(node.right)
             sys.stdout.write(str(node.item) + " ")
 
-    def preorder(self: T) -> list[Node]:
+    def preorder(self: T) -> list:
         return self.pre_order_helper(self.root)
 
     def inorder(self: T) -> list:
