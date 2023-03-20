@@ -61,11 +61,7 @@ T = TypeVar('T', bound='RedBlackTree')
 
 class RedBlackTree():
     def __init__(self: T) -> None:
-        self.TNULL = Node(None)
-        self.TNULL.color = 0
-        self.TNULL.left = None
-        self.TNULL.right = None
-        self.root = self.TNULL
+        self.root = Node()
         self.size = 0
         self._iterator_include_nulls = False
 
@@ -93,7 +89,7 @@ class RedBlackTree():
         left = []
         right = []
         basenode = []
-        if node != self.TNULL:
+        if not(node.is_null()):
             basenode = [node]
             left = self.pre_order_helper(node.left, include_nulls)
             right = self.pre_order_helper(node.right, include_nulls)
@@ -108,7 +104,7 @@ class RedBlackTree():
         Create an array of child elements following
         a inorder traversal of the tree.
         """
-        if node != self.TNULL:
+        if not(node.is_null()):
             self.in_order_helper(node.left)
             sys.stdout.write(str(node.key) + " ")
             self.in_order_helper(node.right)
@@ -118,7 +114,7 @@ class RedBlackTree():
         Create an array of child elements following
         a postorder traversal of the tree.
         """
-        if node != self.TNULL:
+        if not(node.is_null()):
             self.post_order_helper(node.left)
             self.post_order_helper(node.right)
             sys.stdout.write(str(node.key) + " ")
@@ -134,7 +130,7 @@ class RedBlackTree():
 
     # Search the tree
     def search_tree_helper(self: T, node: Node, key: Any) -> Node:
-        if node == self.TNULL or key == node.key:
+        if node.is_null() or key == node.key:
             return node
 
         if key < node.key:
@@ -203,8 +199,8 @@ class RedBlackTree():
 
     # Node deletion
     def delete_node_helper(self: T, node: Node, key: int) -> None:
-        z = self.TNULL
-        while node != self.TNULL:
+        z = Node()
+        while not(node.is_null()):
             if node.key == key:
                 z = node
 
@@ -213,17 +209,17 @@ class RedBlackTree():
             else:
                 node = node.left
 
-        if z == self.TNULL:
+        if zis_null():
             # print("Cannot find key in the tree")
             return
 
         y = z
         y_original_color = y.color
-        if z.left == self.TNULL:
+        if z.left.is_null():
             # If no left child, just scoot the right subtree up
             x = z.right
             self.__rb_transplant(z, z.right)
-        elif (z.right == self.TNULL):
+        elif z.right.is_null():
             # If no right child, just scoot the left subtree up
             x = z.left
             self.__rb_transplant(z, z.left)
@@ -285,7 +281,7 @@ class RedBlackTree():
 
     # Printing the tree
     def __print_helper(self: T, node: Node, indent: str, last: bool) -> None:
-        if node != self.TNULL:
+        if not(node.is_null()):
             sys.stdout.write(indent)
             if last:
                 sys.stdout.write("R----  ")
@@ -308,9 +304,9 @@ class RedBlackTree():
     def minimum(self: T, node: Node = None) -> Node:
         if node is None:
             node = self.root
-        if node == self.TNULL:
+        if node.is_null():
             return self.TNULL
-        while node.left != self.TNULL:
+        while not(node.left.is_null():
             node = node.left
         return node
 
