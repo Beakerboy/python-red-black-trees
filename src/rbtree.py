@@ -104,7 +104,7 @@ class RedBlackTree():
         Create an array of child elements following
         a inorder traversal of the tree.
         """
-        if not(node.is_null()):
+        if not node.is_null():
             self.in_order_helper(node.left)
             sys.stdout.write(str(node.key) + " ")
             self.in_order_helper(node.right)
@@ -114,7 +114,7 @@ class RedBlackTree():
         Create an array of child elements following
         a postorder traversal of the tree.
         """
-        if not(node.is_null()):
+        if not node.is_null():
             self.post_order_helper(node.left)
             self.post_order_helper(node.right)
             sys.stdout.write(str(node.key) + " ")
@@ -209,7 +209,7 @@ class RedBlackTree():
             else:
                 node = node.left
 
-        if zis_null():
+        if z.is_null():
             # print("Cannot find key in the tree")
             return
 
@@ -281,7 +281,7 @@ class RedBlackTree():
 
     # Printing the tree
     def __print_helper(self: T, node: Node, indent: str, last: bool) -> None:
-        if not(node.is_null()):
+        if not node.is_null():
             sys.stdout.write(indent)
             if last:
                 sys.stdout.write("R----  ")
