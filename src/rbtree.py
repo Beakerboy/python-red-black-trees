@@ -2,7 +2,7 @@
 # Adapted from https://www.programiz.com/dsa/red-black-tree
 
 import sys
-from typing import TypeVar, Any
+from typing import TypeVar, Any, Iterator
 
 
 T = TypeVar('T', bound='Node')
@@ -11,8 +11,8 @@ T = TypeVar('T', bound='Node')
 # Node creation
 class Node():
 
-    def __init__(self: T, item: Any) -> None:
-        self.item = item
+    def __init__(self: T, key: Any) -> None:
+        self.key = key
         self.parent = None
         self.left = None
         self.right = None
@@ -20,7 +20,7 @@ class Node():
         self.value = None
 
     def __repr__(self: T) -> str:
-        return "Key: " + str(self.item) + " Value: " + str(self.value)
+        return "Key: " + str(self.key) + " Value: " + str(self.value)
 
 
 T = TypeVar('T', bound='RedBlackTree')
@@ -36,12 +36,51 @@ class RedBlackTree():
         self.root = self.TNULL
         self.size = 0
 
+    def __iter__(self: T) -> Iterator:
+        return self.preorder().__iter__()
+
+    def __getitem__(self: T, key: Any) -> Any:
+        return self.search(key).value
+
+    def __setitem__(self: T, key: Any, value: Any) -> None:
+        self.search(key).value = value
+
+        # Preorder
+    def pre_order_helper(self: T, node: Node) -> list[Node]:
+        if node != self.TNULL:
+            left = self.pre_order_helper(node.left)
+            right = self.pre_order_helper(node.right)
+        return [node].append(left).append(right)
+
+    # Inorder
+    def in_order_helper(self: T, node: Node) -> None:
+        if node != self.TNULL:
+            self.in_order_helper(node.left)
+            sys.stdout.write(str(node.item) + " ")
+            self.in_order_helper(node.right)
+
+    # Postorder
+    def post_order_helper(self: T, node: Node) -> None:
+        if node != self.TNULL:
+            self.post_order_helper(node.left)
+            self.post_order_helper(node.right)
+            sys.stdout.write(str(node.item) + " ")
+
+    def preorder(self: T) -> list[Node]:
+        return self.pre_order_helper(self.root)
+
+    def inorder(self: T) -> list:
+        self.in_order_helper(self.root)
+
+    def postorder(self: T) -> None:
+        self.post_order_helper(self.root)
+
     # Search the tree
     def search_tree_helper(self: T, node: Node, key: Any) -> Node:
-        if node == self.TNULL or key == node.item:
+        if node == self.TNULL or key == node.key:
             return node
 
-        if key < node.item:
+        if key < node.key:
             return self.search_tree_helper(node.left, key)
         return self.search_tree_helper(node.right, key)
 
@@ -112,7 +151,7 @@ class RedBlackTree():
             if node.item == key:
                 z = node
 
-            if node.item <= key:
+            if node.key <= key:
                 node = node.right
             else:
                 node = node.left
@@ -325,12 +364,6 @@ class RedBlackTree():
 
     def print_tree(self: T) -> None:
         self.__print_helper(self.root, "", True)
-
-    def __getitem__(self: T, key: Any) -> Any:
-        return self.search(key).value
-
-    def __setitem__(self: T, key: Any, value: Any) -> None:
-        self.search(key).value = value
 
     # Preorder
     def _mindmap_helper(self: T, node: Node, levels: int) -> str:
