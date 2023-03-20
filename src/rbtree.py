@@ -387,6 +387,8 @@ class RedBlackTree():
 
         while x != self.TNULL:
             y = x
+            if node == x:
+                return
             if node < x:
                 x = x.left
             else:
