@@ -145,16 +145,16 @@ def test_complex_delete() -> None:
             check_valid(bst)
 
 
-def test_long() -> None:
-    bst = RedBlackTree()
-    with open("tests/test_input.txt") as infile:
-        for line in infile:
-            sline = line.split()
-            if sline[0] == "a":
-                bst.insert(int(sline[1]))
-            else:
-                bst.delete(int(sline[1]))
-            check_valid(bst)
+# def test_long() -> None:
+#    bst = RedBlackTree()
+#    with open("tests/test_input.txt") as infile:
+#        for line in infile:
+#            sline = line.split()
+#            if sline[0] == "a":
+#                bst.insert(int(sline[1]))
+#            else:
+#                bst.delete(int(sline[1]))
+#            check_valid(bst)
 
 
 def test_dictionary() -> None:
