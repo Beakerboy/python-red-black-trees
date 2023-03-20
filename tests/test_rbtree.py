@@ -11,9 +11,9 @@ def check_node_valid(bst: RedBlackTree, node: Node) -> None:
         assert node.right.color == 0
 
     if node.left != bst.TNULL and node.left is not None:
-        assert node.item >= node.left.item
+        assert node >= node.left
     if node.right != bst.TNULL and node.right is not None:
-        assert node.item <= node.right.item
+        assert node <= node.right
 
 
 def check_valid_recur(bst: RedBlackTree, node: Node) -> int:
@@ -51,13 +51,13 @@ def check_valid(bst: RedBlackTree) -> None:
 def test_insert() -> None:
     bst = RedBlackTree()
     bst.insert(55)
-    assert bst.search(55).item == 55
+    assert bst.search(55).key == 55
     bst.insert(40)
-    assert bst.search(40).item == 40
+    assert bst.search(40).key == 40
     bst.insert(58)
-    assert bst.search(58).item == 58
+    assert bst.search(58).key == 58
     bst.insert(42)
-    assert bst.search(42).item == 42
+    assert bst.search(42).key == 42
 
     bst.insert(42)
     bst.insert(42)
@@ -88,13 +88,13 @@ def test_search() -> None:
     bst = RedBlackTree()
     assert bst.search(60) == bst.TNULL
     bst.insert(30)
-    assert bst.search(30).item == 30
+    assert bst.search(30).key == 30
 
 
 def test_delete() -> None:
     bst = RedBlackTree()
     bst.insert(78)
-    assert bst.search(78).item == 78
+    assert bst.search(78).key == 78
     bst.delete(78)
     assert bst.search(78) == bst.TNULL
 
@@ -119,7 +119,7 @@ def test_delete() -> None:
     assert bst.size == 10
     bst.delete(42)
     assert bst.size == 9
-    assert bst.search(42).item == 42
+    assert bst.search(42).key == 42
     bst.delete(42)
     assert bst.search(42) == bst.TNULL
     assert bst.size == 8
@@ -167,7 +167,7 @@ def test_get_root() -> None:
     bst = RedBlackTree()
     assert bst.get_root() == bst.TNULL
     bst.insert(3)
-    assert bst.get_root().item == 3
+    assert bst.get_root().key == 3
 
 
 def test_accessors() -> None:
@@ -180,17 +180,17 @@ def test_accessors() -> None:
     bst.insert(58)
     bst.insert(42)
 
-    assert bst.maximum().item == 58
-    assert bst.minimum().item == 40
-    assert bst.successor(bst.search(42)).item == 55
-    assert bst.successor(bst.search(40)).item == 42
-    assert bst.successor(bst.search(55)).item == 58
-    assert bst.predecessor(bst.search(42)).item == 40
-    assert bst.predecessor(bst.search(55)).item == 42
-    assert bst.predecessor(bst.search(58)).item == 55
+    assert bst.maximum().key == 58
+    assert bst.minimum().key == 40
+    assert bst.successor(bst.search(42)).key == 55
+    assert bst.successor(bst.search(40)).key == 42
+    assert bst.successor(bst.search(55)).key == 58
+    assert bst.predecessor(bst.search(42)).key == 40
+    assert bst.predecessor(bst.search(55)).key == 42
+    assert bst.predecessor(bst.search(58)).key == 55
 
     bst.insert(57)
-    assert bst.predecessor(bst.search(57)).item == 55
+    assert bst.predecessor(bst.search(57)).key == 55
 
 
 def test_print() -> None:
