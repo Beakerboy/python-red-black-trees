@@ -22,22 +22,22 @@ class Node():
     def __repr__(self: T) -> str:
         return "Key: " + str(self.key) + " Value: " + str(self.value)
 
-    def __lt__(self: T, other: Node) -> bool:
+    def __lt__(self: T, other: T) -> bool:
         return self.key < other.key
 
-    def __le__(self: T, other: Node) -> bool:
+    def __le__(self: T, other: T) -> bool:
         return self.key <= other.key
 
-    def __gt__(self: T, other: Node) -> bool:
+    def __gt__(self: T, other: T) -> bool:
         return self.key > other.key
 
-    def __ge__(self: T, other: Node) -> bool:
+    def __ge__(self: T, other: T) -> bool:
         return self.key >= other.key
 
-    def __eq__(self: T, other: Node) -> bool:
+    def __eq__(self: T, other: T) -> bool:
         return self.key == other.key
 
-    def __ne__(self: T, other: Node) -> bool:
+    def __ne__(self: T, other: T) -> bool:
         return self.key != other.key
 
     def depth(self: T) -> int:
