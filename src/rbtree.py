@@ -371,7 +371,7 @@ class RedBlackTree():
         output = "@startmindmap\n"
         for node in self:
             output += ("-" * (node.depth() + 1)
-                       + "[#" + color + "] <latex>\\rotatebox{-90}{"
-                       + str(node.item)
+                       + "[#" + node.color + "] <latex>\\rotatebox{-90}{"
+                       + str(node.key)
                        + "}</latex>\n")
         return output + "@endmindmap"
