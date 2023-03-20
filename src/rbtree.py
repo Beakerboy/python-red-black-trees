@@ -66,8 +66,8 @@ class RedBlackTree():
         selfnode = []
         if node != self.TNULL:
             selfnode = [self]
-            left = self.pre_order_helper(node.left)
-            right = self.pre_order_helper(node.right)
+            left = self.pre_order_helper(node.left, include_nulls)
+            right = self.pre_order_helper(node.right, include_nulls)
         if include_nulls:
             selfnode = [self]
         return selfnode.append(left).append(right)
