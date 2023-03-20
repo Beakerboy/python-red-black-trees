@@ -50,7 +50,11 @@ class RedBlackTree():
     def __setitem__(self: T, key: Any, value: Any) -> None:
         self.search(key).value = value
 
-        # Preorder
+    # Getters and Setters
+    def get_root(self: T) -> Node:
+        return self.root
+
+    # Preorder
     def pre_order_helper(self: T, node: Node, include_nulls: bool = False) -> list:
         left = []
         right = []
@@ -366,9 +370,6 @@ class RedBlackTree():
             return
 
         self.fix_insert(node)
-
-    def get_root(self: T) -> Node:
-        return self.root
 
     def delete(self: T, item: Any) -> None:
         self.delete_node_helper(self.root, item)
