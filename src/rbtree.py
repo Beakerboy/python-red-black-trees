@@ -70,8 +70,8 @@ class RedBlackTree():
             right = self.pre_order_helper(node.right, include_nulls)
         if include_nulls:
             basenode = [node]
-        basenode.append(left)
-        basenode.append(right)
+        basenode.extend(left)
+        basenode.extend(right)
         return basenode
 
     def in_order_helper(self: T, node: Node) -> None:
