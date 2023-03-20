@@ -376,10 +376,13 @@ class RedBlackTree():
         self.__print_helper(self.root, "", True)
 
     def to_mindmap(self: T) -> str:
+        original = self._iterator_include_nulls
+        self._iterator_include_nulls = True
         output = "@startmindmap\n"
         for node in self:
             output += ("-" * (node.depth() + 1)
                        + "[#" + node.color + "] <latex>\\rotatebox{-90}{"
                        + str(node.key)
                        + "}</latex>\n")
+        self._iterator_include_nulls = original
         return output + "@endmindmap"
