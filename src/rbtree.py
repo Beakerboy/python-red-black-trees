@@ -40,6 +40,9 @@ class Node():
     def __ne__(self: T, other: T) -> bool:
         return self.key != other.key
 
+    def get_color(self: T) -> str:
+        return "black" if self.color == 0 else "red"
+
     def is_red(self: T) -> bool:
         return self.color == 1
 
