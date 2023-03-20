@@ -54,10 +54,13 @@ class RedBlackTree():
     def get_root(self: T) -> Node:
         return self.root
 
-    # Preorder
     def pre_order_helper(self: T,
                          node: Node,
                          include_nulls: bool = False) -> list:
+        """
+        Create an array of child elements following
+        a preorder traversal of the tree.
+        """
         left = []
         right = []
         selfnode = []
@@ -69,15 +72,21 @@ class RedBlackTree():
             selfnode = [self]
         return selfnode.append(left).append(right)
 
-    # Inorder
     def in_order_helper(self: T, node: Node) -> None:
+        """
+        Create an array of child elements following
+        a inorder traversal of the tree.
+        """
         if node != self.TNULL:
             self.in_order_helper(node.left)
             sys.stdout.write(str(node.item) + " ")
             self.in_order_helper(node.right)
 
-    # Postorder
     def post_order_helper(self: T, node: Node) -> None:
+        """
+        Create an array of child elements following
+        a postorder traversal of the tree.
+        """
         if node != self.TNULL:
             self.post_order_helper(node.left)
             self.post_order_helper(node.right)
