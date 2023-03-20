@@ -21,6 +21,23 @@ class Node():
 
     def __repr__(self: T) -> str:
         return "Key: " + str(self.key) + " Value: " + str(self.value)
+    def __lt__(self: T, other: Node) -> bool:
+        return self.key < other.key
+
+    def __le__(self: T, other: Node) -> bool:
+        return self.key <= other.key
+
+    def __gt__(self: T, other: Node) -> bool:
+        return self.key > other.key
+
+    def __ge__(self: T, other: Node) -> bool:
+        return self.key >= other.key
+
+    def __eq__(self: T, other: Node) -> bool:
+        return self.key == other.key
+
+    def __ne__(self: T, other: Node) -> bool:
+        return self.key != other.key
 
     def depth(self: T) -> int:
         return 0 if self.parent is None else self.parent.depth() + 1
@@ -81,7 +98,7 @@ class RedBlackTree():
         """
         if node != self.TNULL:
             self.in_order_helper(node.left)
-            sys.stdout.write(str(node.item) + " ")
+            sys.stdout.write(str(node.key) + " ")
             self.in_order_helper(node.right)
 
     def post_order_helper(self: T, node: Node) -> None:
@@ -92,7 +109,7 @@ class RedBlackTree():
         if node != self.TNULL:
             self.post_order_helper(node.left)
             self.post_order_helper(node.right)
-            sys.stdout.write(str(node.item) + " ")
+            sys.stdout.write(str(node.key) + " ")
 
     def preorder(self: T, include_nulls: bool = False) -> list:
         return self.pre_order_helper(self.root, include_nulls)
@@ -176,7 +193,7 @@ class RedBlackTree():
     def delete_node_helper(self: T, node: Node, key: int) -> None:
         z = self.TNULL
         while node != self.TNULL:
-            if node.item == key:
+            if node.key == key:
                 z = node
 
             if node.key <= key:
@@ -266,7 +283,7 @@ class RedBlackTree():
                 indent += "|    "
 
             s_color = "RED" if node.color == 1 else "BLACK"
-            print(str(node.item) + "(" + s_color + ")")
+            print(str(node.key) + "(" + s_color + ")")
             self.__print_helper(node.left, indent, False)
             self.__print_helper(node.right, indent, True)
 
@@ -350,7 +367,7 @@ class RedBlackTree():
     def insert(self: T, key: Any) -> None:
         node = Node(key)
         node.parent = None
-        node.item = key
+        node.key = key
         node.left = self.TNULL
         node.right = self.TNULL
         node.color = 1
@@ -360,7 +377,7 @@ class RedBlackTree():
 
         while x != self.TNULL:
             y = x
-            if node.item < x.item:
+            if node < x:
                 x = x.left
             else:
                 x = x.right
@@ -368,7 +385,7 @@ class RedBlackTree():
         node.parent = y
         if y is None:
             self.root = node
-        elif node.item < y.item:
+        elif node < y:
             y.left = node
         else:
             y.right = node
@@ -384,8 +401,8 @@ class RedBlackTree():
 
         self.fix_insert(node)
 
-    def delete(self: T, item: Any) -> None:
-        self.delete_node_helper(self.root, item)
+    def delete(self: T, key: Any) -> None:
+        self.delete_node_helper(self.root, key)
 
     def print_tree(self: T) -> None:
         self.__print_helper(self.root, "", True)
