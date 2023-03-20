@@ -49,6 +49,9 @@ class Node():
     def is_black(self: T) -> bool:
         return self.color == 0
 
+    def is_null(self: T) -> bool:
+        return self.key is None
+
     def depth(self: T) -> int:
         return 0 if self.parent is None else self.parent.depth() + 1
 
