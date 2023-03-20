@@ -316,6 +316,13 @@ def test_string() -> None:
     check_valid(bst)
 
 
+def test_preorder() -> None:
+    bst = RedBlackTree()
+    bst.insert(1)
+    bst.insert(3)
+    bst.insert(2)
+    assert len(bar.preorder()) == 3
+
 def test_to_mindmap() -> None:
     bst = RedBlackTree()
     bst.insert(1)
