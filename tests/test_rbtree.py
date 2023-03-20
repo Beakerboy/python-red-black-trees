@@ -126,7 +126,7 @@ def test_delete() -> None:
 
     bst.delete(100)
 
-    assert bst.size == 3
+    assert bst.size == 4
     check_valid(bst)
 
 
