@@ -22,6 +22,8 @@ class Node():
     def __repr__(self: T) -> str:
         return "Key: " + str(self.key) + " Value: " + str(self.value)
 
+    def depth(self: T) -> int:
+        return 0 if self.parent is None else self.parent.depth() + 1
 
 T = TypeVar('T', bound='RedBlackTree')
 
