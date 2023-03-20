@@ -325,6 +325,10 @@ def test_to_mindmap() -> None:
     expected = ("@startmindmap\n"
                 + "-[#white]" + lat + "2}</latex>\n"
                 + "--[#red]" + lat + "1}</latex>\n"
+                + "--[#white]" + lat + "}</latex>\n"
+                + "--[#white]" + lat + "}</latex>\n"
                 + "--[#red]" + lat + "3}</latex>\n"
+                + "--[#white]" + lat + "}</latex>\n"
+                + "--[#white]" + lat + "}</latex>\n"
                 + "@endmindmap")
     assert bst.to_mindmap() == expected
