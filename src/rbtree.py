@@ -40,6 +40,12 @@ class Node():
     def __ne__(self: T, other: T) -> bool:
         return self.key != other.key
 
+    def is_red(self: T) -> bool:
+        return self.color == 1
+
+    def is_black(self: T) -> bool:
+        return self.color == 0
+
     def depth(self: T) -> int:
         return 0 if self.parent is None else self.parent.depth() + 1
 
