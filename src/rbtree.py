@@ -37,9 +37,11 @@ class RedBlackTree():
         self.TNULL.right = None
         self.root = self.TNULL
         self.size = 0
+        self._iterator_include_nulls = False
 
     def __iter__(self: T) -> Iterator:
-        return self.preorder().__iter__()
+        nulls = self._iterator_include_nulls
+        return self.preorder(nulls).__iter__()
 
     def __getitem__(self: T, key: Any) -> Any:
         return self.search(key).value
@@ -48,11 +50,17 @@ class RedBlackTree():
         self.search(key).value = value
 
         # Preorder
-    def pre_order_helper(self: T, node: Node) -> list:
+    def pre_order_helper(self: T, node: Node, include_nulls: bool = False) -> list:
+        left = []
+        right = []
+        selfnode = []
         if node != self.TNULL:
+            selfnode = [self]
             left = self.pre_order_helper(node.left)
             right = self.pre_order_helper(node.right)
-        return [node].append(left).append(right)
+        if include_nulls:
+            selfnode = [self]
+        return selfnode.append(left).append(right)
 
     # Inorder
     def in_order_helper(self: T, node: Node) -> None:
@@ -68,8 +76,8 @@ class RedBlackTree():
             self.post_order_helper(node.right)
             sys.stdout.write(str(node.item) + " ")
 
-    def preorder(self: T) -> list:
-        return self.pre_order_helper(self.root)
+    def preorder(self: T, include_nulls: bool = False) -> list:
+        return self.pre_order_helper(self.root, include_nulls)
 
     def inorder(self: T) -> list:
         self.in_order_helper(self.root)
