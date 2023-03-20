@@ -55,7 +55,9 @@ class RedBlackTree():
         return self.root
 
     # Preorder
-    def pre_order_helper(self: T, node: Node, include_nulls: bool = False) -> list:
+    def pre_order_helper(self: T,
+                         node: Node,
+                         include_nulls: bool = False) -> list:
         left = []
         right = []
         selfnode = []
