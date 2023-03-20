@@ -58,8 +58,7 @@ T = TypeVar('T', bound='RedBlackTree')
 
 class RedBlackTree():
     def __init__(self: T) -> None:
-        self.TNULL = Node(0)
-        self.TNULL.id = -1
+        self.TNULL = Node(None)
         self.TNULL.color = 0
         self.TNULL.left = None
         self.TNULL.right = None
