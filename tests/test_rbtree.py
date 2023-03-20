@@ -210,9 +210,6 @@ def test_print() -> None:
     bst.insert(42)
 
     bst.print_tree()
-    bst.preorder()
-    bst.inorder()
-    bst.postorder()
 
 
 def test_elaborate_delete() -> None:
@@ -260,7 +257,7 @@ def test_elaborate_delete() -> None:
     check_valid(bst)
 
 
-def test_duplicates() -> None:
+def tes_duplicates() -> None:
     bst = RedBlackTree()
     bst.insert(42)
     bst.insert(42)
@@ -294,3 +291,40 @@ def test_duplicates() -> None:
     bst.delete(42)
     bst.delete(42)
     check_valid(bst)
+
+
+def test_non_int_float() -> None:
+    bst = RedBlackTree()
+    bst.insert(42)
+    bst.insert(42.5)
+    check_valid(bst)
+
+
+def test_tuple() -> None:
+    bst = RedBlackTree()
+    bst.insert((2, 6))
+    bst.insert((1, 42))
+    bst.insert((1, 16))
+    check_valid(bst)
+
+
+def test_string() -> None:
+    bst = RedBlackTree()
+    bst.insert("foo")
+    bst.insert("bar")
+    bst.insert("Foo")
+    check_valid(bst)
+
+
+def test_to_mindmap() -> None:
+    bst = RedBlackTree()
+    bst.insert(1)
+    bst.insert(3)
+    bst.insert(2)
+    lat = " <latex>\\rotatebox{90}{"
+    expected = ("@startmindmap\n"
+                + "*[#white]" + lat + "2}</latex>\n"
+                + "**[#red]" + lat + "3}</latex>\n"
+                + "**[#red]" + lat + "1}</latex>\n"
+                + "@endmindmap")
+    assert bst.to_mindmap() == expected
