@@ -11,12 +11,12 @@ T = TypeVar('T', bound='Node')
 # Node creation
 class Node():
 
-    def __init__(self: T, key: Any) -> None:
+    def __init__(self: T, key: Any = None) -> None:
         self.key = key
         self.parent = None
         self.left = None
         self.right = None
-        self.color = 1
+        self.color = 0 if key is None else 1
         self.value = None
 
     def __repr__(self: T) -> str:
