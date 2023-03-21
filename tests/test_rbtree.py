@@ -321,6 +321,23 @@ def test_preorder() -> None:
     bst.insert(2)
     assert len(bst.preorder()) == 3
 
+    # There should be 4 additional Null Nodes.
+    assert len(bst.preorder(True)) == 7
+
+
+
+dev test_null_depth() -> None:
+    bst = RedBlackTree()
+    bst.insert(1)
+    bst.insert(3)
+    bst.insert(2)
+    nodes = bst.preorder(True)
+    assert nodes[0].key == 2
+    assert nodes[0].depth() == 0
+    assert nodes[1].key == 1
+    assert nodes[1].depth() == 1
+    assert nodes[2].key == None
+    assert nodes[2].depth() == 2
 
 def test_to_mindmap() -> None:
     bst = RedBlackTree()
