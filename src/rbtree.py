@@ -343,9 +343,7 @@ class RedBlackTree():
     def left_rotate(self: T, x: Node) -> None:
         y = x.right
         x.right = y.left
-        if not y.left.is_null():
-            y.left.parent = x
-
+        y.left.parent = x
         y.parent = x.parent
         if x.parent is None:
             self.root = y
@@ -359,8 +357,7 @@ class RedBlackTree():
     def right_rotate(self: T, x: Node) -> None:
         y = x.left
         x.left = y.right
-        if not y.right.is_null():
-            y.right.parent = x
+        y.right.parent = x
 
         y.parent = x.parent
         if x.parent is None:
