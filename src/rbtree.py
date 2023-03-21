@@ -377,7 +377,9 @@ class RedBlackTree():
         node.parent = None
         node.key = key
         node.left = Node()
+        node.left.parent = node
         node.right = Node()
+        node.right.parent = node
         node.color = 1
 
         y = None
