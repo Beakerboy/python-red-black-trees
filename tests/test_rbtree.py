@@ -326,7 +326,7 @@ def test_preorder() -> None:
 
 
 
-dev test_null_depth() -> None:
+def test_null_depth() -> None:
     bst = RedBlackTree()
     bst.insert(1)
     bst.insert(3)
@@ -338,6 +338,7 @@ dev test_null_depth() -> None:
     assert nodes[1].depth() == 1
     assert nodes[2].key == None
     assert nodes[2].depth() == 2
+
 
 def test_to_mindmap() -> None:
     bst = RedBlackTree()
