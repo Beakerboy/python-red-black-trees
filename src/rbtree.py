@@ -89,7 +89,7 @@ class RedBlackTree():
         left = []
         right = []
         basenode = []
-        if not(node.is_null()):
+        if not node.is_null():
             basenode = [node]
             left = self.pre_order_helper(node.left, include_nulls)
             right = self.pre_order_helper(node.right, include_nulls)
@@ -200,7 +200,7 @@ class RedBlackTree():
     # Node deletion
     def delete_node_helper(self: T, node: Node, key: int) -> None:
         z = Node()
-        while not(node.is_null()):
+        while not node.is_null():
             if node.key == key:
                 z = node
 
@@ -306,7 +306,7 @@ class RedBlackTree():
             node = self.root
         if node.is_null():
             return self.TNULL
-        while not(node.left.is_null()):
+        while not node.left.is_null():
             node = node.left
         return node
 
