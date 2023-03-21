@@ -86,7 +86,7 @@ def test_insert() -> None:
 
 def test_search() -> None:
     bst = RedBlackTree()
-    assert bst.search(60) == bst.TNULL
+    assert bst.search(60).is_null()
     bst.insert(30)
     assert bst.search(30).key == 30
 
@@ -96,7 +96,7 @@ def test_delete() -> None:
     bst.insert(78)
     assert bst.search(78).key == 78
     bst.delete(78)
-    assert bst.search(78) == bst.TNULL
+    assert bst.search(78).is_null()
 
     bst.insert(73)
     bst.insert(48)
@@ -119,7 +119,7 @@ def test_delete() -> None:
     assert bst.size == 5
     bst.delete(42)
     assert bst.size == 5
-    assert bst.search(42) == bst.TNULL
+    assert bst.search(42).is_null()
     assert bst.size == 5
     bst.delete(100)
     assert bst.size == 4
@@ -163,15 +163,15 @@ def test_dictionary() -> None:
 
 def test_get_root() -> None:
     bst = RedBlackTree()
-    assert bst.get_root() == bst.TNULL
+    assert bst.get_root().is_null()
     bst.insert(3)
     assert bst.get_root().key == 3
 
 
 def test_accessors() -> None:
     bst = RedBlackTree()
-    assert bst.maximum() == bst.TNULL
-    assert bst.minimum() == bst.TNULL
+    assert bst.maximum().is_null()
+    assert bst.minimum().is_null()
 
     bst.insert(55)
     bst.insert(40)
