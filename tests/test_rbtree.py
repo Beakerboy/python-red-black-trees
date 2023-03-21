@@ -2,7 +2,7 @@ from rbtree import RedBlackTree, Node
 
 
 def check_node_valid(bst: RedBlackTree, node: Node) -> None:
-    if node == bst.TNULL:
+    if node.is_null():
         assert node.color == 0
         return
 
@@ -10,19 +10,19 @@ def check_node_valid(bst: RedBlackTree, node: Node) -> None:
         assert node.left.color == 0
         assert node.right.color == 0
 
-    if node.left != bst.TNULL and node.left is not None:
+    if not node.left.is_null() and node.left is not None:
         assert node >= node.left
-    if node.right != bst.TNULL and node.right is not None:
+    if not node.right.is_null() and node.right is not None:
         assert node <= node.right
 
 
 def check_valid_recur(bst: RedBlackTree, node: Node) -> int:
     check_node_valid(bst, node)
 
-    if node == bst.TNULL:
+    if node.is_null():
         return 1
 
-    if node.left == bst.TNULL and node.right == bst.TNULL:
+    if node.left.is_null() and node.right.is_null():
         if node.color == 0:
             return 2
         else:
