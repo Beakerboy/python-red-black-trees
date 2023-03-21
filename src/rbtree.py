@@ -305,7 +305,7 @@ class RedBlackTree():
         if node is None:
             node = self.root
         if node.is_null():
-            return self.TNULL
+            return Node()
         while not node.left.is_null():
             node = node.left
         return node
@@ -313,28 +313,28 @@ class RedBlackTree():
     def maximum(self: T, node: Node = None) -> Node:
         if node is None:
             node = self.root
-        if node == self.TNULL:
-            return self.TNULL
-        while node.right != self.TNULL:
+        if node.is_null():
+            return Node()
+        while not node.right.is_null():
             node = node.right
         return node
 
     def successor(self: T, x: Node) -> Node:
-        if x.right != self.TNULL:
+        if not x.right.is_null():
             return self.minimum(x.right)
 
         y = x.parent
-        while y != self.TNULL and x == y.right:
+        while not y.is_null() and x == y.right:
             x = y
             y = y.parent
         return y
 
     def predecessor(self: T,  x: Node) -> Node:
-        if (x.left != self.TNULL):
+        if (not x.left.is_null()):
             return self.maximum(x.left)
 
         y = x.parent
-        while y != self.TNULL and x == y.left:
+        while not y.is_null() and x == y.left:
             x = y
             y = y.parent
 
@@ -343,7 +343,7 @@ class RedBlackTree():
     def left_rotate(self: T, x: Node) -> None:
         y = x.right
         x.right = y.left
-        if y.left != self.TNULL:
+        if not y.left.is_null():
             y.left.parent = x
 
         y.parent = x.parent
@@ -359,7 +359,7 @@ class RedBlackTree():
     def right_rotate(self: T, x: Node) -> None:
         y = x.left
         x.left = y.right
-        if y.right != self.TNULL:
+        if not y.right.is_null():
             y.right.parent = x
 
         y.parent = x.parent
@@ -376,14 +376,14 @@ class RedBlackTree():
         node = Node(key)
         node.parent = None
         node.key = key
-        node.left = self.TNULL
-        node.right = self.TNULL
+        node.left = Node()
+        node.right = Node()
         node.color = 1
 
         y = None
         x = self.root
 
-        while x != self.TNULL:
+        while not x.is_null():
             y = x
             if node == x:
                 return
