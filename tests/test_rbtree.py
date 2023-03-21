@@ -325,7 +325,6 @@ def test_preorder() -> None:
     assert len(bst.preorder(True)) == 7
 
 
-
 def test_null_depth() -> None:
     bst = RedBlackTree()
     bst.insert(1)
@@ -336,7 +335,7 @@ def test_null_depth() -> None:
     assert nodes[0].depth() == 0
     assert nodes[1].key == 1
     assert nodes[1].depth() == 1
-    assert nodes[2].key == None
+    assert nodes[2].key is None
     assert nodes[2].depth() == 2
 
 
