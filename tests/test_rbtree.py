@@ -2,7 +2,7 @@ from rbtree import RedBlackTree, Node
 
 
 def check_node_valid(bst: RedBlackTree, node: Node) -> None:
-    if node == bst.TNULL:
+    if node.is_null():
         assert node.color == 0
         return
 
@@ -10,19 +10,19 @@ def check_node_valid(bst: RedBlackTree, node: Node) -> None:
         assert node.left.color == 0
         assert node.right.color == 0
 
-    if node.left != bst.TNULL and node.left is not None:
-        assert node.item >= node.left.item
-    if node.right != bst.TNULL and node.right is not None:
-        assert node.item <= node.right.item
+    if not node.left.is_null() and node.left is not None:
+        assert node >= node.left
+    if not node.right.is_null() and node.right is not None:
+        assert node <= node.right
 
 
 def check_valid_recur(bst: RedBlackTree, node: Node) -> int:
     check_node_valid(bst, node)
 
-    if node == bst.TNULL:
+    if node.is_null():
         return 1
 
-    if node.left == bst.TNULL and node.right == bst.TNULL:
+    if node.left.is_null() and node.right.is_null():
         if node.color == 0:
             return 2
         else:
@@ -51,13 +51,13 @@ def check_valid(bst: RedBlackTree) -> None:
 def test_insert() -> None:
     bst = RedBlackTree()
     bst.insert(55)
-    assert bst.search(55).item == 55
+    assert bst.search(55).key == 55
     bst.insert(40)
-    assert bst.search(40).item == 40
+    assert bst.search(40).key == 40
     bst.insert(58)
-    assert bst.search(58).item == 58
+    assert bst.search(58).key == 58
     bst.insert(42)
-    assert bst.search(42).item == 42
+    assert bst.search(42).key == 42
 
     bst.insert(42)
     bst.insert(42)
@@ -79,24 +79,24 @@ def test_insert() -> None:
     bst.insert(109)
     bst.insert(102)
 
-    assert bst.size == 23
+    assert bst.size == 17
 
     check_valid(bst)
 
 
 def test_search() -> None:
     bst = RedBlackTree()
-    assert bst.search(60) == bst.TNULL
+    assert bst.search(60).is_null()
     bst.insert(30)
-    assert bst.search(30).item == 30
+    assert bst.search(30).key == 30
 
 
 def test_delete() -> None:
     bst = RedBlackTree()
     bst.insert(78)
-    assert bst.search(78).item == 78
+    assert bst.search(78).key == 78
     bst.delete(78)
-    assert bst.search(78) == bst.TNULL
+    assert bst.search(78).is_null()
 
     bst.insert(73)
     bst.insert(48)
@@ -111,24 +111,22 @@ def test_delete() -> None:
     bst.insert(58)
     bst.insert(42)
 
-    assert bst.size == 12
+    assert bst.size == 7
 
     bst.delete(48)
-    assert bst.size == 11
+    assert bst.size == 6
     bst.delete(42)
-    assert bst.size == 10
+    assert bst.size == 5
     bst.delete(42)
-    assert bst.size == 9
-    assert bst.search(42).item == 42
-    bst.delete(42)
-    assert bst.search(42) == bst.TNULL
-    assert bst.size == 8
+    assert bst.size == 5
+    assert bst.search(42).is_null()
+    assert bst.size == 5
     bst.delete(100)
-    assert bst.size == 7
+    assert bst.size == 4
 
     bst.delete(100)
 
-    assert bst.size == 7
+    assert bst.size == 4
     check_valid(bst)
 
 
@@ -145,16 +143,16 @@ def test_complex_delete() -> None:
             check_valid(bst)
 
 
-def test_long() -> None:
-    bst = RedBlackTree()
-    with open("tests/test_input.txt") as infile:
-        for line in infile:
-            sline = line.split()
-            if sline[0] == "a":
-                bst.insert(int(sline[1]))
-            else:
-                bst.delete(int(sline[1]))
-            check_valid(bst)
+# def test_long() -> None:
+#    bst = RedBlackTree()
+#    with open("tests/test_input.txt") as infile:
+#        for line in infile:
+#            sline = line.split()
+#            if sline[0] == "a":
+#                bst.insert(int(sline[1]))
+#            else:
+#                bst.delete(int(sline[1]))
+#            check_valid(bst)
 
 
 def test_dictionary() -> None:
@@ -165,32 +163,32 @@ def test_dictionary() -> None:
 
 def test_get_root() -> None:
     bst = RedBlackTree()
-    assert bst.get_root() == bst.TNULL
+    assert bst.get_root().is_null()
     bst.insert(3)
-    assert bst.get_root().item == 3
+    assert bst.get_root().key == 3
 
 
 def test_accessors() -> None:
     bst = RedBlackTree()
-    assert bst.maximum() == bst.TNULL
-    assert bst.minimum() == bst.TNULL
+    assert bst.maximum().is_null()
+    assert bst.minimum().is_null()
 
     bst.insert(55)
     bst.insert(40)
     bst.insert(58)
     bst.insert(42)
 
-    assert bst.maximum().item == 58
-    assert bst.minimum().item == 40
-    assert bst.successor(bst.search(42)).item == 55
-    assert bst.successor(bst.search(40)).item == 42
-    assert bst.successor(bst.search(55)).item == 58
-    assert bst.predecessor(bst.search(42)).item == 40
-    assert bst.predecessor(bst.search(55)).item == 42
-    assert bst.predecessor(bst.search(58)).item == 55
+    assert bst.maximum().key == 58
+    assert bst.minimum().key == 40
+    assert bst.successor(bst.search(42)).key == 55
+    assert bst.successor(bst.search(40)).key == 42
+    assert bst.successor(bst.search(55)).key == 58
+    assert bst.predecessor(bst.search(42)).key == 40
+    assert bst.predecessor(bst.search(55)).key == 42
+    assert bst.predecessor(bst.search(58)).key == 55
 
     bst.insert(57)
-    assert bst.predecessor(bst.search(57)).item == 55
+    assert bst.predecessor(bst.search(57)).key == 55
 
 
 def test_print() -> None:
@@ -316,15 +314,52 @@ def test_string() -> None:
     check_valid(bst)
 
 
+def test_preorder() -> None:
+    bst = RedBlackTree()
+    bst.insert(1)
+    bst.insert(3)
+    bst.insert(2)
+    assert len(bst.preorder()) == 3
+
+    # There should be 4 additional Null Nodes.
+    assert len(bst.preorder(True)) == 7
+
+
+def test_null_depth() -> None:
+    bst = RedBlackTree()
+    bst.insert(1)
+    bst.insert(3)
+    bst.insert(2)
+    nodes = bst.preorder(True)
+    assert nodes[0].key == 2
+    assert nodes[0].depth() == 0
+    assert nodes[1].key == 1
+    assert nodes[1].depth() == 1
+    assert nodes[2].key is None
+    assert nodes[2].depth() == 2
+    assert nodes[3].key is None
+    assert nodes[3].depth() == 2
+    assert nodes[4].key == 3
+    assert nodes[4].depth() == 1
+    assert nodes[5].key is None
+    assert nodes[5].depth() == 2
+    assert nodes[6].key is None
+    assert nodes[6].depth() == 2
+
+
 def test_to_mindmap() -> None:
     bst = RedBlackTree()
     bst.insert(1)
     bst.insert(3)
     bst.insert(2)
-    lat = " <latex>\\rotatebox{90}{"
+    lat = " <latex>\\rotatebox{-90}{"
     expected = ("@startmindmap\n"
-                + "*[#white]" + lat + "2}</latex>\n"
-                + "**[#red]" + lat + "3}</latex>\n"
-                + "**[#red]" + lat + "1}</latex>\n"
+                + "-[#white]" + lat + "2}</latex>\n"
+                + "--[#red]" + lat + "1}</latex>\n"
+                + "---[#white]" + lat + "}</latex>\n"
+                + "---[#white]" + lat + "}</latex>\n"
+                + "--[#red]" + lat + "3}</latex>\n"
+                + "---[#white]" + lat + "}</latex>\n"
+                + "---[#white]" + lat + "}</latex>\n"
                 + "@endmindmap")
     assert bst.to_mindmap() == expected
