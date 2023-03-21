@@ -337,6 +337,14 @@ def test_null_depth() -> None:
     assert nodes[1].depth() == 1
     assert nodes[2].key is None
     assert nodes[2].depth() == 2
+    assert nodes[3].key is None
+    assert nodes[3].depth() == 2
+    assert nodes[4].key == 3
+    assert nodes[4].depth() == 1
+    assert nodes[5].key is None
+    assert nodes[5].depth() == 2
+    assert nodes[6].key is None
+    assert nodes[6].depth() == 2
 
 
 def test_to_mindmap() -> None:
