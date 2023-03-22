@@ -6,7 +6,7 @@ def check_node_valid(bst: RedBlackTree, node: Node) -> None:
         assert node.is_black()
         return
 
-    if node.color == 1:
+    if node.is_red():
         assert node.left.is_black()
         assert node.right.is_black()
 
@@ -23,7 +23,7 @@ def check_valid_recur(bst: RedBlackTree, node: Node) -> int:
         return 1
 
     if node.left.is_null() and node.right.is_null():
-        if node.color == 0:
+        if node.is_black():
             return 2
         else:
             return 1
@@ -35,7 +35,7 @@ def check_valid_recur(bst: RedBlackTree, node: Node) -> int:
 
     # doesn't matter which one we choose because they're the same
     cur_count = left_count
-    if node.color == 0:
+    if node.is_black():
         cur_count += 1
 
     return cur_count
@@ -43,7 +43,7 @@ def check_valid_recur(bst: RedBlackTree, node: Node) -> int:
 
 def check_valid(bst: RedBlackTree) -> None:
     root = bst.get_root()
-    assert root.color == 0
+    assert root.is_black()
 
     check_valid_recur(bst, root)
 
