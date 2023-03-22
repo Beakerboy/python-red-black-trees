@@ -3,12 +3,12 @@ from rbtree import RedBlackTree, Node
 
 def check_node_valid(bst: RedBlackTree, node: Node) -> None:
     if node.is_null():
-        assert node.color == 0
+        assert node.is_black()
         return
 
     if node.color == 1:
-        assert node.left.color == 0
-        assert node.right.color == 0
+        assert node.left.is_black()
+        assert node.right.is_black()
 
     if not node.left.is_null() and node.left is not None:
         assert node >= node.left
