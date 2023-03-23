@@ -83,6 +83,9 @@ class RedBlackTree():
     def __setitem__(self: T, key: Any, value: Any) -> None:
         self.search(key).value = value
 
+    def __len__(self: T) -> int:
+        return self.size
+
     # Getters and Setters
     def get_root(self: T) -> Node:
         return self.root
