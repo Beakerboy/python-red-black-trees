@@ -381,7 +381,11 @@ class RedBlackTree():
         x.parent = y
 
     def insert(self: T, key: Any) -> None:
-        node = Node(key)
+        # Allow the user to provide a custom node.
+        if isinstance(key, Node):
+            node = key
+        else:
+            node = Node(key)
         node.parent = None
         node.key = key
         node.left = Node()
