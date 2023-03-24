@@ -11,7 +11,7 @@ T = TypeVar('T', bound='Node')
 # Node creation
 class Node():
 
-    def __init__(self: T, key: Any = None) -> None:
+    def __init__(self: T, key: Any) -> None:
         self.key = key
         self.parent = None
         self.left = None
@@ -69,7 +69,7 @@ T = TypeVar('T', bound='RedBlackTree')
 
 class RedBlackTree():
     def __init__(self: T) -> None:
-        self.root = Node()
+        self.root = Node(None)
         self.size = 0
         self._iterator_include_nulls = False
 
@@ -210,7 +210,7 @@ class RedBlackTree():
 
     # Node deletion
     def delete_node_helper(self: T, node: Node, key: int) -> None:
-        z = Node()
+        z = Node(None)
         while not node.is_null():
             if node.key == key:
                 z = node
@@ -316,7 +316,7 @@ class RedBlackTree():
         if node is None:
             node = self.root
         if node.is_null():
-            return Node()
+            return Node(None)
         while not node.left.is_null():
             node = node.left
         return node
@@ -325,7 +325,7 @@ class RedBlackTree():
         if node is None:
             node = self.root
         if node.is_null():
-            return Node()
+            return Node(None)
         while not node.right.is_null():
             node = node.right
         return node
@@ -388,9 +388,9 @@ class RedBlackTree():
             node = Node(key)
         node.parent = None
         node.key = key
-        node.left = Node()
+        node.left = Node(None)
         node.left.parent = node
-        node.right = Node()
+        node.right = Node(None)
         node.right.parent = node
         node.set_color("red")
 
