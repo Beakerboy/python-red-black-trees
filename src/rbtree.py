@@ -120,8 +120,8 @@ class RedBlackTree():
         if not node.is_null():
             left = self.pre_order_helper(node.left)
             right = self.pre_order_helper(node.right)
-            output.extend(left)
             output.extend([node])
+            output.extend(left)
             output.extend(right)
         return output
 
