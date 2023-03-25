@@ -205,6 +205,11 @@ def test_preorder() -> None:
         keys.append(str(node.get_key()))
     assert " ".join(keys) == "1 2 3"
 
+    bst.set_iteration_style("pre")
+    for node in bst:
+        keys.append(str(node.get_key()))
+    assert " ".join(keys) == "1 2 3"
+
 
 def test_print() -> None:
     bst = RedBlackTree()
