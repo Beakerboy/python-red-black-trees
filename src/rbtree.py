@@ -40,7 +40,7 @@ class Node():
             raise Exception("Unknown color")
 
     def get_key(self: T) -> int:
-        return self.index
+        return self.item
 
     def is_red(self: T) -> bool:
         return self.color == 1
