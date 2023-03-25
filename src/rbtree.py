@@ -2,7 +2,7 @@
 # Adapted from https://www.programiz.com/dsa/red-black-tree
 
 import sys
-from typing import TypeVar, Iterator
+from typing import Type, TypeVar, Iterator
 
 
 T = TypeVar('T', bound='Node')
@@ -52,11 +52,12 @@ class Node():
         return 0 if self.parent is None else self.parent.depth() + 1
 
     @classmethod
-    def null(cls) -> T:
+    def null(cls: Type[T]) -> T:
         node = cls(0)
         node.id = -1
         node.set_color("black")
         return node
+
 
 T = TypeVar('T', bound='RedBlackTree')
 
@@ -68,7 +69,7 @@ class RedBlackTree():
         self.size = 0
         self._iter_format = 0
 
-    ### Dunder Methods ###
+    # Dunder Methods #
     def __iter__(self: T) -> Iterator:
         if self._iter_format == 0:
             return iter(self.preorder())
@@ -83,7 +84,7 @@ class RedBlackTree():
     def __setitem__(self: T, key: int, value: int) -> None:
         self.search(key).value = value
 
-    ### Setters and Getters ###
+    # Setters and Getters #
     def get_root(self: T) -> Node:
         return self.root
 
@@ -97,7 +98,7 @@ class RedBlackTree():
         else:
             raise Exception("Unknown style.")
 
-    ### Iterators ###
+    # Iterators #
     def preorder(self: T) -> list:
         return self.pre_order_helper(self.root)
 
