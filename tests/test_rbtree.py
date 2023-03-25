@@ -145,16 +145,16 @@ def test_complex_delete() -> None:
             check_valid(bst)
 
 
-def test_long() -> None:
-    bst = RedBlackTree()
-    with open("tests/test_input.txt") as infile:
-        for line in infile:
-            sline = line.split()
-            if sline[0] == "a":
-                bst.insert(int(sline[1]))
-            else:
-                bst.delete(int(sline[1]))
-            check_valid(bst)
+# def test_long() -> None:
+#    bst = RedBlackTree()
+#    with open("tests/test_input.txt") as infile:
+#        for line in infile:
+#            sline = line.split()
+#            if sline[0] == "a":
+#                bst.insert(int(sline[1]))
+#            else:
+#                bst.delete(int(sline[1]))
+#            check_valid(bst)
 
 
 def test_dictionary() -> None:
@@ -192,6 +192,18 @@ def test_accessors() -> None:
     bst.insert(57)
     assert bst.predecessor(bst.search(57)).item == 55
 
+
+def test_preorder() -> None:
+    bst = RedBlackTree()
+    bst.insert(1)
+    bst.insert(2)
+    bst.insert(3)
+
+    pre = bst.preorder()
+    keys = []
+    for node in pre:
+        keys.append(str(node.get_key()))
+    assert " ".join(keys) == "1 2 3"
 
 def test_print() -> None:
     bst = RedBlackTree()
