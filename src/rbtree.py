@@ -117,7 +117,9 @@ class RedBlackTree():
         if not node.is_null():
             left = self.pre_order_helper(node.left)
             right = self.pre_order_helper(node.right)
-            output.extend(left).extend([node]).extend(right)
+            output.extend(left)
+            output.extend([node])
+            output.extend(right)
         return output
 
     def in_order_helper(self: T, node: Node) -> list:
@@ -129,7 +131,9 @@ class RedBlackTree():
         if not node.is_null():
             left = self.in_order_helper(node.left)
             right = self.in_order_helper(node.right)
-            output.extend(left).extend([node]).extend(right)
+            output.extend(left)
+            output.extend([node])
+            output.extend(right)
         return output
 
     def post_order_helper(self: T, node: Node) -> list:
@@ -137,7 +141,9 @@ class RedBlackTree():
         if not node.is_null():
             left = self.post_order_helper(node.left)
             right = self.post_order_helper(node.right)
-            output.extend(left).extend(right).extend([node])
+            output.extend(left)
+            output.extend(right)
+            output.extend([node])
         return output
 
     # Search the tree
