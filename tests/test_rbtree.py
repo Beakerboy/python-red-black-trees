@@ -199,16 +199,55 @@ def test_preorder() -> None:
     bst.insert(2)
     bst.insert(3)
 
-    pre = bst.preorder()
+    nodes = bst.preorder()
     keys = []
-    for node in pre:
+    for node in nodes:
         keys.append(str(node.get_key()))
-    assert " ".join(keys) == "1 2 3"
+    assert " ".join(keys) == "2 1 3"
 
+    keys = []
     bst.set_iteration_style("pre")
     for node in bst:
         keys.append(str(node.get_key()))
+    assert " ".join(keys) == "2 1 3"
+
+
+def test_inorder() -> None:
+    bst = RedBlackTree()
+    bst.insert(1)
+    bst.insert(2)
+    bst.insert(3)
+
+    nodes = bst.inorder()
+    keys = []
+    for node in nodes:
+        keys.append(str(node.get_key()))
     assert " ".join(keys) == "1 2 3"
+
+    keys = []
+    bst.set_iteration_style("in")
+    for node in bst:
+        keys.append(str(node.get_key()))
+    assert " ".join(keys) == "1 2 3"
+
+
+def test_postorder() -> None:
+    bst = RedBlackTree()
+    bst.insert(1)
+    bst.insert(2)
+    bst.insert(3)
+
+    nodes = bst.postorder()
+    keys = []
+    for node in nodes:
+        keys.append(str(node.get_key()))
+    assert " ".join(keys) == "2 3 1"
+
+    keys = []
+    bst.set_iteration_style("in")
+    for node in bst:
+        keys.append(str(node.get_key()))
+    assert " ".join(keys) == "2 3 1"
 
 
 def test_print() -> None:
