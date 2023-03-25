@@ -50,3 +50,12 @@ def test_color_exception() -> None:
     node = Node(0)
     with pytest.raises(Exception):
         node.set_color("spam")
+
+get_key_data = [-1, 0, 42]
+
+
+@pytest.mark.parametrize("key", get_key_data)
+def test_get_key(key: Any) -> None:
+    node = Node(key)
+    assert node.get_key() == key
+
