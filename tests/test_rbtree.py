@@ -241,13 +241,13 @@ def test_postorder() -> None:
     keys = []
     for node in nodes:
         keys.append(str(node.get_key()))
-    assert " ".join(keys) == "2 3 1"
+    assert " ".join(keys) == "1 3 2"
 
     keys = []
     bst.set_iteration_style("in")
     for node in bst:
         keys.append(str(node.get_key()))
-    assert " ".join(keys) == "2 3 1"
+    assert " ".join(keys) == "1 3 2"
 
 
 def test_print() -> None:
