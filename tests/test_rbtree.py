@@ -205,6 +205,7 @@ def test_preorder() -> None:
         keys.append(str(node.get_key()))
     assert " ".join(keys) == "1 2 3"
 
+
 def test_print() -> None:
     bst = RedBlackTree()
     bst.insert(73)
