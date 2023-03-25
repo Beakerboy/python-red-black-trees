@@ -59,3 +59,8 @@ def test_get_key(key: Any) -> None:
     node = Node(key)
     assert node.get_key() == key
 
+
+def test_null_node() -> None:
+    null = Node.null()
+    assert null.is_null()
+    assert null.is_black()
