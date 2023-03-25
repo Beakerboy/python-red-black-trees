@@ -244,7 +244,7 @@ def test_postorder() -> None:
     assert " ".join(keys) == "1 3 2"
 
     keys = []
-    bst.set_iteration_style("in")
+    bst.set_iteration_style("post")
     for node in bst:
         keys.append(str(node.get_key()))
     assert " ".join(keys) == "1 3 2"
