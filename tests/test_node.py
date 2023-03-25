@@ -1,5 +1,6 @@
 import pytest
 from rbtree import Node
+from typing import Any
 
 
 def test_constructor() -> None:
