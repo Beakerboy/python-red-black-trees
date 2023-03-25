@@ -52,6 +52,7 @@ def test_color_exception() -> None:
     with pytest.raises(Exception):
         node.set_color("spam")
 
+
 get_key_data = [-1, 0, 42]
 
 
