@@ -87,7 +87,7 @@ class RedBlackTree():
     def get_root(self: T) -> Node:
         return self.root
 
-    def set_iteration_style(style: str) -> None:
+    def set_iteration_style(self: T, style: str) -> None:
         if style == "pre":
             self._iter_format = 0
         elif style == "in":
