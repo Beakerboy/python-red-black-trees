@@ -2,7 +2,7 @@
 # Adapted from https://www.programiz.com/dsa/red-black-tree
 
 import sys
-from typing import TypeVar, Any, Iterator
+from typing import Any, Type, TypeVar, Iterator
 
 
 T = TypeVar('T', bound='Node')
