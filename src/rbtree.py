@@ -2,7 +2,7 @@
 # Adapted from https://www.programiz.com/dsa/red-black-tree
 
 import sys
-from typing import Any, Type, TypeVar, Iterator
+from typing import Any, TypeVar, Iterator
 
 
 T = TypeVar('T', bound='Node')
@@ -62,13 +62,6 @@ class Node():
 
     def depth(self: T) -> int:
         return 0 if self.parent is None else self.parent.depth() + 1
-
-    @classmethod
-    def null(cls: Type[T]) -> T:
-        node = cls(0)
-        node.id = -1
-        node.set_color("black")
-        return node
 
 
 T = TypeVar('T', bound='RedBlackTree')
