@@ -2,7 +2,7 @@
 # Adapted from https://www.programiz.com/dsa/red-black-tree
 
 import sys
-from typing import Type, TypeVar, Iterator
+from typing import Any, Type, TypeVar, Iterator
 
 
 T = TypeVar('T', bound='Node')
@@ -10,54 +10,63 @@ T = TypeVar('T', bound='Node')
 
 # Node creation
 class Node():
-    next_id = 0
 
-    def __init__(self: T, item: int) -> None:
-        self.id = Node.next_id
-        Node.next_id += 1
-        self.item = item
-        self.parent = None
-        self.left = None
-        self.right = None
-        self.color = 1
-        self.value = None
+    # Dunder Methods #
+    def __init__(self: T, key: Any) -> None:
+        if key is None:
+            raise Exception("The key must have a value")
+        self._key = item
+        self._parent = None
+        self._left = None
+        self._right = None
+        self._color = 1
+        self._value = None
 
     def __eq__(self: T, other: T) -> bool:
-        return self.id == other.id
+        return self._key == other._key
 
     def __repr__(self: T) -> str:
-        return "ID: " + str(self.id) + " Value: " + str(self.item)
+        return "KEY: " + str(self._key) + " Value: " + str(self._value)
 
+    # Setters and Getters #
     def get_color(self: T) -> str:
-        return "black" if self.color == 0 else "red"
+        return "black" if self._color == 0 else "red"
 
     def set_color(self: T, color: str) -> None:
         if color == "black":
-            self.color = 0
+            self._color = 0
         elif color == "red":
-            self.color = 1
+            self._color = 1
         else:
             raise Exception("Unknown color")
 
-    def get_key(self: T) -> int:
-        return self.item
+    def get_key(self: T) -> Any:
+        return self._key
 
+    def get_value(self: T) -> Any:
+        return self._value
+
+    def set_value(self: T, value: Any) -> None:
+        self._value = value
+
+    # Node Properties #
     def is_red(self: T) -> bool:
-        return self.color == 1
+        return self._color == 1
 
     def is_black(self: T) -> bool:
-        return self.color == 0
+        return self._color == 0
 
     def is_null(self: T) -> bool:
-        return self.id == -1
+        return self._key is None
 
     def depth(self: T) -> int:
         return 0 if self.parent is None else self.parent.depth() + 1
 
+    # Factory Methods #
     @classmethod
     def null(cls: Type[T]) -> T:
         node = cls(0)
-        node.id = -1
+        node._key = None
         node.set_color("black")
         return node
 
@@ -81,11 +90,11 @@ class RedBlackTree():
         if self._iter_format == 2:
             return iter(self.postorder())
 
-    def __getitem__(self: T, key: int) -> int:
-        return self.search(key).value
+    def __getitem__(self: T, key: Any) -> Any:
+        return self.search(key).get_value()
 
-    def __setitem__(self: T, key: int, value: int) -> None:
-        self.search(key).value = value
+    def __setitem__(self: T, key: Any, value: Any) -> None:
+        self.search(key)._value = value
 
     # Setters and Getters #
     def get_root(self: T) -> Node:
