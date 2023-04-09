@@ -15,7 +15,7 @@ class Node():
     def __init__(self: T, key: Any) -> None:
         if key is None:
             raise Exception("The key must have a value")
-        self._key = item
+        self._key = key
         self.parent = None
         self.left = None
         self.right = None
