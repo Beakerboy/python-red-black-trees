@@ -22,11 +22,26 @@ class Node():
         self._color = 1
         self._value = None
 
+    def __repr__(self: T) -> str:
+        return "KEY: " + str(self._key) + " Value: " + str(self._value)
+
+    def __lt__(self: T, other: T) -> bool:
+        return self._key < other._key
+
+    def __le__(self: T, other: T) -> bool:
+        return self._key <= other._key
+
+    def __gt__(self: T, other: T) -> bool:
+        return self._key > other._key
+
+    def __ge__(self: T, other: T) -> bool:
+        return self._key >= other._key
+
     def __eq__(self: T, other: T) -> bool:
         return self._key == other._key
 
-    def __repr__(self: T) -> str:
-        return "KEY: " + str(self._key) + " Value: " + str(self._value)
+    def __ne__(self: T, other: T) -> bool:
+        return self._key != other._key
 
     # Setters and Getters #
     def get_color(self: T) -> str:
