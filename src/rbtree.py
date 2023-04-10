@@ -175,10 +175,10 @@ class RedBlackTree():
 
     # Search the tree
     def search_tree_helper(self: T, node: Node, key: int) -> Node:
-        if node.is_null() or key == node.item:
+        if node.is_null() or key == node.get_key():
             return node
 
-        if key < node.item:
+        if key < node.get_key():
             return self.search_tree_helper(node.left, key)
         return self.search_tree_helper(node.right, key)
 
@@ -336,7 +336,7 @@ class RedBlackTree():
                 indent += "|    "
 
             s_color = "RED" if node.is_red() else "BLACK"
-            print(str(node.item) + "(" + s_color + ")")
+            print(str(node.get_key()) + "(" + s_color + ")")
             self.__print_helper(node.left, indent, False)
             self.__print_helper(node.right, indent, True)
 
