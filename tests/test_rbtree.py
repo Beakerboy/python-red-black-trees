@@ -12,9 +12,9 @@ def check_node_valid(bst: RedBlackTree, node: Node) -> None:
         assert node.right.is_black()
 
     if not node.left.is_null() and node.left is not None:
-        assert node.item >= node.left.item
+        assert node >= node.left
     if not node.right.is_null() and node.right is not None:
-        assert node.item <= node.right.item
+        assert node <= node.right
 
 
 def check_valid_recur(bst: RedBlackTree, node: Node) -> int:
