@@ -416,15 +416,15 @@ class RedBlackTree():
 
     def insert(self: T, key: Any) -> None:
         node = Node(key)
-        node.left = self.TNULL
-        node.right = self.TNULL
+        node.left.is_null()
+        node.right.is_null()
 
         y = None
         x = self.root
 
         while not x.is_null():
             y = x
-            if node.item < x.item:
+            if node < x:
                 x = x.left
             else:
                 x = x.right
@@ -432,7 +432,7 @@ class RedBlackTree():
         node.parent = y
         if y is None:
             self.root = node
-        elif node.item < y.item:
+        elif node < y:
             y.left = node
         else:
             y.right = node
