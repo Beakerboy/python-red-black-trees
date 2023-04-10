@@ -416,8 +416,8 @@ class RedBlackTree():
 
     def insert(self: T, key: Any) -> None:
         node = Node(key)
-        node.left.is_null()
-        node.right.is_null()
+        node.left = self.TNULL
+        node.right = self.TNULL
 
         y = None
         x = self.root
