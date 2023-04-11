@@ -25,7 +25,6 @@ class Node():
     def __repr__(self: T) -> str:
         return "Key: " + str(self._key) + " Value: " + str(self.value)
 
-
     def get_color(self: T) -> str:
         return "black" if self.color == 0 else "red"
 
