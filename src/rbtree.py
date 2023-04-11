@@ -12,10 +12,10 @@ T = TypeVar('T', bound='Node')
 class Node():
     next_id = 0
 
-    def __init__(self: T, item: int) -> None:
+    def __init__(self: T, key: int) -> None:
         self.id = Node.next_id
         Node.next_id += 1
-        self.item = item
+        self._key = key
         self.parent = None
         self.left = None
         self.right = None
@@ -26,7 +26,7 @@ class Node():
         return self.id == other.id
 
     def __repr__(self: T) -> str:
-        return "ID: " + str(self.id) + " Value: " + str(self.item)
+        return "ID: " + str(self.id) + " Value: " + str(self._key)
 
     def get_color(self: T) -> str:
         return "black" if self.color == 0 else "red"
@@ -40,7 +40,7 @@ class Node():
             raise Exception("Unknown color")
 
     def get_key(self: T) -> int:
-        return self.item
+        return self._key
 
     def is_red(self: T) -> bool:
         return self.color == 1
