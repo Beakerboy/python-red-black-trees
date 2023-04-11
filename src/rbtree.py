@@ -292,7 +292,7 @@ class RedBlackTree():
                 else:
                     if node == node.parent.right:
                         node = node.parent
-                        self.left_rotate(k)
+                        self.left_rotate(node)
                     node.parent.set_color("black")
                     node.parent.parent.set_color("red")
                     self.right_rotate(node.parent.parent)
