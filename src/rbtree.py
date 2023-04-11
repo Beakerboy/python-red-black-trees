@@ -10,11 +10,8 @@ T = TypeVar('T', bound='Node')
 
 # Node creation
 class Node():
-    next_id = 0
 
     def __init__(self: T, key: int) -> None:
-        self.id = Node.next_id
-        Node.next_id += 1
         self._key = key
         self.parent = None
         self.left = None
@@ -23,7 +20,7 @@ class Node():
         self.value = None
 
     def __eq__(self: T, other: T) -> bool:
-        return self.id == other.id
+        return self._key == other._key
 
     def __repr__(self: T) -> str:
         return "ID: " + str(self.id) + " Value: " + str(self._key)
@@ -49,7 +46,7 @@ class Node():
         return self.color == 0
 
     def is_null(self: T) -> bool:
-        return self.id == -1
+        return self._key is None
 
     def depth(self: T) -> int:
         return 0 if self.parent is None else self.parent.depth() + 1
@@ -57,7 +54,7 @@ class Node():
     @classmethod
     def null(cls: Type[T]) -> T:
         node = cls(0)
-        node.id = -1
+        node._key = None
         node.set_color("black")
         return node
 
