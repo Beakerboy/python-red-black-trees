@@ -300,7 +300,7 @@ class RedBlackTree():
             output += indent
             if last == 'root':
                 indent += "     "
-            if last == 'last':
+            elif last == 'last':
                 output += "R----  "
                 indent += "     "
             else:
