@@ -294,11 +294,13 @@ class RedBlackTree():
         self.root.set_color("black")
 
     # Printing the tree
-    def __print_helper(self: T, node: Node, indent: str, last: bool) -> str:
+    def __print_helper(self: T, node: Node, indent: str, last: str) -> str:
         output = ''
         if not node.is_null():
             output += indent
-            if last:
+            if last == 'root':
+                indent += "     "
+            if last == 'last'
                 output += "R----  "
                 indent += "     "
             else:
@@ -307,8 +309,8 @@ class RedBlackTree():
 
             s_color = "RED" if node.is_red() else "BLACK"
             output += str(node.key) + "(" + s_color + ")\n"
-            output += self.__print_helper(node.left, indent, False)
-            output += self.__print_helper(node.right, indent, True)
+            output += self.__print_helper(node.left, indent, 'not_last')
+            output += self.__print_helper(node.right, indent, 'last')
         return output
 
     def search(self: T, key: int) -> Node:
@@ -434,7 +436,7 @@ class RedBlackTree():
         self.delete_node_helper(self.root, key)
 
     def print_tree(self: T) -> None:
-        print(self.__print_helper(self.root, "", True))
+        print(self.__print_helper(self.root, "", 'root'))
 
     def to_mindmap(self: T) -> str:
         output = "@startmindmap\n"
