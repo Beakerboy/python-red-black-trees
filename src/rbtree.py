@@ -87,7 +87,7 @@ class RedBlackTree():
         return self.size
 
     def __str__(self: T) -> str:
-        return self.__print_helper(self.root, "", True)
+        return self.__print_helper(self.root, "", 'root')
 
     # Getters and Setters
     def get_root(self: T) -> Node:
@@ -300,7 +300,7 @@ class RedBlackTree():
             output += indent
             if last == 'root':
                 indent += "     "
-            if last == 'last'
+            if last == 'last':
                 output += "R----  "
                 indent += "     "
             else:
