@@ -297,7 +297,7 @@ class RedBlackTree():
     def __print_helper(self: T, node: Node, indent: str, last: bool) -> str:
         output = ''
         if not node.is_null():
-            sys.stdout.write(indent)
+            output += indent
             if last:
                 output += "R----  "
                 indent += "     "
@@ -306,7 +306,7 @@ class RedBlackTree():
                 indent += "|    "
 
             s_color = "RED" if node.is_red() else "BLACK"
-            output += str(node.key) + "(" + s_color + ")"
+            output += str(node.key) + "(" + s_color + ")\n"
             output += self.__print_helper(node.left, indent, False)
             output += self.__print_helper(node.right, indent, True)
         return output
