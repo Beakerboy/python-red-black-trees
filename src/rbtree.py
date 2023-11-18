@@ -309,7 +309,7 @@ class RedBlackTree():
             output += str(node.key) + "(" + s_color + ")"
             output += self.__print_helper(node.left, indent, False)
             output += self.__print_helper(node.right, indent, True)
-            return output
+        return output
 
     def search(self: T, key: int) -> Node:
         """
