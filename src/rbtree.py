@@ -85,7 +85,7 @@ class RedBlackTree():
         node = self.root
         output = ""
         s_color = "RED" if node.is_red() else "BLACK"
-        output += str(node.key) + "(" + s_color + ")\n"
+        output += str(node.get_key()) + "(" + s_color + ")\n"
         output += self.__print_helper(node.left, "     ", False)
         output += self.__print_helper(node.right, "     ", True)
         return output
