@@ -434,4 +434,4 @@ class RedBlackTree():
         self.delete_node_helper(self.root, key)
 
     def print_tree(self: T) -> None:
-        print str(self)
+        print(str(self))
