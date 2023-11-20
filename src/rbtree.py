@@ -89,7 +89,7 @@ class RedBlackTree():
         output += self.__print_helper(node.left, "     ", False)
         output += self.__print_helper(node.right, "     ", True)
         return output
-        
+
     # Setters and Getters #
     def get_root(self: T) -> Node:
         return self.root
