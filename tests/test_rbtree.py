@@ -257,7 +257,7 @@ def test_iterator_exception() -> None:
         bst.set_iteration_style("spam")
 
 
-def test_print() -> None:
+def test_print_old() -> None:
     bst = RedBlackTree()
     bst.insert(73)
     print(bst.get_root())
