@@ -304,7 +304,7 @@ class RedBlackTree():
         self.root.set_color("black")
 
     # Printing the tree
-    def __print_helper(self: T, node: Node, indent: str, last: bool) -> None:
+    def __print_helper(self: T, node: Node, indent: str, last: bool) -> str:
         output = ""
         if not node.is_null():
             sys.stdout.write(indent)
