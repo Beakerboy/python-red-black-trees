@@ -355,3 +355,15 @@ def test_duplicates() -> None:
     bst.delete(42)
     bst.delete(42)
     check_valid(bst)
+
+
+def test_print() -> None:
+    bst = RedBlackTree()
+    bst.insert(1)
+    bst.insert(2)
+    bst.insert(3)
+    expected = (""
+                + "2(BLACK)\n"
+                + "     L----   1(BLACK)\n"
+                + "     R----   3(BLACK)\n")
+    assert str(bst) == expected
