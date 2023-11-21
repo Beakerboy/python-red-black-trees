@@ -363,6 +363,8 @@ print_data = [
          + "          R----  100(BLACK)")
     ]
 ]
+
+
 @pytest.mark.parametrize("input, expected", print_data)
 def test_print(input: list, expected: str) -> None:
     bst = RedBlackTree()
