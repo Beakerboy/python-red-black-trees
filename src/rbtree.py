@@ -311,7 +311,7 @@ class RedBlackTree():
                 output += "R----  "
                 indent += "     "
             else:
-                output += "L----   "
+                output += "L----  "
                 indent += "|    "
 
             s_color = "RED" if node.is_red() else "BLACK"
