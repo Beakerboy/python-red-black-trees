@@ -1,7 +1,6 @@
 # Implementing Red-Black Tree in Python
 # Adapted from https://www.programiz.com/dsa/red-black-tree
 
-import sys
 from typing import Type, TypeVar, Iterator
 
 
