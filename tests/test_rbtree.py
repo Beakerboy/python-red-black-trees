@@ -364,6 +364,6 @@ def test_print() -> None:
     bst.insert(3)
     expected = (""
                 + "2(BLACK)\n"
-                + "     L----   1(BLACK)\n"
-                + "     R----   3(BLACK)\n")
+                + "     L----  1(RED)\n"
+                + "     R----  3(RED)\n")
     assert str(bst) == expected
