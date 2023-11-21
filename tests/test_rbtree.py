@@ -257,25 +257,6 @@ def test_iterator_exception() -> None:
         bst.set_iteration_style("spam")
 
 
-def test_print_old() -> None:
-    bst = RedBlackTree()
-    bst.insert(73)
-    print(bst.get_root())
-    bst.insert(48)
-    bst.insert(100)
-    bst.insert(42)
-    bst.insert(55)
-    bst.insert(40)
-    bst.insert(58)
-    bst.insert(42)
-    bst.insert(55)
-    bst.insert(40)
-    bst.insert(58)
-    bst.insert(42)
-
-    bst.print_tree()
-
-
 def test_elaborate_delete() -> None:
     bst = RedBlackTree()
     bst.insert(55)
@@ -357,13 +338,34 @@ def test_duplicates() -> None:
     check_valid(bst)
 
 
-def test_print() -> None:
+print_data = [
+    [
+        [1, 2, 3],
+        (""
+         + "2(BLACK)\n"
+         + "     L----  1(RED)\n"
+         + "     R----  3(RED)\n")
+    ],
+    [
+        [73, 48, 100, 42, 55, 40, 58, 42, 55, 40, 58, 42],
+        (""
+         + "48(BLACK)"
+         + "     L----   42(BLACK)"
+         + "     |    L----   40(BLACK)"
+         + "     |    |    R----  40(RED)"
+         + "     |    R----  42(BLACK)"
+         + "     |         R----  42(RED)"
+         + "     R----  73(BLACK)"
+         + "          L----   55(RED)"
+         + "          |    L----   55(BLACK)"
+         + "          |    R----  58(BLACK)"
+         + "          |         R----  58(RED)"
+         + "          R----  100(BLACK)")
+    ]
+]
+@pytest.mark.parametrize("input, expected", print_data)
+def test_print(input: list, expected: str) -> None:
     bst = RedBlackTree()
-    bst.insert(1)
-    bst.insert(2)
-    bst.insert(3)
-    expected = (""
-                + "2(BLACK)\n"
-                + "     L----  1(RED)\n"
-                + "     R----  3(RED)\n")
+    for key in input:
+        bst.insert(key)
     assert str(bst) == expected
