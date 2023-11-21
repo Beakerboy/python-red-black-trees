@@ -77,4 +77,3 @@ def test_repr() -> None:
     """
     node = Node(2)
     assert repr(node) == "Key: 2 Value: None"
-    
