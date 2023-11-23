@@ -193,8 +193,8 @@ def test_accessors() -> None:
 
     bst.insert(57)
     assert bst.predecessor(bst.search(57)).get_key() == 55
-    
-    
+
+
 def test_preorder() -> None:
     bst = RedBlackTree()
     bst.insert(1)
