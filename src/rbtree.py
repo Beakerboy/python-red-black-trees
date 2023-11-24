@@ -1,7 +1,7 @@
 # Implementing Red-Black Tree in Python
 # Adapted from https://www.programiz.com/dsa/red-black-tree
 
-from typing import Type, TypeVar, Iterator
+from typing import Any, Type, TypeVar, Iterator
 
 
 T = TypeVar('T', bound='Node')
@@ -10,12 +10,12 @@ T = TypeVar('T', bound='Node')
 # Node creation
 class Node():
 
-    def __init__(self: T, key: int) -> None:
+    def __init__(self: T, key: Any = None) -> None:
         self._key = key
         self.parent = None
         self.left = None
         self.right = None
-        self._color = 1
+        self._color = 0 if key == None else 1
         self.value = None
 
     def __repr__(self: T) -> str:
