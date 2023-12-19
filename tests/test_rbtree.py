@@ -120,7 +120,7 @@ def test_delete() -> None:
     assert len(bst) == 10
     bst.delete(42)
     assert len(bst) == 9
-    assert len(bst) == 9
+
     assert bst.search(42).get_key() == 42
     bst.delete(42)
     assert bst.search(42).is_null()
