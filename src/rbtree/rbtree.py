@@ -13,11 +13,11 @@ class Node():
 
     def __init__(self: T, key: Any = None) -> None:
         self.key = key
-        self.parent: Node = None
-        self.left: Node = None
-        self.right: Node = None
+        self.parent: Node | None = None
+        self.left: Node | None = None
+        self.right: Node | None = None
         self._color = 0 if key is None else 1
-        self.value = None
+        self.value| Any = None
 
     def __repr__(self: T) -> str:
         return "Key: " + str(self.key) + " Value: " + str(self.value)
