@@ -13,9 +13,9 @@ class Node():
 
     def __init__(self: T, key: Any = None) -> None:
         self.key = key
-        self.parent = None
-        self.left = None
-        self.right = None
+        self.parent: Node = None
+        self.left: Node = None
+        self.right: Node = None
         self._color = 0 if key is None else 1
         self.value = None
 
