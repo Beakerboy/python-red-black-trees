@@ -21,6 +21,9 @@ classifiers = [
 "Homepage" = "https://github.com/emilydolson/python-red-black-trees"
 "Bug Tracker" = "https://github.com/emilydolson/python-red-black-trees/issues"
 
+[tool.setuptools.package-data]
+"pkgname" = ["py.typed"]
+
 [tool.pytest.ini_options]
 pythonpath = "src"
 testpaths = [
