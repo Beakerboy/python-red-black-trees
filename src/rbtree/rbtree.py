@@ -17,7 +17,7 @@ class Node():
         self.left: Node | None = None
         self.right: Node | None = None
         self._color = 0 if key is None else 1
-        self.value| Any = None
+        self.value: Any = None
 
     def __repr__(self: T) -> str:
         return "Key: " + str(self.key) + " Value: " + str(self.value)
