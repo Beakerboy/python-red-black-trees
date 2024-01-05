@@ -203,8 +203,9 @@ class RedBlackTree():
     def _fix_insert(self: T, node: Node) -> None:
         assert isinstance(node.parent, Node)
         while node.parent.is_red():
-            assert isinstance(node.parent.parent, Node)
-            if node.parent == node.parent.parent.right:
+            ngp = node.parent.parent
+            assert isinstance(ngp, Node)
+            if node.parent == ngp.right:
                 u = node.parent.parent.left
                 if u.is_red():
                     u.set_color("black")
@@ -225,13 +226,13 @@ class RedBlackTree():
                     ngp.set_color("red")
                     self.left_rotate(ngp)
             else:
-                u = node.parent.parent.right
+                u = ngp.right
 
                 if u.is_red():
                     u.set_color("black")
                     node.parent.set_color("black")
-                    node.parent.parent.set_color("red")
-                    node = node.parent.parent
+                    ngp.set_color("red")
+                    node = ngp
                 else:
                     if node == node.parent.right:
                         node = node.parent
