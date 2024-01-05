@@ -229,9 +229,13 @@ class RedBlackTree():
                     if k == k.parent.right:
                         k = k.parent
                         self.left_rotate(k)
-                    k.parent.set_color("black")
-                    k.parent.parent.set_color("red")
-                    self.right_rotate(k.parent.parent)
+                    l = k.parent
+                    assert isinstance(l, Node)
+                    l.set_color("black")
+                    m = l.parent
+                    assert isinstance(m, Node)
+                    m.set_color("red")
+                    self.right_rotate(m)
             if k == self.root:
                 break
         self.root.set_color("black")
