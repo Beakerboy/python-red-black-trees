@@ -153,124 +153,6 @@ class RedBlackTree():
             u.parent.right = v
         v.parent = u.parent
 
-    # Node deletion
-    def delete_node_helper(self: T, node: Node, key: int) -> None:
-        z = Node()
-        while not node.is_null():
-            if node.key == key:
-                z = node
-
-            if node.key <= key:
-                node = node.right
-            else:
-                node = node.left
-
-        if z.is_null():
-            # print("Cannot find key in the tree")
-            return
-
-        y = z
-        y_original_color = y.get_color()
-        if z.left.is_null():
-            # If no left child, just scoot the right subtree up
-            x = z.right
-            self.__rb_transplant(z, z.right)
-        elif z.right.is_null():
-            # If no right child, just scoot the left subtree up
-            x = z.left
-            self.__rb_transplant(z, z.left)
-        else:
-            y = self.minimum(z.right)
-            y_original_color = y.get_color()
-            x = y.right
-            if y.parent == z:
-                x.parent = y
-            else:
-                self.__rb_transplant(y, y.right)
-                y.right = z.right
-                y.right.parent = y
-
-            self.__rb_transplant(z, y)
-            y.left = z.left
-            y.left.parent = y
-            y.set_color(z.get_color())
-        if y_original_color == "black":
-            self.delete_fix(x)
-
-        self.size -= 1
-
-    # Balance the tree after insertion
-    def _fix_insert(self: T, node: Node) -> None:
-        assert isinstance(node.parent, Node)
-        while node.parent.is_red():
-            np = node.parent
-            assert isinstance(np, Node)
-            ngp = node.parent.parent
-            assert isinstance(ngp, Node)
-            if np == ngp.right:
-                u = ngp.left
-                if u.is_red():
-                    u.set_color("black")
-                    np.set_color("black")
-                    ngp.set_color("red")
-                    node = ngp
-                else:
-                    if node == np.left:
-                        node = np
-                        self.right_rotate(node)
-                    np_new = node.parent
-                    assert isinstance(np_new, Node)
-                    np = np_new
-                    np.set_color("black")
-                    ngp = np.parent
-                    assert isinstance(ngp, Node)
-                    ngp.set_color("red")
-                    self.left_rotate(ngp)
-            else:
-                u = ngp.right
-
-                if u.is_red():
-                    u.set_color("black")
-                    np.set_color("black")
-                    ngp.set_color("red")
-                    node = ngp
-                else:
-                    if node == np.right:
-                        node = np
-                        self.left_rotate(node)
-                    np_new = node.parent
-                    assert isinstance(np_new, Node)
-                    np = np_new
-                    np.set_color("black")
-                    ngp = np.parent
-                    assert isinstance(ngp, Node)
-                    ngp.set_color("red")
-                    self.right_rotate(ngp)
-            if node == self.root:
-                break
-            assert isinstance(node.parent, Node)
-        self.root.set_color("black")
-
-    # Printing the tree
-    def __print_helper(self: T, node: Node, indent: str, last: str) -> str:
-        output = ''
-        if not node.is_null():
-            output += indent
-            if last == 'root':
-                indent += "     "
-            elif last == 'last':
-                output += "R----  "
-                indent += "     "
-            else:
-                output += "L----   "
-                indent += "|    "
-
-            s_color = "RED" if node.is_red() else "BLACK"
-            output += str(node.key) + "(" + s_color + ")\n"
-            output += self.__print_helper(node.left, indent, 'not_last')
-            output += self.__print_helper(node.right, indent, 'last')
-        return output
-
     def search(self: T, key: int) -> Node:
         """
         Find the node with the given key
@@ -392,7 +274,7 @@ class RedBlackTree():
         self._fix_insert(node)
 
     def delete(self: T, key: Any) -> None:
-        self.delete_node_helper(self.root, key)
+        self._delete_node_helper(self.root, key)
 
     def print_tree(self: T) -> None:
         print(self.__print_helper(self.root, "", 'root'))
@@ -407,3 +289,121 @@ class RedBlackTree():
                        + str(key)
                        + "}</latex>\n")
         return output + "@endmindmap"
+
+    # Balance the tree after insertion
+    def _fix_insert(self: T, node: Node) -> None:
+        assert isinstance(node.parent, Node)
+        while node.parent.is_red():
+            np = node.parent
+            assert isinstance(np, Node)
+            ngp = node.parent.parent
+            assert isinstance(ngp, Node)
+            if np == ngp.right:
+                u = ngp.left
+                if u.is_red():
+                    u.set_color("black")
+                    np.set_color("black")
+                    ngp.set_color("red")
+                    node = ngp
+                else:
+                    if node == np.left:
+                        node = np
+                        self.right_rotate(node)
+                    np_new = node.parent
+                    assert isinstance(np_new, Node)
+                    np = np_new
+                    np.set_color("black")
+                    ngp = np.parent
+                    assert isinstance(ngp, Node)
+                    ngp.set_color("red")
+                    self.left_rotate(ngp)
+            else:
+                u = ngp.right
+
+                if u.is_red():
+                    u.set_color("black")
+                    np.set_color("black")
+                    ngp.set_color("red")
+                    node = ngp
+                else:
+                    if node == np.right:
+                        node = np
+                        self.left_rotate(node)
+                    np_new = node.parent
+                    assert isinstance(np_new, Node)
+                    np = np_new
+                    np.set_color("black")
+                    ngp = np.parent
+                    assert isinstance(ngp, Node)
+                    ngp.set_color("red")
+                    self.right_rotate(ngp)
+            if node == self.root:
+                break
+            assert isinstance(node.parent, Node)
+        self.root.set_color("black")
+
+    # Printing the tree
+    def __print_helper(self: T, node: Node, indent: str, last: str) -> str:
+        output = ''
+        if not node.is_null():
+            output += indent
+            if last == 'root':
+                indent += "     "
+            elif last == 'last':
+                output += "R----  "
+                indent += "     "
+            else:
+                output += "L----   "
+                indent += "|    "
+
+            s_color = "RED" if node.is_red() else "BLACK"
+            output += str(node.key) + "(" + s_color + ")\n"
+            output += self.__print_helper(node.left, indent, 'not_last')
+            output += self.__print_helper(node.right, indent, 'last')
+        return output
+
+    # Node deletion
+    def _delete_node_helper(self: T, node: Node, key: Any) -> None:
+        z = Node()
+        while not node.is_null():
+            if node.key == key:
+                z = node
+
+            if node.key <= key:
+                node = node.right
+            else:
+                node = node.left
+
+        if z.is_null():
+            # print("Cannot find key in the tree")
+            return
+
+        y = z
+        y_original_color = y.get_color()
+        if z.left.is_null():
+            # If no left child, just scoot the right subtree up
+            x = z.right
+            self.__rb_transplant(z, z.right)
+        elif z.right.is_null():
+            # If no right child, just scoot the left subtree up
+            x = z.left
+            self.__rb_transplant(z, z.left)
+        else:
+            y = self.minimum(z.right)
+            y_original_color = y.get_color()
+            x = y.right
+            if y.parent == z:
+                x.parent = y
+            else:
+                self.__rb_transplant(y, y.right)
+                y.right = z.right
+                y.right.parent = y
+
+            self.__rb_transplant(z, y)
+            y.left = z.left
+            y.left.parent = y
+            y.set_color(z.get_color())
+        if y_original_color == "black":
+            self.delete_fix(x)
+
+        self.size -= 1
