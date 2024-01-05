@@ -222,7 +222,7 @@ class RedBlackTree():
                     np.set_color("black")
                     ngp = np.parent
                     assert isinstance(ngp, Node)
-                    ngp..set_color("red")
+                    ngp.set_color("red")
                     self.left_rotate(ngp)
             else:
                 u = node.parent.parent.right
