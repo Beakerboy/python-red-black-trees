@@ -1,4 +1,4 @@
-from typing import Any, TypeVar
+from typing import Any, Optional, TypeVar
 
 
 T = TypeVar('T', bound='Node')
@@ -8,7 +8,7 @@ class Node():
 
     def __init__(self: T, key: Any = None) -> None:
         self.key = key
-        self.parent: Node | None = None
+        self.parent: Optional[Node]
         self.left: Node
         self.right: Node
         self._color = 0 if key is None else 1
