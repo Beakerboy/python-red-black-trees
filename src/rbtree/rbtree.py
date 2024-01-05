@@ -203,6 +203,7 @@ class RedBlackTree():
     def _fix_insert(self: T, node: Node) -> None:
         assert isinstance(node.parent, Node)
         while node.parent.is_red():
+            assert isinstance(node.parent.parent, Node)
             if node.parent == node.parent.parent.right:
                 u = node.parent.parent.left
                 if u.is_red():
