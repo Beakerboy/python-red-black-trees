@@ -200,53 +200,50 @@ class RedBlackTree():
         self.size -= 1
 
     # Balance the tree after insertion
-    def _fix_insert(self: T, k: Node) -> None:
-        kp = k.parent
-        assert isinstance(kp, Node)
-        
-        while kp.is_red():
-            kgp = kp.parent
-            assert isinstance(kgp, Node)
-            if kp == kgp.right:
-                u = kgp.left
+    def _fix_insert(self: T, node: Node) -> None:
+        parent = node.parent
+        assert isinstance(parent, Node)
+        while parent.is_red():
+            if parent == parent.parent.right:
+                u = node.parent.parent.left
                 if u.is_red():
                     u.set_color("black")
-                    kp.set_color("black")
-                    kgp.set_color("red")
-                    k = kgp
+                    parent.set_color("black")
+                    parent.parent.set_color("red")
+                    node = parent.parent
+                    parent = node.parent
+                    assert isinstance(parent, Node)
                 else:
-                    if k == kp.left:
-                        k = kp
-                        self.right_rotate(k)
-                    kp = k.parent
-                    assert isinstance(kp, Node)
-                    kgp = kp.parent
-                    assert isinstance(kgp, Node)
-                    kp.set_color("black")
-                    kgp.set_color("red")
-                    self.left_rotate(kgp)
+                    if node == node.parent.left:
+                        node = parent
+                        self.right_rotate(node)
+                        parent = node.parent
+                        assert isinstance(parent, Node)
+                    parent.set_color("black")
+                    parent.parent.set_color("red")
+                    self.left_rotate(parent.parent)
             else:
-                u = kgp.right
+                u = parent.parent.right
 
                 if u.is_red():
                     u.set_color("black")
-                    kp.set_color("black")
-                    kgp.set_color("red")
-                    k = kgp
-                    kp = k.parent
-                    assert isinstance(kp, Node)
+                    parent.set_color("black")
+                    parent.parent.set_color("red")
+                    node = parent.parent
+                    parent = node.parent
+                    assert isinstance(parent, Node)
                 else:
-                    if k == kp.right:
-                        k = kp
-                        self.left_rotate(k)
-                    kp = k.parent
-                    assert isinstance(kp, Node)
-                    kgp = kp.parent
-                    assert isinstance(kgp, Node)
-                    kp.set_color("black")
-                    kgp.set_color("red")
-                    self.right_rotate(kgp)
-            if k == self.root:
+                    if node == parent.right:
+                        node = parent
+                        self.left_rotate(node)
+                        parent = node.parent
+                        assert isinstance(parent, Node)
+                    parent.set_color("black")
+                    parent.parent.set_color("red")
+                    self.right_rotate(parent.parent)
+                    parent = node.parent
+                    assert isinstance(parent, Node)
+            if node == self.root:
                 break
         self.root.set_color("black")
 
