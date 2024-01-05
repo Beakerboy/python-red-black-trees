@@ -235,6 +235,7 @@ class RedBlackTree():
                     self.right_rotate(node.parent.parent)
             if node == self.root:
                 break
+            assert isinstance(node.parent, Node)
         self.root.set_color("black")
 
     # Printing the tree
