@@ -229,9 +229,9 @@ class RedBlackTree():
                     if k == k.parent.right:
                         k = k.parent
                         self.left_rotate(k)
-                    l = k.parent
-                    assert isinstance(l, Node)
-                    l.set_color("black")
+                    n = k.parent
+                    assert isinstance(n, Node)
+                    n.set_color("black")
                     m = l.parent
                     assert isinstance(m, Node)
                     m.set_color("red")
