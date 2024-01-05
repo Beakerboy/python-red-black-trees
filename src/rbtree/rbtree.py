@@ -303,27 +303,33 @@ class RedBlackTree():
                     self._left_rotate(np)
                     x = self.root
             else:
-                s = x.parent.left
+                s = np.left
                 if s.is_red():
                     s.set_color("black")
-                    x.parent.set_color("red")
-                    self._right_rotate(x.parent)
-                    s = x.parent.left
+                    np.set_color("red")
+                    self._right_rotate(np)
+                    np_new = x.parent
+                    assert isinstance(np_new, Node)
+                    np = np_new
+                    s = np.left
 
                 if s.left.is_black() and s.right.is_black():
                     s.set_color("red")
-                    x = x.parent
+                    x = np
                 else:
                     if s.left.is_black():
                         s.right.set_color("black")
                         s.set_color("red")
                         self._left_rotate(s)
-                        s = x.parent.left
+                        np_new = x.parent
+                        assert isinstance(np_new, Node)
+                        np = np_new
+                        s = np.left
 
-                    s.set_color(x.parent.get_color())
-                    x.parent.set_color("black")
+                    s.set_color(np.get_color())
+                    np.set_color("black")
                     s.left.set_color("black")
-                    self._right_rotate(x.parent)
+                    self._right_rotate(np)
                     x = self.root
         x.set_color("black")
 
