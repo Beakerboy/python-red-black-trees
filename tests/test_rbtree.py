@@ -1,4 +1,5 @@
-from rbtree.rbtree import RedBlackTree, Node
+from rbtree.rbtree import RedBlackTree
+from rbtree.node import Node
 
 
 def check_node_valid(bst: RedBlackTree, node: Node) -> None:
