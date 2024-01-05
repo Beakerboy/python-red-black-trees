@@ -1,4 +1,5 @@
-from rbtree.rbtree import RedBlackTree, Node
+from rbtree.rbtree import RedBlackTree
+from rbtree.node import Node
 
 
 def check_node_valid(bst: RedBlackTree, node: Node) -> None:
@@ -183,6 +184,7 @@ def test_accessors() -> None:
     assert bst.successor(bst.search(42)).key == 55
     assert bst.successor(bst.search(40)).key == 42
     assert bst.successor(bst.search(55)).key == 58
+    assert bst.successor(bst.search(58)) is None
     assert bst.predecessor(bst.search(42)).key == 40
     assert bst.predecessor(bst.search(55)).key == 42
     assert bst.predecessor(bst.search(58)).key == 55
