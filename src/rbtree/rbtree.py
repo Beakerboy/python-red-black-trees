@@ -284,7 +284,8 @@ class RedBlackTree():
             return self.minimum(x.right)
 
         y = x.parent
-        while not y.is_null() and x == y.right:
+        
+        while not y.is_null() and x == y.righ and not y is None:
             x = y
             y = y.parent
         return y
