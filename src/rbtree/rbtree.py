@@ -271,12 +271,14 @@ class RedBlackTree():
     # Balancing the tree after deletion
     def _delete_fix(self: T, x: Node) -> None:
         while x != self.root and x.is_black():
-            if x == x.parent.left:
-                s = x.parent.right
+            np = x.parent
+            assert isinstance(np, Node)
+            if x == np.left:
+                s = np.right
                 if s.is_red():
                     s.set_color("black")
-                    x.parent.set_color("red")
-                    self._left_rotate(x.parent)
+                    np.set_color("red")
+                    self._left_rotate(np)
                     s = x.parent.right
 
                 if s.left.is_black() and s.right.is_black():
