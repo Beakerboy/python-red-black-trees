@@ -2,7 +2,7 @@
 # Adapted from https://www.programiz.com/dsa/red-black-tree
 
 import sys
-from typing import Any, TypeVar, Iterator
+from typing import Any, Optional, TypeVar, Iterator
 from rbtree.node import Node
 
 
@@ -279,7 +279,7 @@ class RedBlackTree():
             node = node.right
         return node
 
-    def successor(self: T, x: Node) -> Node:
+    def successor(self: T, x: Node) -> Optional[Node]:
         if not x.right.is_null():
             return self.minimum(x.right)
 
@@ -289,7 +289,7 @@ class RedBlackTree():
             y = y.parent
         return y
 
-    def predecessor(self: T,  x: Node) -> Node:
+    def predecessor(self: T,  x: Node) -> Optional[Node]:
         if (not x.left.is_null()):
             return self.maximum(x.left)
 
