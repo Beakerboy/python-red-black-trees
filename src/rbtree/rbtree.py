@@ -286,7 +286,7 @@ class RedBlackTree():
 
                 if s.left.is_black() and s.right.is_black():
                     s.set_color("red")
-                    x = x.parent
+                    x = np
                 else:
                     if s.right.is_black():
                         s.left.set_color("black")
