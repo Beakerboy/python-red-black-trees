@@ -297,10 +297,10 @@ class RedBlackTree():
                         np = np_new
                         s = np.right
 
-                    s.set_color(x.parent.get_color())
-                    x.parent.set_color("black")
+                    s.set_color(np.get_color())
+                    np.set_color("black")
                     s.right.set_color("black")
-                    self._left_rotate(x.parent)
+                    self._left_rotate(np)
                     x = self.root
             else:
                 s = x.parent.left
