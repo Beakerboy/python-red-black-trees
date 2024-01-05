@@ -78,7 +78,7 @@ class RedBlackTree():
     def preorder(self: T, include_nulls: bool = False) -> list:
         return self.pre_order_helper(self.root, include_nulls)
 
-    def inorder(self: T) -> list:
+    def inorder(self: T) -> None:
         self.in_order_helper(self.root)
 
     def postorder(self: T) -> None:
