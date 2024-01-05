@@ -8,7 +8,7 @@ class Node():
 
     def __init__(self: T, key: Any = None) -> None:
         self.key = key
-        self.parent: Node
+        self.parent: Node | None = None
         self.left: Node
         self.right: Node
         self._color = 0 if key is None else 1
