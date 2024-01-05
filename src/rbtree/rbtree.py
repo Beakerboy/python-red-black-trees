@@ -212,12 +212,16 @@ class RedBlackTree():
                     node.parent.parent.set_color("red")
                     node = node.parent.parent
                 else:
-                    if node == node.parent.left:
-                        node = node.parent
+                    np = node.parent
+                    assert isinstance(np, Node)
+                    if node == np.left:
+                        node = np
                         self.right_rotate(node)
-                    node.parent.set_color("black")
-                    node.parent.parent.set_color("red")
-                    self.left_rotate(node.parent.parent)
+                    np = node.parent
+                    assert isinstance(np, Node)
+                    np.set_color("black")
+                    np.parent.set_color("red")
+                    self.left_rotate(np.parent)
             else:
                 u = node.parent.parent.right
 
