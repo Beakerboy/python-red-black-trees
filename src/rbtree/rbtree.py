@@ -15,6 +15,8 @@ class RedBlackTree():
         self.size = 0
         self._iterator_include_nulls = False
 
+    # Dunder Methods
+
     def __iter__(self: T) -> Iterator:
         nulls = self._iterator_include_nulls
         return iter(self.preorder(nulls))
@@ -31,58 +33,18 @@ class RedBlackTree():
     def __str__(self: T) -> str:
         return self.__print_helper(self.root, "", 'root')
 
-    # Getters and Setters
+    # Getters and Setters and Properties
     def get_root(self: T) -> Node:
         return self.root
 
-    def pre_order_helper(self: T,
-                         node: Node,
-                         include_nulls: bool = False) -> list:
-        """
-        Create an array of child elements following
-        a preorder traversal of the tree.
-        """
-        left = []
-        right = []
-        basenode = []
-        if not node.is_null():
-            basenode = [node]
-            left = self.pre_order_helper(node.left, include_nulls)
-            right = self.pre_order_helper(node.right, include_nulls)
-        if include_nulls:
-            basenode = [node]
-        basenode.extend(left)
-        basenode.extend(right)
-        return basenode
-
-    def in_order_helper(self: T, node: Node) -> None:
-        """
-        Create an array of child elements following
-        a inorder traversal of the tree.
-        """
-        if not node.is_null():
-            self.in_order_helper(node.left)
-            sys.stdout.write(str(node.key) + " ")
-            self.in_order_helper(node.right)
-
-    def post_order_helper(self: T, node: Node) -> None:
-        """
-        Create an array of child elements following
-        a postorder traversal of the tree.
-        """
-        if not node.is_null():
-            self.post_order_helper(node.left)
-            self.post_order_helper(node.right)
-            sys.stdout.write(str(node.key) + " ")
-
     def preorder(self: T, include_nulls: bool = False) -> list:
-        return self.pre_order_helper(self.root, include_nulls)
+        return self._pre_order_helper(self.root, include_nulls)
 
     def inorder(self: T) -> None:
-        self.in_order_helper(self.root)
+        self._in_order_helper(self.root)
 
     def postorder(self: T) -> None:
-        self.post_order_helper(self.root)
+        self._post_order_helper(self.root)
 
     def search(self: T, key: Any) -> Node:
         """
@@ -400,3 +362,43 @@ class RedBlackTree():
         if key < node.key:
             return self.search_tree_helper(node.left, key)
         return self.search_tree_helper(node.right, key)
+
+    def _pre_order_helper(self: T,
+                         node: Node,
+                         include_nulls: bool = False) -> list:
+        """
+        Create an array of child elements following
+        a preorder traversal of the tree.
+        """
+        left = []
+        right = []
+        basenode = []
+        if not node.is_null():
+            basenode = [node]
+            left = self._pre_order_helper(node.left, include_nulls)
+            right = self._pre_order_helper(node.right, include_nulls)
+        if include_nulls:
+            basenode = [node]
+        basenode.extend(left)
+        basenode.extend(right)
+        return basenode
+
+    def _in_order_helper(self: T, node: Node) -> None:
+        """
+        Create an array of child elements following
+        a inorder traversal of the tree.
+        """
+        if not node.is_null():
+            self._in_order_helper(node.left)
+            sys.stdout.write(str(node.key) + " ")
+            self._in_order_helper(node.right)
+
+    def _post_order_helper(self: T, node: Node) -> None:
+        """
+        Create an array of child elements following
+        a postorder traversal of the tree.
+        """
+        if not node.is_null():
+            self._post_order_helper(node.left)
+            self._post_order_helper(node.right)
+            sys.stdout.write(str(node.key) + " ")
