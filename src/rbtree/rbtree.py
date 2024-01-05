@@ -366,9 +366,8 @@ class RedBlackTree():
             return self._search_tree_helper(node.left, key)
         return self._search_tree_helper(node.right, key)
 
-    def _pre_order_helper(self: T,
-                         node: Node,
-                         include_nulls: bool = False) -> list:
+    def _pre_order_helper(self: T, node: Node,
+                          include_nulls: bool = False) -> list:
         """
         Create an array of child elements following
         a preorder traversal of the tree.
