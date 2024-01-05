@@ -232,7 +232,7 @@ class RedBlackTree():
                     n = k.parent
                     assert isinstance(n, Node)
                     n.set_color("black")
-                    m = l.parent
+                    m = n.parent
                     assert isinstance(m, Node)
                     m.set_color("red")
                     self.right_rotate(m)
