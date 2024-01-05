@@ -270,7 +270,7 @@ class RedBlackTree():
             node = node.left
         return node
 
-    def maximum(self: T, node: Node = None) -> Node:
+    def maximum(self: T, node: Optional[Node] = None) -> Node:
         if node is None:
             node = self.root
         if node.is_null():
