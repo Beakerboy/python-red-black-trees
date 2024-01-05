@@ -203,19 +203,20 @@ class RedBlackTree():
     def _fix_insert(self: T, k: Node) -> None:
         kp = k.parent
         assert isinstance(kp, Node)
-        kgp = kp.parent
-        assert isinstance(kgp, Node)
-        while k.parent.is_red():
-            if k.parent == k.parent.parent.right:
-                u = k.parent.parent.left
+        
+        while kp.is_red():
+            kgp = kp.parent
+            assert isinstance(kgp, Node)
+            if kp == kgp.right:
+                u = kgp.left
                 if u.is_red():
                     u.set_color("black")
-                    k.parent.set_color("black")
-                    k.parent.parent.set_color("red")
-                    k = k.parent.parent
+                    kp.set_color("black")
+                    kgp.set_color("red")
+                    k = kgp
                 else:
-                    if k == k.parent.left:
-                        k = k.parent
+                    if k == kp.left:
+                        k = kp
                         self.right_rotate(k)
                     kp = k.parent
                     assert isinstance(kp, Node)
@@ -225,16 +226,18 @@ class RedBlackTree():
                     kgp.set_color("red")
                     self.left_rotate(kgp)
             else:
-                u = k.parent.parent.right
+                u = kgp.right
 
                 if u.is_red():
                     u.set_color("black")
-                    k.parent.set_color("black")
-                    k.parent.parent.set_color("red")
-                    k = k.parent.parent
+                    kp.set_color("black")
+                    kgp.set_color("red")
+                    k = kgp
+                    kp = k.parent
+                    assert isinstance(kp, Node)
                 else:
-                    if k == k.parent.right:
-                        k = k.parent
+                    if k == kp.right:
+                        k = kp
                         self.left_rotate(k)
                     kp = k.parent
                     assert isinstance(kp, Node)
