@@ -295,7 +295,7 @@ class RedBlackTree():
             return self.maximum(x.left)
 
         y = x.parent
-        while not y.is_null() and x == y.left:
+        while y is not None and not y.is_null() and x == y.left:
             x = y
             y = y.parent
 
