@@ -357,7 +357,7 @@ class RedBlackTree():
         y.right = x
         x.parent = y
 
-   # Search the tree
+    # Search the tree
     def _search_tree_helper(self: T, node: Node, key: Any) -> Node:
         if node.is_null() or key == node.key:
             return node
