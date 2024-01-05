@@ -292,7 +292,10 @@ class RedBlackTree():
                         s.left.set_color("black")
                         s.set_color("red")
                         self._right_rotate(s)
-                        s = x.parent.right
+                        np_new = x.parent
+                        assert isinstance(np_new, Node)
+                        np = np_new
+                        s = np.right
 
                     s.set_color(x.parent.get_color())
                     x.parent.set_color("black")
