@@ -285,7 +285,7 @@ class RedBlackTree():
 
         y = x.parent
         
-        while not y.is_null() and x == y.righ and not y is None:
+        while not y is None and not y.is_null() and x == y.right:
             x = y
             y = y.parent
         return y
