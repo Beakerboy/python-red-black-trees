@@ -200,7 +200,7 @@ class RedBlackTree():
         self.size -= 1
 
     # Balance the tree after insertion
-    def fix_insert(self: T, k: Node) -> None:
+    def _fix_insert(self: T, k: Node) -> None:
         while k.parent.is_red():
             if k.parent == k.parent.parent.right:
                 u = k.parent.parent.left
@@ -217,6 +217,7 @@ class RedBlackTree():
                     k.parent.parent.set_color("red")
                     self.left_rotate(k.parent.parent)
             else:
+                assert isinstance(k.parent.parent, Node)
                 u = k.parent.parent.right
 
                 if u.is_red():
@@ -373,7 +374,7 @@ class RedBlackTree():
         if node.parent.parent is None:
             return
 
-        self.fix_insert(node)
+        self._fix_insert(node)
 
     def delete(self: T, key: Any) -> None:
         self.delete_node_helper(self.root, key)
