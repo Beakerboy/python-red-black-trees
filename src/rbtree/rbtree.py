@@ -34,8 +34,11 @@ class RedBlackTree():
         return self.__print_helper(self.root, "", 'root')
 
     # Getters and Setters and Properties
+
     def get_root(self: T) -> Node:
         return self.root
+
+    # Public Methods
 
     def preorder(self: T, include_nulls: bool = False) -> list:
         return self._pre_order_helper(self.root, include_nulls)
