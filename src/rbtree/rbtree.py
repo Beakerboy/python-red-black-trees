@@ -84,20 +84,11 @@ class RedBlackTree():
     def postorder(self: T) -> None:
         self.post_order_helper(self.root)
 
-    # Search the tree
-    def search_tree_helper(self: T, node: Node, key: Any) -> Node:
-        if node.is_null() or key == node.key:
-            return node
-
-        if key < node.key:
-            return self.search_tree_helper(node.left, key)
-        return self.search_tree_helper(node.right, key)
-
     def search(self: T, key: Any) -> Node:
         """
         Find the node with the given key
         """
-        return self.search_tree_helper(self.root, key)
+        return self._search_tree_helper(self.root, key)
 
     def minimum(self: T, node: Optional[Node] = None) -> Node:
         if node is None:
@@ -400,3 +391,12 @@ class RedBlackTree():
             x.parent.left = y
         y.right = x
         x.parent = y
+
+   # Search the tree
+    def search_tree_helper(self: T, node: Node, key: Any) -> Node:
+        if node.is_null() or key == node.key:
+            return node
+
+        if key < node.key:
+            return self.search_tree_helper(node.left, key)
+        return self.search_tree_helper(node.right, key)
