@@ -93,7 +93,7 @@ class RedBlackTree():
             return self.search_tree_helper(node.left, key)
         return self.search_tree_helper(node.right, key)
 
-    def search(self: T, key: int) -> Node:
+    def search(self: T, key: Any) -> Node:
         """
         Find the node with the given key
         """
@@ -304,16 +304,7 @@ class RedBlackTree():
 
     # Node deletion
     def _delete_node_helper(self: T, node: Node, key: Any) -> None:
-        z = Node()
-        while not node.is_null():
-            if node.key == key:
-                z = node
-
-            if node.key <= key:
-                node = node.right
-            else:
-                node = node.left
-
+        z = self.search(key)
         if z.is_null():
             # print("Cannot find key in the tree")
             return
