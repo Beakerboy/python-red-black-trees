@@ -218,6 +218,7 @@ class RedBlackTree():
                     if node == np.left:
                         node = np
                         self.right_rotate(node)
+                    del np
                     np = node.parent
                     assert isinstance(np, Node)
                     np.set_color("black")
