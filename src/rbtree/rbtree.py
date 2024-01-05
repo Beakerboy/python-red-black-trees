@@ -266,7 +266,7 @@ class RedBlackTree():
         """
         return self.search_tree_helper(self.root, key)
 
-    def minimum(self: T, node: Node = None) -> Node:
+    def minimum(self: T, node: Optional[Node] = None) -> Node:
         if node is None:
             node = self.root
         if node.is_null():
