@@ -363,8 +363,8 @@ class RedBlackTree():
             return node
 
         if key < node.key:
-            return self.search_tree_helper(node.left, key)
-        return self.search_tree_helper(node.right, key)
+            return self._search_tree_helper(node.left, key)
+        return self._search_tree_helper(node.right, key)
 
     def _pre_order_helper(self: T,
                          node: Node,
