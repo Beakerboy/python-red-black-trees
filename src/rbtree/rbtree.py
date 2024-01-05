@@ -231,16 +231,21 @@ class RedBlackTree():
 
                 if u.is_red():
                     u.set_color("black")
-                    node.parent.set_color("black")
+                    np.set_color("black")
                     ngp.set_color("red")
                     node = ngp
                 else:
-                    if node == node.parent.right:
-                        node = node.parent
+                    if node == np.right:
+                        node = np
                         self.left_rotate(node)
-                    node.parent.set_color("black")
-                    node.parent.parent.set_color("red")
-                    self.right_rotate(node.parent.parent)
+                    np_new = node.parent
+                    assert isinstance(np_new, Node)
+                    np = np_new
+                    np.set_color("black")
+                    ngp = np.parent
+                    assert isinstance(ngp, Node)
+                    ngp.set_color("red")
+                    self.right_rotate(ngp)
             if node == self.root:
                 break
             assert isinstance(node.parent, Node)
