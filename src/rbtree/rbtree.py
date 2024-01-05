@@ -93,66 +93,6 @@ class RedBlackTree():
             return self.search_tree_helper(node.left, key)
         return self.search_tree_helper(node.right, key)
 
-    # Balancing the tree after deletion
-    def delete_fix(self: T, x: Node) -> None:
-        while x != self.root and x.is_black():
-            if x == x.parent.left:
-                s = x.parent.right
-                if s.is_red():
-                    s.set_color("black")
-                    x.parent.set_color("red")
-                    self.left_rotate(x.parent)
-                    s = x.parent.right
-
-                if s.left.is_black() and s.right.is_black():
-                    s.set_color("red")
-                    x = x.parent
-                else:
-                    if s.right.is_black():
-                        s.left.set_color("black")
-                        s.set_color("red")
-                        self.right_rotate(s)
-                        s = x.parent.right
-
-                    s.set_color(x.parent.get_color())
-                    x.parent.set_color("black")
-                    s.right.set_color("black")
-                    self.left_rotate(x.parent)
-                    x = self.root
-            else:
-                s = x.parent.left
-                if s.is_red():
-                    s.set_color("black")
-                    x.parent.set_color("red")
-                    self.right_rotate(x.parent)
-                    s = x.parent.left
-
-                if s.left.is_black() and s.right.is_black():
-                    s.set_color("red")
-                    x = x.parent
-                else:
-                    if s.left.is_black():
-                        s.right.set_color("black")
-                        s.set_color("red")
-                        self.left_rotate(s)
-                        s = x.parent.left
-
-                    s.set_color(x.parent.get_color())
-                    x.parent.set_color("black")
-                    s.left.set_color("black")
-                    self.right_rotate(x.parent)
-                    x = self.root
-        x.set_color("black")
-
-    def __rb_transplant(self: T, u: Node, v: Node) -> None:
-        if u.parent is None:
-            self.root = v
-        elif u == u.parent.left:
-            u.parent.left = v
-        else:
-            u.parent.right = v
-        v.parent = u.parent
-
     def search(self: T, key: int) -> Node:
         """
         Find the node with the given key
@@ -404,6 +344,66 @@ class RedBlackTree():
             y.left.parent = y
             y.set_color(z.get_color())
         if y_original_color == "black":
-            self.delete_fix(x)
+            self._delete_fix(x)
 
         self.size -= 1
+
+    # Balancing the tree after deletion
+    def _delete_fix(self: T, x: Node) -> None:
+        while x != self.root and x.is_black():
+            if x == x.parent.left:
+                s = x.parent.right
+                if s.is_red():
+                    s.set_color("black")
+                    x.parent.set_color("red")
+                    self.left_rotate(x.parent)
+                    s = x.parent.right
+
+                if s.left.is_black() and s.right.is_black():
+                    s.set_color("red")
+                    x = x.parent
+                else:
+                    if s.right.is_black():
+                        s.left.set_color("black")
+                        s.set_color("red")
+                        self.right_rotate(s)
+                        s = x.parent.right
+
+                    s.set_color(x.parent.get_color())
+                    x.parent.set_color("black")
+                    s.right.set_color("black")
+                    self.left_rotate(x.parent)
+                    x = self.root
+            else:
+                s = x.parent.left
+                if s.is_red():
+                    s.set_color("black")
+                    x.parent.set_color("red")
+                    self.right_rotate(x.parent)
+                    s = x.parent.left
+
+                if s.left.is_black() and s.right.is_black():
+                    s.set_color("red")
+                    x = x.parent
+                else:
+                    if s.left.is_black():
+                        s.right.set_color("black")
+                        s.set_color("red")
+                        self.left_rotate(s)
+                        s = x.parent.left
+
+                    s.set_color(x.parent.get_color())
+                    x.parent.set_color("black")
+                    s.left.set_color("black")
+                    self.right_rotate(x.parent)
+                    x = self.root
+        x.set_color("black")
+
+    def __rb_transplant(self: T, u: Node, v: Node) -> None:
+        if u.parent is None:
+            self.root = v
+        elif u == u.parent.left:
+            u.parent.left = v
+        else:
+            u.parent.right = v
+        v.parent = u.parent
