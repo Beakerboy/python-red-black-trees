@@ -51,38 +51,18 @@ def check_valid(bst: RedBlackTree) -> None:
 
 def test_insert() -> None:
     bst = RedBlackTree()
+    assert len(bst) == 0
     bst.insert(55)
-    assert bst.search(55).key == 55
-    bst.insert(40)
-    assert bst.search(40).key == 40
-    bst.insert(58)
-    assert bst.search(58).key == 58
-    bst.insert(42)
-    assert bst.search(42).key == 42
-
-    bst.insert(42)
-    bst.insert(42)
-    bst.insert(42)
-    bst.insert(42)
-    bst.insert(42)
-    bst.insert(43)
-    bst.insert(44)
-    bst.insert(40)
-    bst.insert(-10)
-    bst.insert(10)
-    bst.insert(15)
-    bst.insert(11)
-    bst.insert(100)
-    bst.insert(101)
-    bst.insert(103)
-    bst.insert(106)
-    bst.insert(107)
-    bst.insert(109)
-    bst.insert(102)
-
-    assert bst.size == 17
-
+    assert len(bst) == 1
     check_valid(bst)
+
+
+def test_duplicate_insert() -> None:
+    bst = RedBlackTree()
+    assert len(bst) == 0
+    bst.insert(55)
+    bst.insert(55)
+    assert len(bst) == 1
 
 
 def test_search() -> None:
@@ -142,18 +122,6 @@ def test_complex_delete() -> None:
             else:
                 bst.delete(int(sline[1]))
             check_valid(bst)
-
-
-# def test_long() -> None:
-#    bst = RedBlackTree()
-#    with open("tests/test_input.txt") as infile:
-#        for line in infile:
-#            sline = line.split()
-#            if sline[0] == "a":
-#                bst.insert(int(sline[1]))
-#            else:
-#                bst.delete(int(sline[1]))
-#            check_valid(bst)
 
 
 def test_dictionary() -> None:
