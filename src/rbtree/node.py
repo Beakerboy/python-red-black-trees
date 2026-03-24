@@ -35,10 +35,12 @@ class Node():
     def __ne__(self: T, other: Any) -> bool:
         return self.key != other.key
 
-    def get_color(self: T) -> str:
+    @property
+    def color(self: T) -> str:
         return "black" if self._color == 0 else "red"
 
-    def set_color(self: T, color: str) -> None:
+    @color.setter
+    def color(self: T, color: str) -> None:
         if color == "black":
             self._color = 0
         elif color == "red":
