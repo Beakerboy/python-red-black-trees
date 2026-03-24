@@ -399,15 +399,17 @@ class RedBlackTree():
         basenode.extend(right)
         return basenode
 
-    def _in_order_helper(self: T, node: Node) -> None:
+    def _in_order_helper(self: T, node: Node) -> str:
         """
         Create an array of child elements following
         a inorder traversal of the tree.
         """
+        result = ""
         if not node.is_null():
             self._in_order_helper(node.left)
-            sys.stdout.write(str(node.key) + " ")
+            result += str(node.key) + " "
             self._in_order_helper(node.right)
+        return result
 
     def _post_order_helper(self: T, node: Node) -> str:
         """
@@ -419,3 +421,4 @@ class RedBlackTree():
             self._post_order_helper(node.left)
             self._post_order_helper(node.right)
             result += str(node.key) + " "
+        return result
