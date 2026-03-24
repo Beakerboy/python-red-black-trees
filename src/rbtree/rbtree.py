@@ -409,12 +409,13 @@ class RedBlackTree():
             sys.stdout.write(str(node.key) + " ")
             self._in_order_helper(node.right)
 
-    def _post_order_helper(self: T, node: Node) -> None:
+    def _post_order_helper(self: T, node: Node) -> str:
         """
         Create an array of child elements following
         a postorder traversal of the tree.
         """
+        result = ""
         if not node.is_null():
             self._post_order_helper(node.left)
             self._post_order_helper(node.right)
-            sys.stdout.write(str(node.key) + " ")
+            result += str(node.key) + " "
