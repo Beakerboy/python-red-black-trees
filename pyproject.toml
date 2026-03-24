@@ -17,6 +17,16 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
+[project.optional-dependencies]
+tests = [
+  'mypy',
+  'pytest',
+  'pytest-cov',
+  'pytest-mock',
+  'coveralls',
+  'pep8-naming',
+  'flake8-annotations'
+]
 [project.urls]
 "Homepage" = "https://github.com/emilydolson/python-red-black-trees"
 "Bug Tracker" = "https://github.com/emilydolson/python-red-black-trees/issues"
