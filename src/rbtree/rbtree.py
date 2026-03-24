@@ -239,7 +239,7 @@ class RedBlackTree():
             return
 
         y = z
-        y_original_color = y.get_color()
+        y_original_color = y.color
         if z.left.is_null():
             # If no left child, just scoot the right subtree up
             x = z.right
@@ -250,7 +250,7 @@ class RedBlackTree():
             self.__rb_transplant(z, z.left)
         else:
             y = self.minimum(z.right)
-            y_original_color = y.get_color()
+            y_original_color = y.color
             x = y.right
             if y.parent == z:
                 x.parent = y
@@ -262,7 +262,7 @@ class RedBlackTree():
             self.__rb_transplant(z, y)
             y.left = z.left
             y.left.parent = y
-            y.set_color(z.get_color())
+            y.color = z.color
         if y_original_color == "black":
             self._delete_fix(x)
 
@@ -276,8 +276,8 @@ class RedBlackTree():
             if x == np.left:
                 s = np.right
                 if s.is_red():
-                    s.set_color("black")
-                    np.set_color("red")
+                    s.color = "black"
+                    np.color = "red"
                     self._left_rotate(np)
                     np_new = x.parent
                     assert isinstance(np_new, Node)
@@ -285,28 +285,28 @@ class RedBlackTree():
                     s = np.right
 
                 if s.left.is_black() and s.right.is_black():
-                    s.set_color("red")
+                    s.color = "red"
                     x = np
                 else:
                     if s.right.is_black():
-                        s.left.set_color("black")
-                        s.set_color("red")
+                        s.left.color = "black"
+                        s.color = "red"
                         self._right_rotate(s)
                         np_new = x.parent
                         assert isinstance(np_new, Node)
                         np = np_new
                         s = np.right
 
-                    s.set_color(np.get_color())
-                    np.set_color("black")
-                    s.right.set_color("black")
+                    s.color = np.color
+                    np.color = "black"
+                    s.right.color = "black"
                     self._left_rotate(np)
                     x = self.root
             else:
                 s = np.left
                 if s.is_red():
-                    s.set_color("black")
-                    np.set_color("red")
+                    s.color = "black"
+                    np.color = "red"
                     self._right_rotate(np)
                     np_new = x.parent
                     assert isinstance(np_new, Node)
@@ -314,24 +314,24 @@ class RedBlackTree():
                     s = np.left
 
                 if s.left.is_black() and s.right.is_black():
-                    s.set_color("red")
+                    s.color = "red"
                     x = np
                 else:
                     if s.left.is_black():
-                        s.right.set_color("black")
-                        s.set_color("red")
+                        s.right.color = "black"
+                        s.color = "red"
                         self._left_rotate(s)
                         np_new = x.parent
                         assert isinstance(np_new, Node)
                         np = np_new
                         s = np.left
 
-                    s.set_color(np.get_color())
-                    np.set_color("black")
-                    s.left.set_color("black")
+                    s.color = np.color
+                    np.color = "black"
+                    s.left.color = "black"
                     self._right_rotate(np)
                     x = self.root
-        x.set_color("black")
+        x.color = "black"
 
     def __rb_transplant(self: T, u: Node, v: Node) -> None:
         if u.parent is None:
