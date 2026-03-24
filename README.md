@@ -1,6 +1,6 @@
 # Python red-black trees
-
-[![Python application](https://github.com/emilydolson/python-red-black-trees/actions/workflows/python-app.yml/badge.svg)](https://github.com/emilydolson/python-red-black-trees/actions/workflows/python-app.yml) [![codecov](https://codecov.io/gh/emilydolson/python-red-black-trees/branch/main/graph/badge.svg?token=0LAOX0AEZY)](https://codecov.io/gh/emilydolson/python-red-black-trees)
+![Build Status](https://github.com/Beakerboy/python-red-black-trees/actions/workflows/python-package.yml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/Beakerboy/python-red-black-trees/badge.svg?branch=main)](https://coveralls.io/github/Beakerboy/python-red-black-trees?branch=main)
 
 A Python implementation of red-black trees. This code was originally copied from [programiz.com](https://www.programiz.com/dsa/red-black-tree), but I have made a few tweaks to improve the user interface. I have also fixed a hard-to-catch but serious bug in the original implementation (which has since been propogated to a number of tutorials on the internet), and added a rigorous testing suite to ensure there are no further bugs.
 
