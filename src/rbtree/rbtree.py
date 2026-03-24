@@ -1,7 +1,3 @@
-# Implementing Red-Black Tree in Python
-# Adapted from https://www.programiz.com/dsa/red-black-tree
-
-import sys
 from typing import Any, Optional, TypeVar, Iterator
 from rbtree.node import Node
 
@@ -132,7 +128,7 @@ class RedBlackTree():
         self.size += 1
 
         if node.parent is None:
-            node.color ="black"
+            node.color = "black"
             return
 
         if node.parent.parent is None:
