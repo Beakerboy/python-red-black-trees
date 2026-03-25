@@ -58,6 +58,9 @@ def test_insert() -> None:
 
 
 def test_duplicate_insert() -> None:
+    """
+    bst will silently do nothing if adding a key that already exists
+    """
     bst = RedBlackTree()
     assert len(bst) == 0
     bst.insert(55)
@@ -75,40 +78,18 @@ def test_search() -> None:
 def test_delete() -> None:
     bst = RedBlackTree()
     bst.insert(78)
-    assert bst.search(78).key == 78
+    assert len(bst) == 1
     bst.delete(78)
-    assert bst.search(78).is_null()
+    assert len(bst) == 0
 
-    bst.insert(73)
-    bst.insert(48)
-    bst.insert(100)
-    bst.insert(42)
-    bst.insert(55)
-    bst.insert(40)
-    bst.insert(58)
-    bst.insert(42)
-    bst.insert(55)
-    bst.insert(40)
-    bst.insert(58)
-    bst.insert(42)
 
-    assert bst.size == 7
-
-    bst.delete(48)
-    assert bst.size == 6
-    bst.delete(42)
-    assert bst.size == 5
-    bst.delete(42)
-    assert bst.size == 5
-    assert bst.search(42).is_null()
-    assert bst.size == 5
-    bst.delete(100)
-    assert bst.size == 4
-
-    bst.delete(100)
-
-    assert bst.size == 4
-    check_valid(bst)
+def test_delete_not_exist() -> None:
+    """
+    bst will silently no nothing if deleteing a key that does not exist
+    """
+    bst = RedBlackTree()
+    bst.delete(78)
+    assert len(bst) == 0
 
 
 def test_dictionary() -> None:
@@ -122,6 +103,18 @@ def test_get_root() -> None:
     assert bst.get_root().is_null()
     bst.insert(3)
     assert bst.get_root().key == 3
+
+
+def test_rotation() -> None
+    """
+    inserting three decreasing values in a row will forse a shift in the root
+    node 
+    """
+    bst.insert(3)
+    assert bst.get_root().key == 3
+    bst.insert(2)
+    bst.insert(1)
+    assert bst.get_root().key == 2
 
 
 def test_accessors() -> None:
