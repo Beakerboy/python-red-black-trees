@@ -105,7 +105,7 @@ def test_get_root() -> None:
     assert bst.get_root().key == 3
 
 
-def test_rotation() -> None
+def test_rotation() -> None:
     """
     inserting three decreasing values in a row will forse a shift in the root
     node 
