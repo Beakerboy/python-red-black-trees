@@ -155,6 +155,17 @@ def test_rotation4() -> None:
     assert bst.get_root().key == 2
 
 
+test delete_rotation1() -> None
+    bst = RedBlackTree()
+    bst.insert(1)
+    bst.insert(2)
+    bst.insert(3)
+    bst.insert(4)
+    assert bst.get_root().key == 2
+    bst.delete(1)
+    assert bst.get_root().key == 3
+
+
 def test_accessors() -> None:
     bst = RedBlackTree()
     assert bst.maximum().is_null()
