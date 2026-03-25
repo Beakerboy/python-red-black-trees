@@ -97,14 +97,6 @@ class RedBlackTree():
             node = key
         else:
             node = Node(key)
-        node.parent = None
-        node.key = key
-        node.left = Node()
-        node.left.parent = node
-        node.right = Node()
-        node.right.parent = node
-        node.color = "red"
-
         y = None
         x = self.root
 
