@@ -110,6 +110,7 @@ def test_rotation() -> None:
     inserting three decreasing values in a row will forse a shift in the root
     node 
     """
+    bst = RedBlackTree()
     bst.insert(3)
     assert bst.get_root().key == 3
     bst.insert(2)
