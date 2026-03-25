@@ -5,9 +5,10 @@ T = TypeVar('T', bound='Node')
 
 
 class Node():
+    NIL = NilNode()
 
     def __init__(self: T, key: Any = None) -> None:
-        self.key = key
+        self._key = key
         self.parent: Optional[Node]
         self.left: Node
         self.right: Node
@@ -47,6 +48,10 @@ class Node():
             self._color = 1
         else:
             raise Exception("Unknown color")
+
+    @property
+    def key(self: T) -> Any:
+        return self._key
 
     def is_red(self: T) -> bool:
         return self._color == 1
