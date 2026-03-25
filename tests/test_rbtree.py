@@ -155,7 +155,7 @@ def test_rotation4() -> None:
     assert bst.get_root().key == 2
 
 
-def test_delete_rotation1() -> None
+def test_delete_rotation1() -> None:
     bst = RedBlackTree()
     bst.insert(1)
     bst.insert(2)
@@ -166,7 +166,7 @@ def test_delete_rotation1() -> None
     assert bst.get_root().key == 3
 
 
-def test_delete_rotation2() -> None
+def test_delete_rotation2() -> None:
     bst = RedBlackTree()
     bst.insert(4)
     bst.insert(3)
