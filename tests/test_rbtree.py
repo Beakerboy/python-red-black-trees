@@ -105,9 +105,9 @@ def test_get_root() -> None:
     assert bst.get_root().key == 3
 
 
-def test_rotation() -> None:
+def test_rotation1() -> None:
     """
-    inserting three decreasing values in a row will forse a shift in the root
+    inserting three decreasing values in a row will force a shift in the root
     node
     """
     bst = RedBlackTree()
@@ -115,6 +115,19 @@ def test_rotation() -> None:
     assert bst.get_root().key == 3
     bst.insert(2)
     bst.insert(1)
+    assert bst.get_root().key == 2
+
+
+def test_rotation2() -> None:
+    """
+    inserting three increasing values in a row will force a shift in the root
+    node
+    """
+    bst = RedBlackTree()
+    bst.insert(1)
+    assert bst.get_root().key == 1
+    bst.insert(2)
+    bst.insert(3)
     assert bst.get_root().key == 2
 
 
