@@ -177,6 +177,28 @@ def test_delete_rotation2() -> None:
     assert bst.get_root().key == 2
 
 
+def test_delete_with_left_child() -> None:
+    bst = RedBlackTree()
+    bst.insert(1)
+    bst.insert(2)
+    bst.insert(3)
+    bst.insert(4)
+    assert bst.get_root().key == 2
+    bst.delete(3)
+    assert bst.get_root().key == 2
+
+
+def test_delete_with_left_child() -> None:
+    bst = RedBlackTree()
+    bst.insert(4)
+    bst.insert(3)
+    bst.insert(2)
+    bst.insert(1)
+    assert bst.get_root().key == 3
+    bst.delete(2)
+    assert bst.get_root().key == 2
+
+
 def test_accessors() -> None:
     bst = RedBlackTree()
     assert bst.maximum().is_null()
