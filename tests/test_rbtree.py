@@ -155,6 +155,7 @@ def test_delete_rotation1() -> None:
     bst.insert(3)
     bst.insert(4)
     assert bst.root.key == 2
+    assert bst.root.left.is_red()
     bst.delete(1)
     assert bst.root.key == 3
 
