@@ -12,7 +12,7 @@ T = TypeVar('T', bound='RedBlackTree')
 class RedBlackTree():
     def __init__(self: T) -> None:
         self._root = Node()
-        self.size = 0
+        self._size = 0
         self._iterator_include_nulls = False
 
     # Dunder Methods
@@ -28,7 +28,7 @@ class RedBlackTree():
         self.search(key).value = value
 
     def __len__(self: T) -> int:
-        return self.size
+        return self._size
 
     def __str__(self: T) -> str:
         return self.__print_helper(self._root, "", 'root')
