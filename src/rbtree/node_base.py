@@ -9,9 +9,9 @@ class NodeBase():
     NIL = NullNode()
 
     def __init__(self: T) -> None:
-        self.parent: NodeBase.NIL
-        self.left: NodeBase.NIL
-        self.right: NodeBase.NIL
+        self.parent = NodeBase.NIL
+        self.left = NodeBase.NIL
+        self.right = NodeBase.NIL
         self._color = 1
 
     def __repr__(self: T) -> str:
