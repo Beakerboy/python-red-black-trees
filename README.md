@@ -2,7 +2,7 @@
 ![Build Status](https://github.com/Beakerboy/python-red-black-trees/actions/workflows/python-package.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/Beakerboy/python-red-black-trees/badge.svg?branch=main)](https://coveralls.io/github/Beakerboy/python-red-black-trees?branch=main)
 
-A Python implementation of red-black trees. Thos implementation is unique in that instead of hiding the nodes within the implementation, the nodes are easily seen so that the user can inspect the color and relationships between bodes at any time. Highly specialized comparison functions can be specified to determine which bose is greater than or less than another
+A Python implementation of red-black trees. This implementation is unique in that instead of hiding the nodes within the implementation, the nodes are easily seen so that the user can inspect the color and relationships between bodes at any time. Highly specialized comparison functions can be specified to determine which bose is greater than or less than another
 
 ## What is this for?
 
