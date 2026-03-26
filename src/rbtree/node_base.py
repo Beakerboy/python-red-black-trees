@@ -12,7 +12,7 @@ class NodeBase():
         self.parent: NodeBase = NodeBase.NIL
         self.left: NodeBase = NodeBase.NIL
         self.right: NodeBase = NodeBase.NIL
-        self._color = 1
+        self._red = True
 
     def __repr__(self: T) -> str:
         return ""
@@ -43,22 +43,22 @@ class NodeBase():
 
     @property
     def color(self: T) -> str:
-        return "black" if self._color == 0 else "red"
+        return "black" if not self._red else "red"
 
     @color.setter
     def color(self: T, color: str) -> None:
         if color == "black":
-            self._color = 0
+            self._red = False
         elif color == "red":
-            self._color = 1
+            self._red = True
         else:
             raise Exception("Unknown color")
 
     def is_red(self: T) -> bool:
-        return self._color == 1
+        return self._red
 
     def is_black(self: T) -> bool:
-        return self._color == 0
+        return not self._red
 
     def is_null(self: T) -> bool:
         return False
