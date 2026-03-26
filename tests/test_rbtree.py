@@ -11,9 +11,9 @@ def check_node_valid(bst: RedBlackTree, node: Node) -> None:
         assert node.left.is_black()
         assert node.right.is_black()
 
-    if not node.left.is_null() and node.left is not None:
+    if not node.left.is_null():
         assert node >= node.left
-    if not node.right.is_null() and node.right is not None:
+    if not node.right.is_null():
         assert node <= node.right
 
 
