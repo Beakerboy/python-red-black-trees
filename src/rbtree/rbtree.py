@@ -247,7 +247,6 @@ class RedBlackTree():
     def _delete_fix(self: T, x: NodeBase) -> None:
         while x != self.root and x.is_black():
             np = x.parent
-            assert isinstance(np, Node)
             if x == np.left:
                 s = np.right
                 if s.is_red():
@@ -255,7 +254,6 @@ class RedBlackTree():
                     np.color = "red"
                     self._left_rotate(np)
                     np_new = x.parent
-                    assert isinstance(np_new, Node)
                     np = np_new
                     s = np.right
 
@@ -268,7 +266,6 @@ class RedBlackTree():
                         s.color = "red"
                         self._right_rotate(s)
                         np_new = x.parent
-                        assert isinstance(np_new, Node)
                         np = np_new
                         s = np.right
 
@@ -284,7 +281,6 @@ class RedBlackTree():
                     np.color = "red"
                     self._right_rotate(np)
                     np_new = x.parent
-                    assert isinstance(np_new, Node)
                     np = np_new
                     s = np.left
 
