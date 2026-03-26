@@ -114,11 +114,11 @@ class RedBlackTree():
 
         self.size += 1
 
-        if node.parent is None:
+        if node.parent.is_null():
             node.color = "black"
             return
 
-        if node.parent.parent is None:
+        if node.parent.parent.is_null():
             return
 
         self._fix_insert(node)
