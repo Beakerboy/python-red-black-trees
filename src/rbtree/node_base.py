@@ -5,7 +5,7 @@ T = TypeVar('T', bound='NodeBase')
 
 
 class NodeBase():
-    NIL: ' NullNode'
+    NIL: 'NullNode'
 
     def __init__(self: T) -> None:
         self.parent: NodeBase = NodeBase.NIL
