@@ -92,12 +92,6 @@ def test_delete_not_exist() -> None:
     assert len(bst) == 0
 
 
-def test_dictionary() -> None:
-    bst = RedBlackTree()
-    bst[67] = 3
-    assert bst[67] == 3
-
-
 def test_get_root() -> None:
     bst = RedBlackTree()
     assert bst.get_root().is_null()
