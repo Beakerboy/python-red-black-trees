@@ -92,7 +92,7 @@ class RedBlackTree():
             node = key
         else:
             node = Node(key)
-        y = None
+        y = NodeBase.NIL
         x = self.root
 
         while not x.is_null():
