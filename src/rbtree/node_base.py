@@ -65,6 +65,7 @@ class NodeBase():
     def depth(self: T) -> int:
         return 0 if self.parent.is_null() else self.parent.depth() + 1
 
+
 T = TypeVar('T', bound='NullNode')
 
 
