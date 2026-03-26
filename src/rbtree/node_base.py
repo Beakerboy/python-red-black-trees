@@ -79,3 +79,5 @@ class NullNode(NodeBase):
 
     def is_null(self: T) -> bool:
         return True
+
+NodeBase.NIL = NullNode()
