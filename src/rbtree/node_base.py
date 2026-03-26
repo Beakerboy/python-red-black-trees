@@ -1,24 +1,11 @@
 from typing import Any, TypeVar
 
 
-T = TypeVar('T', bound='NullNode')
-
-
-class NullNode(NodeBase):
-
-    def __init__(self: T) -> None:
-        super().__init__()
-        self._color = 0
-
-    def is_null(self: T) -> bool:
-        return True
-
-
 T = TypeVar('T', bound='NodeBase')
 
 
 class NodeBase():
-    NIL = NullNode()
+    NIL: ' NullNode'
 
     def __init__(self: T) -> None:
         self.parent: NodeBase = NodeBase.NIL
@@ -76,4 +63,18 @@ class NodeBase():
         return False
 
     def depth(self: T) -> int:
-        return 0 if self.parent is None else self.parent.depth() + 1
+        return 0 if self.parent.is_null() else self.parent.depth() + 1
+
+T = TypeVar('T', bound='NullNode')
+
+
+class NullNode(NodeBase):
+
+    def __init__(self: T) -> None:
+        self.parent = self
+        self.left = self
+        self.right = self
+        self._color = 0
+
+    def is_null(self: T) -> bool:
+        return True
