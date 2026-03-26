@@ -324,7 +324,8 @@ class RedBlackTree():
             u.parent.left = v
         else:
             u.parent.right = v
-        v.parent = u.parent
+        if not v.is_null()
+            v.parent = u.parent
 
     def _left_rotate(self: T, x: NodeBase) -> None:
         y = x.right
