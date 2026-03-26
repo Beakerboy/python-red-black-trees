@@ -26,7 +26,7 @@ class RedBlackTree():
 
     # Getters and Setters and Properties
 
-    def get_root(self: T) -> Node:
+    def get_root(self: T) -> NodeBase:
         return self.root
 
     # Public Methods
@@ -55,7 +55,7 @@ class RedBlackTree():
             node = node.left
         return node
 
-    def maximum(self: T, node: Optional[Node] = None) -> Node:
+    def maximum(self: T, node: Optional[Node] = None) -> NodeBase:
         if node is None:
             node = self.root
         if node.is_null():
@@ -346,7 +346,7 @@ class RedBlackTree():
         x.parent = y
 
     # Search the tree
-    def _search_tree_helper(self: T, node: NodeBase, key: Any) -> Node:
+    def _search_tree_helper(self: T, node: NodeBase, key: Any) -> NodeBase:
         if node.is_null() or key == node.key:
             return node
 
