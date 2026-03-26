@@ -53,3 +53,15 @@ class NodeBase():
             self._color = 1
         else:
             raise Exception("Unknown color")
+
+    def is_red(self: T) -> bool:
+        return self._color == 1
+
+    def is_black(self: T) -> bool:
+        return self._color == 0
+
+    def is_null(self: T) -> bool:
+        return self.key is None
+
+    def depth(self: T) -> int:
+        return 0 if self.parent is None else self.parent.depth() + 1
