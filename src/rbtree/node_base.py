@@ -33,16 +33,16 @@ class NodeBase(ABC):
 
     # Comparison operators should be abstract if they depend on data
     @abstractmethod
-    def __lt__(self: T, other: Any) -> bool: ...
+    def __lt__(self: T, other: T) -> bool: ...
     
     @abstractmethod
-    def __eq__(self: T, other: Any) -> bool: ...
+    def __eq__(self: T, other: T) -> bool: ...
 
     # Python can derive these if you use functools.total_ordering
-    def __le__(self: T, other: Any) -> bool: return self < other or self == other
-    def __gt__(self: T, other: Any) -> bool: return not self <= other
-    def __ge__(self: T, other: Any) -> bool: return not self < other
-    def __ne__(self: T, other: Any) -> bool: return not self == other
+    def __le__(self: T, other: T) -> bool: return self < other or self == other
+    def __gt__(self: T, other: T) -> bool: return not self <= other
+    def __ge__(self: T, other: T) -> bool: return not self < other
+    def __ne__(self: T, other: T) -> bool: return not self == other
 
 
 N = TypeVar('N', bound='NullNode')
@@ -60,8 +60,8 @@ class NullNode(NodeBase):
     def depth(self: N) -> int:
         return -1
 
-    def __lt__(self: N, other: Any) -> bool: return False
-    def __eq__(self: N, other: Any) -> bool: return isinstance(other, NullNode)
+    def __lt__(self: N, other: N) -> bool: return False
+    def __eq__(self: N, other: N) -> bool: return isinstance(other, NullNode)
     def __repr__(self: N) -> str: return "NullNode"
 
 # Single sentinel instance (standard pattern)
