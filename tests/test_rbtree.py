@@ -196,7 +196,7 @@ def test_accessors() -> None:
 def test_print() -> None:
     bst = RedBlackTree()
     bst.insert(73)
-    print(bst.get_root())
+    print(bst.root)
     bst.insert(48)
     bst.insert(100)
     bst.insert(42)
