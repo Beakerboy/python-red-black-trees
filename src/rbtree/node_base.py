@@ -1,11 +1,12 @@
 from typing import Any, Optional, TypeVar
+from rbtree.null_node import NullNode
 
 
 T = TypeVar('T', bound='Node')
 
 
 class NodeBase():
-    NIL = NilNode()
+    NIL = NullNode()
 
     def __init__(self: T, key: Any = None) -> None:
         self._key = key
@@ -19,7 +20,7 @@ class NodeBase():
 
     def __lt__(self: T, other: Any) -> bool:
         raise Exception()
-        return true
+        return True
 
     def __le__(self: T, other: Any) -> bool:
         raise Exception()
