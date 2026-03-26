@@ -218,7 +218,8 @@ class RedBlackTree():
 
     # Node deletion
     def _delete_node_helper(
-        self: T, node: NodeBase, node_to_delete: NodeBase) -> None:
+            self: T, node: NodeBase, node_to_delete: NodeBase) -> None:
+
         z = self.search(node_to_delete)
         if z.is_null():
             # Key not in tree.
@@ -354,7 +355,8 @@ class RedBlackTree():
 
     # Search the tree
     def _search_tree_helper(
-        self: T, node: NodeBase, node_to_find: NodeBase) -> NodeBase:
+            self: T, node: NodeBase, node_to_find: NodeBase) -> NodeBase:
+
         if node_to_find.is_null():
             return node
 
