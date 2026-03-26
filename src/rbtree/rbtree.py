@@ -211,7 +211,7 @@ class RedBlackTree():
                 indent += "|    "
 
             s_color = "RED" if node.is_red() else "BLACK"
-            output += str(node.key) + "(" + s_color + ")\n"
+            output += str(node) + "(" + s_color + ")\n"
             output += self.__print_helper(node.left, indent, 'not_last')
             output += self.__print_helper(node.right, indent, 'last')
         return output
@@ -391,7 +391,7 @@ class RedBlackTree():
         result = ""
         if not node.is_null():
             self._in_order_helper(node.left)
-            result += str(node.key) + " "
+            result += str(node) + " "
             self._in_order_helper(node.right)
         return result
 
@@ -404,5 +404,5 @@ class RedBlackTree():
         if not node.is_null():
             self._post_order_helper(node.left)
             self._post_order_helper(node.right)
-            result += str(node.key) + " "
+            result += str(node) + " "
         return result
