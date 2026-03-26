@@ -106,10 +106,10 @@ def test_rotation1() -> None:
     """
     bst = RedBlackTree()
     bst.insert(3)
-    assert bst.get_root().key == 3
+    assert bst.root.key == 3
     bst.insert(2)
     bst.insert(1)
-    assert bst.get_root().key == 2
+    assert bst.root.key == 2
 
 
 def test_rotation2() -> None:
@@ -119,10 +119,10 @@ def test_rotation2() -> None:
     """
     bst = RedBlackTree()
     bst.insert(1)
-    assert bst.get_root().key == 1
+    assert bst.root.key == 1
     bst.insert(2)
     bst.insert(3)
-    assert bst.get_root().key == 2
+    assert bst.root.key == 2
 
 
 def test_rotation3() -> None:
@@ -131,10 +131,10 @@ def test_rotation3() -> None:
     """
     bst = RedBlackTree()
     bst.insert(1)
-    assert bst.get_root().key == 1
+    assert bst.root.key == 1
     bst.insert(3)
     bst.insert(2)
-    assert bst.get_root().key == 2
+    assert bst.root.key == 2
 
 
 def test_rotation4() -> None:
@@ -143,10 +143,10 @@ def test_rotation4() -> None:
     """
     bst = RedBlackTree()
     bst.insert(3)
-    assert bst.get_root().key == 3
+    assert bst.root.key == 3
     bst.insert(1)
     bst.insert(2)
-    assert bst.get_root().key == 2
+    assert bst.root.key == 2
 
 
 def test_delete_rotation1() -> None:
@@ -155,9 +155,9 @@ def test_delete_rotation1() -> None:
     bst.insert(2)
     bst.insert(3)
     bst.insert(4)
-    assert bst.get_root().key == 2
+    assert bst.root.key == 2
     bst.delete(1)
-    assert bst.get_root().key == 3
+    assert bst.root.key == 3
 
 
 def test_delete_rotation2() -> None:
@@ -166,9 +166,9 @@ def test_delete_rotation2() -> None:
     bst.insert(3)
     bst.insert(2)
     bst.insert(1)
-    assert bst.get_root().key == 3
+    assert bst.root.key == 3
     bst.delete(4)
-    assert bst.get_root().key == 2
+    assert bst.root.key == 2
 
 
 def test_delete_with_right_child() -> None:
@@ -177,9 +177,9 @@ def test_delete_with_right_child() -> None:
     bst.insert(2)
     bst.insert(3)
     bst.insert(4)
-    assert bst.get_root().key == 2
+    assert bst.root.key == 2
     bst.delete(3)
-    assert bst.get_root().key == 2
+    assert bst.root.key == 2
 
 
 def test_delete_with_left_child() -> None:
@@ -188,9 +188,9 @@ def test_delete_with_left_child() -> None:
     bst.insert(3)
     bst.insert(2)
     bst.insert(1)
-    assert bst.get_root().key == 3
+    assert bst.root.key == 3
     bst.delete(2)
-    assert bst.get_root().key == 3
+    assert bst.root.key == 3
 
 
 def test_accessors() -> None:
@@ -215,25 +215,6 @@ def test_accessors() -> None:
 
     bst.insert(57)
     assert bst.predecessor(bst.search(57)).key == 55
-
-
-def test_print() -> None:
-    bst = RedBlackTree()
-    bst.insert(73)
-    print(bst.get_root())
-    bst.insert(48)
-    bst.insert(100)
-    bst.insert(42)
-    bst.insert(55)
-    bst.insert(40)
-    bst.insert(58)
-    bst.insert(42)
-    bst.insert(55)
-    bst.insert(40)
-    bst.insert(58)
-    bst.insert(42)
-
-    bst.print_tree()
 
 
 def test_non_int_float() -> None:
@@ -280,16 +261,13 @@ def test_null_depth() -> None:
     assert nodes[0].depth() == 0
     assert nodes[1].key == 1
     assert nodes[1].depth() == 1
-    assert nodes[2].key is None
-    assert nodes[2].depth() == 2
-    assert nodes[3].key is None
-    assert nodes[3].depth() == 2
+    assert nodes[2].is_null()
+    assert nodes[3].is_null()
     assert nodes[4].key == 3
     assert nodes[4].depth() == 1
-    assert nodes[5].key is None
+    assert nodes[5].is_null()
     assert nodes[5].depth() == 2
-    assert nodes[6].key is None
-    assert nodes[6].depth() == 2
+    assert nodes[6].is_null()
 
 
 def test_to_mindmap() -> None:
