@@ -8,7 +8,7 @@ T = TypeVar('T', bound='RedBlackTree')
 
 class RedBlackTree():
     def __init__(self: T) -> None:
-        self.root: NodeBase = NodeBase.NIL
+        self._root: NodeBase = NodeBase.NIL
         self.size = 0
         self._iterator_include_nulls = False
 
@@ -25,9 +25,9 @@ class RedBlackTree():
         return self.__print_helper(self.root, "", 'root')
 
     # Getters and Setters and Properties
-
-    def get_root(self: T) -> NodeBase:
-        return self.root
+    @property
+    def root(self: T) -> NodeBase:
+        return self._root
 
     # Public Methods
 
