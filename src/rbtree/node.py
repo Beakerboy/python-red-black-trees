@@ -39,30 +39,5 @@ class Node(NodeBase):
         return self.key != other.key
 
     @property
-    def color(self: T) -> str:
-        return "black" if self._color == 0 else "red"
-
-    @color.setter
-    def color(self: T, color: str) -> None:
-        if color == "black":
-            self._color = 0
-        elif color == "red":
-            self._color = 1
-        else:
-            raise Exception("Unknown color")
-
-    @property
     def key(self: T) -> Any:
         return self._key
-
-    def is_red(self: T) -> bool:
-        return self._color == 1
-
-    def is_black(self: T) -> bool:
-        return self._color == 0
-
-    def is_null(self: T) -> bool:
-        return self.key is None
-
-    def depth(self: T) -> int:
-        return 0 if self.parent is None else self.parent.depth() + 1
