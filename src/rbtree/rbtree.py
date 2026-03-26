@@ -31,29 +31,29 @@ class RedBlackTree():
         return self.size
 
     def __str__(self: T) -> str:
-        return self.__print_helper(self.root, "", 'root')
+        return self.__print_helper(self._root, "", 'root')
 
     # Getters and Setters and Properties
     @property
     def root(self: T) -> Node:
-        return self.root
+        return self._root
 
     # Public Methods
 
     def preorder(self: T, include_nulls: bool = False) -> list:
-        return self._pre_order_helper(self.root, include_nulls)
+        return self._pre_order_helper(self._root, include_nulls)
 
     def inorder(self: T) -> None:
-        self._in_order_helper(self.root)
+        self._in_order_helper(self._root)
 
     def postorder(self: T) -> None:
-        self._post_order_helper(self.root)
+        self._post_order_helper(self._root)
 
     def search(self: T, key: Any) -> Node:
         """
         Find the node with the given key
         """
-        return self._search_tree_helper(self.root, key)
+        return self._search_tree_helper(self._root, key)
 
     def minimum(self: T, node: Optional[Node] = None) -> Node:
         if node is None:
