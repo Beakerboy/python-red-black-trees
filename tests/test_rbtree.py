@@ -43,7 +43,8 @@ def check_valid_recur(bst: RedBlackTree, node: Node) -> int:
 
 
 def check_valid(bst: RedBlackTree) -> None:
-    assert bst.root.is_black()
+    root = bst.root
+    assert root.is_black()
     check_valid_recur(bst, root)
 
 
