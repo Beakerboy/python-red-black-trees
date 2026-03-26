@@ -1,4 +1,4 @@
-from typing import Any, Optional, TypeVar
+from typing import Any, TypeVar
 from rbtree.node_base import NodeBase
 
 T = TypeVar('T', bound='Node')
