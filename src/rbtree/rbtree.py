@@ -157,7 +157,7 @@ class RedBlackTree():
         while node.parent.is_red():
             np = node.parent
             ngp = node.parent.parent
-            if not ngp.right.is_null() or np == ngp.right:
+            if not ngp.right.is_null() and np == ngp.right:
                 u = ngp.left
                 if u.is_red():
                     u.color = "black"
