@@ -16,6 +16,9 @@ class NodeBase():
     def __repr__(self: T) -> str:
         return ""
 
+    def __str__(self: T) -> str:
+        return ""
+
     def __lt__(self: T, other: Any) -> bool:
         raise Exception()
         return True
