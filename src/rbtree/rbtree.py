@@ -91,8 +91,8 @@ class RedBlackTree():
         if isinstance(key, NodeBase):
             node = key
         else:
-            node = Node(key)
-        y = NodeBase.NIL
+            node: NodeBase = Node(key)
+        y: NodeBase = NodeBase.NIL
         x = self.root
 
         while not x.is_null():
