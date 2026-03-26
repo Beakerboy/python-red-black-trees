@@ -10,4 +10,4 @@ class NullNode(NodeBase):
         self._color = 0
 
     def is_null(self: T) -> bool:
-        return False
+        return True
