@@ -69,18 +69,18 @@ class NodeBase():
         return 0 if self.parent.is_null() else self.parent.depth() + 1
 
 
-T = TypeVar('T', bound='NullNode')
+N = TypeVar('N', bound='NullNode')
 
 
 class NullNode(NodeBase):
 
-    def __init__(self: T) -> None:
+    def __init__(self: N) -> None:
         self.parent = self
         self.left = self
         self.right = self
         self._red = False
 
-    def is_null(self: T) -> bool:
+    def is_null(self: N) -> bool:
         return True
 
 
