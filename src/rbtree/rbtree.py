@@ -1,5 +1,6 @@
 from typing import Any, Optional, TypeVar, Iterator
 from rbtree.node import Node
+from rbtree.node_base import NodeBase
 
 
 T = TypeVar('T', bound='RedBlackTree')
@@ -7,7 +8,7 @@ T = TypeVar('T', bound='RedBlackTree')
 
 class RedBlackTree():
     def __init__(self: T) -> None:
-        self.root = Node()
+        self.root = NodeBase.NIL
         self.size = 0
         self._iterator_include_nulls = False
 
@@ -45,11 +46,11 @@ class RedBlackTree():
         """
         return self._search_tree_helper(self.root, key)
 
-    def minimum(self: T, node: Optional[Node] = None) -> Node:
+    def minimum(self: T, node: Optional[Node] = None) -> NodeBase:
         if node is None:
             node = self.root
         if node.is_null():
-            return Node()
+            return node
         while not node.left.is_null():
             node = node.left
         return node
@@ -125,8 +126,8 @@ class RedBlackTree():
     def delete(self: T, key: Any) -> None:
         self._delete_node_helper(self.root, key)
 
-    def print_tree(self: T) -> None:
-        print(self.__print_helper(self.root, "", 'root'))
+    def print_tree(self: T) -> str:
+        return self.__print_helper(self.root, "", 'root'))
 
     def to_mindmap(self: T) -> str:
         output = "@startmindmap\n"
