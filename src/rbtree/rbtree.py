@@ -112,7 +112,7 @@ class RedBlackTree():
 
         node.parent = y
         if y.is_null():
-            self.root = node
+            self._root = node
         elif node < y:
             y.left = node
         else:
@@ -319,7 +319,7 @@ class RedBlackTree():
 
     def __rb_transplant(self: T, u: NodeBase, v: NodeBase) -> None:
         if u.parent.is_null():
-            self.root = v
+            self._root = v
         elif u == u.parent.left:
             u.parent.left = v
         else:
@@ -332,7 +332,7 @@ class RedBlackTree():
         y.left.parent = x
         y.parent = x.parent
         if x.parent.is_null():
-            self.root = y
+            self._root = y
         elif x == x.parent.left:
             x.parent.left = y
         else:
@@ -347,7 +347,7 @@ class RedBlackTree():
 
         y.parent = x.parent
         if x.parent.is_null():
-            self.root = y
+            self._root = y
         elif x == x.parent.right:
             x.parent.right = y
         else:
