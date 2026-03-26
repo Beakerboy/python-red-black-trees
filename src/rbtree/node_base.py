@@ -23,23 +23,23 @@ class NodeBase():
 
     def __le__(self: T, other: Any) -> bool:
         raise Exception()
-        return true
+        return True
 
     def __gt__(self: T, other: Any) -> bool:
         raise Exception()
-        return true
+        return True
 
     def __ge__(self: T, other: Any) -> bool:
         raise Exception()
-        return true
+        return True
 
     def __eq__(self: T, other: Any) -> bool:
         raise Exception()
-        return true
+        return True
 
     def __ne__(self: T, other: Any) -> bool:
         raise Exception()
-        return true
+        return True
 
     @property
     def color(self: T) -> str:
