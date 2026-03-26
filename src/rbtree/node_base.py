@@ -39,7 +39,9 @@ class NodeBase(ABC):
     def __eq__(self: T, other: T) -> bool: ...
 
     # Python can derive these if you use functools.total_ordering
-    def __le__(self: T, other: T) -> bool: return self < other or self == other
+    def __le__(self: T, other: T) -> bool:
+        return self < other or self == other
+
     def __gt__(self: T, other: T) -> bool: return not self <= other
     def __ge__(self: T, other: T) -> bool: return not self < other
     def __ne__(self: T, other: T) -> bool: return not self == other
@@ -52,7 +54,8 @@ class NullNode(NodeBase):
     def __init__(self: N) -> None:
         # Don't call super().__init__ to avoid infinite recursion
         self._red = False 
-        self.parent = self # Standard for sentinel nodes, but be careful with depth()
+        # Standard for sentinel nodes, but be careful with depth()
+        self.parent = self
 
     def is_null(self: N) -> bool:
         return True
@@ -61,7 +64,9 @@ class NullNode(NodeBase):
         return -1
 
     def __lt__(self: N, other: N) -> bool: return False
-    def __eq__(self: N, other: N) -> bool: return isinstance(other, NullNode)
+    def __eq__(self: N, other: N) -> bool:
+        return isinstance(other, NullNode)
+
     def __repr__(self: N) -> str: return "NullNode"
 
 
