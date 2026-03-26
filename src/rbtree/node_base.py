@@ -34,7 +34,7 @@ class NodeBase(ABC):
     # Comparison operators should be abstract if they depend on data
     @abstractmethod
     def __lt__(self: T, other: T) -> bool: ...
-    
+
     @abstractmethod
     def __eq__(self: T, other: T) -> bool: ...
 
@@ -53,7 +53,7 @@ N = TypeVar('N', bound='NullNode')
 class NullNode(NodeBase):
     def __init__(self: N) -> None:
         # Don't call super().__init__ to avoid infinite recursion
-        self._red = False 
+        self._red = False
         # Standard for sentinel nodes, but be careful with depth()
         self.parent = self
 
