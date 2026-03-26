@@ -61,7 +61,7 @@ class NodeBase():
         return self._color == 0
 
     def is_null(self: T) -> bool:
-        return self.key is None
+        return False
 
     def depth(self: T) -> int:
         return 0 if self.parent is None else self.parent.depth() + 1
