@@ -143,11 +143,10 @@ class RedBlackTree():
     def to_mindmap(self: T) -> str:
         output = "@startmindmap\n"
         for node in self.preorder(True):
-            key = "" if node.key is None else node.key
             color = "white" if node.is_black() else "red"
             output += ("-" * (node.depth() + 1)
                        + "[#" + color + "] <latex>\\rotatebox{-90}{"
-                       + str(key)
+                       + str(node)
                        + "}</latex>\n")
         return output + "@endmindmap"
 
