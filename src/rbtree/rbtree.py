@@ -88,10 +88,11 @@ class RedBlackTree():
 
     def insert(self: T, key: Any) -> None:
         # Allow the user to provide a custom node.
+        node: NodeBase
         if isinstance(key, NodeBase):
             node = key
         else:
-            node: NodeBase = Node(key)
+            node = Node(key)
         y: NodeBase = NodeBase.NIL
         x = self.root
 
