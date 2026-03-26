@@ -1,8 +1,8 @@
-from typing import TypeVar
+from typing import Any, TypeVar
 from rbtree.null_node import NullNode
 
 
-T = TypeVar('T', bound='Node')
+T = TypeVar('T', bound='NodeBase')
 
 
 class NodeBase():
