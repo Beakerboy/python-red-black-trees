@@ -64,6 +64,7 @@ class NullNode(NodeBase):
         return -1
 
     def __lt__(self: N, other: N) -> bool: return False
+
     def __eq__(self: N, other: N) -> bool:
         return isinstance(other, NullNode)
 
