@@ -75,7 +75,7 @@ class RedBlackTree():
             y = y.parent
         return y
 
-    def predecessor(self: T,  x: NodeBase) -> Optional[Node]:
+    def predecessor(self: T,  x: NodeBase) -> Optional[NodeBase]:
         if (not x.left.is_null()):
             return self.maximum(x.left)
 
