@@ -1,6 +1,6 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from typing import Any, Literal, TypeVar
+from typing import Literal, TypeVar
 
 
 T = TypeVar('T', bound='NodeBase')
@@ -63,6 +63,7 @@ class NullNode(NodeBase):
     def __lt__(self: N, other: N) -> bool: return False
     def __eq__(self: N, other: N) -> bool: return isinstance(other, NullNode)
     def __repr__(self: N) -> str: return "NullNode"
+
 
 # Single sentinel instance (standard pattern)
 NULL_NODE = NullNode()
