@@ -44,7 +44,12 @@ class RedBlackTree():
         """
         Find the node with the given key
         """
-        return self._search_tree_helper(self.root, key)
+        node: NodeBase
+        if isinstance(key, NodeBase):
+            node = key
+        else:
+            node = Node(key)
+        return self._search_tree_helper(self.root, node)
 
     def minimum(self: T, node: Optional[NodeBase] = None) -> NodeBase:
         if node is None:
@@ -125,7 +130,12 @@ class RedBlackTree():
         self._fix_insert(node)
 
     def delete(self: T, key: Any) -> None:
-        self._delete_node_helper(self.root, key)
+        node: NodeBase
+        if isinstance(key, NodeBase):
+            node = key
+        else:
+            node = Node(key)
+        self._delete_node_helper(self.root, node)
 
     def print_tree(self: T) -> str:
         return self.__print_helper(self.root, "", 'root')
@@ -208,8 +218,8 @@ class RedBlackTree():
         return output
 
     # Node deletion
-    def _delete_node_helper(self: T, node: NodeBase, key: Any) -> None:
-        z = self.search(key)
+    def _delete_node_helper(self: T, node: NodeBase, node_to_delete: NodeBase) -> None:
+        z = self.search(node_to_delete)
         if z.is_null():
             # Key not in tree.
             return
@@ -343,13 +353,13 @@ class RedBlackTree():
         x.parent = y
 
     # Search the tree
-    def _search_tree_helper(self: T, node: NodeBase, key: Any) -> NodeBase:
-        if node.is_null() or key == node.key:
+    def _search_tree_helper(self: T, node: NodeBase, node_to_find: NodeBase) -> NodeBase:
+        if node_to_find.is_null():
             return node
 
-        if key < node.key:
-            return self._search_tree_helper(node.left, key)
-        return self._search_tree_helper(node.right, key)
+        if node_to_find < node:
+            return self._search_tree_helper(node.left, node_to_find)
+        return self._search_tree_helper(node.right, node_to_find)
 
     def _pre_order_helper(self: T, node: NodeBase,
                           include_nulls: bool = False) -> list:
