@@ -216,10 +216,12 @@ class RedBlackTree():
             output += self.__print_helper(node.right, indent, 'last')
         return output
 
-    # Node deletion
     def _delete_node_helper(
             self: T, node: NodeBase, node_to_delete: NodeBase) -> None:
-
+        """
+        Remove the node from the tree.
+        Reorganize the tree to maintain validity.
+        """
         z = self.search(node_to_delete)
         if z.is_null():
             # Key not in tree.
