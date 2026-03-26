@@ -1,22 +1,24 @@
 from typing import Any, Optional, TypeVar
-
+from rbtree.node_base import NodeBase
 
 T = TypeVar('T', bound='Node')
 
 
-class Node():
-    NIL = NilNode()
+class Node(NodeBase):
+    """
+    This node can work with any python primative type
+    that can be compared with comparison operators.
+    """
 
     def __init__(self: T, key: Any = None) -> None:
+        super().__init__()
         self._key = key
-        self.parent: Optional[Node]
-        self.left: Node
-        self.right: Node
-        self._color = 0 if key is None else 1
-        self.value: Any = None
 
     def __repr__(self: T) -> str:
         return "Key: " + str(self.key) + " Value: " + str(self.value)
+
+    def __str__(self: T) -> str:
+        return str(self._key)
 
     def __lt__(self: T, other: Any) -> bool:
         return self.key < other.key
