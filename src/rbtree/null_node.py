@@ -2,12 +2,12 @@ from typing import TypeVar
 from rbtree.node_base import NodeBase
 
 
-T = TypeVar('T', bound='Node')
+T = TypeVar('T', bound='NullNode')
 
 
 class NullNode(NodeBase):
 
-    def __init__(self: T, key: Any = None) -> None:
+    def __init__(self: T) -> None:
         self._color = 0
 
     def is_null(self: T) -> bool:
