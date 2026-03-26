@@ -75,7 +75,7 @@ class NullNode(NodeBase):
         self.parent = self
         self.left = self
         self.right = self
-        self._color = 0
+        self._red = False
 
     def is_null(self: T) -> bool:
         return True
