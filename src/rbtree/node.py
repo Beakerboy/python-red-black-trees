@@ -15,7 +15,7 @@ class Node(NodeBase):
         self._key = key
 
     def __repr__(self: T) -> str:
-        return "Key: " + str(self.key) + " Value: " + str(self.value)
+        return "Key: " + str(self.key)
 
     def __str__(self: T) -> str:
         return str(self._key)
