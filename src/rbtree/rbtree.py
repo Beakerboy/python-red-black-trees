@@ -183,7 +183,7 @@ class RedBlackTree():
                     ngp.color = "red"
                     node = ngp
                 else:
-                    if node == np.right:
+                    if not np.right.is_null() and node == np.right:
                         node = np
                         self._left_rotate(node)
                     np_new = node.parent
