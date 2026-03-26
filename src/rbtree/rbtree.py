@@ -11,7 +11,7 @@ T = TypeVar('T', bound='RedBlackTree')
 
 class RedBlackTree():
     def __init__(self: T) -> None:
-        self.root = Node()
+        self._root = Node()
         self.size = 0
         self._iterator_include_nulls = False
 
@@ -34,8 +34,8 @@ class RedBlackTree():
         return self.__print_helper(self.root, "", 'root')
 
     # Getters and Setters and Properties
-
-    def get_root(self: T) -> Node:
+    @property
+    def root(self: T) -> Node:
         return self.root
 
     # Public Methods
@@ -57,7 +57,7 @@ class RedBlackTree():
 
     def minimum(self: T, node: Optional[Node] = None) -> Node:
         if node is None:
-            node = self.root
+            node = self._root
         if node.is_null():
             return Node()
         while not node.left.is_null():
@@ -66,7 +66,7 @@ class RedBlackTree():
 
     def maximum(self: T, node: Optional[Node] = None) -> Node:
         if node is None:
-            node = self.root
+            node = self._root
         if node.is_null():
             return Node()
         while not node.right.is_null():
@@ -110,7 +110,7 @@ class RedBlackTree():
         node.set_color("red")
 
         y = None
-        x = self.root
+        x = self._root
 
         while not x.is_null():
             y = x
@@ -123,7 +123,7 @@ class RedBlackTree():
 
         node.parent = y
         if y is None:
-            self.root = node
+            self._root = node
         elif node < y:
             y.left = node
         else:
@@ -141,10 +141,10 @@ class RedBlackTree():
         self._fix_insert(node)
 
     def delete(self: T, key: Any) -> None:
-        self._delete_node_helper(self.root, key)
+        self._delete_node_helper(self._root, key)
 
     def print_tree(self: T) -> None:
-        print(self.__print_helper(self.root, "", 'root'))
+        print(self.__print_helper(self._root, "", 'root'))
 
     def to_mindmap(self: T) -> str:
         output = "@startmindmap\n"
@@ -270,7 +270,7 @@ class RedBlackTree():
 
     # Balancing the tree after deletion
     def _delete_fix(self: T, x: Node) -> None:
-        while x != self.root and x.is_black():
+        while x != self._root and x.is_black():
             np = x.parent
             assert isinstance(np, Node)
             if x == np.left:
@@ -301,7 +301,7 @@ class RedBlackTree():
                     np.set_color("black")
                     s.right.set_color("black")
                     self._left_rotate(np)
-                    x = self.root
+                    x = self._root
             else:
                 s = np.left
                 if s.is_red():
@@ -335,7 +335,7 @@ class RedBlackTree():
 
     def __rb_transplant(self: T, u: Node, v: Node) -> None:
         if u.parent is None:
-            self.root = v
+            self._root = v
         elif u == u.parent.left:
             u.parent.left = v
         else:
@@ -348,7 +348,7 @@ class RedBlackTree():
         y.left.parent = x
         y.parent = x.parent
         if x.parent is None:
-            self.root = y
+            self._root = y
         elif x == x.parent.left:
             x.parent.left = y
         else:
@@ -363,7 +363,7 @@ class RedBlackTree():
 
         y.parent = x.parent
         if x.parent is None:
-            self.root = y
+            self._root = y
         elif x == x.parent.right:
             x.parent.right = y
         else:
