@@ -2,16 +2,14 @@
 ![Build Status](https://github.com/Beakerboy/python-red-black-trees/actions/workflows/python-package.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/Beakerboy/python-red-black-trees/badge.svg?branch=main)](https://coveralls.io/github/Beakerboy/python-red-black-trees?branch=main)
 
-A Python implementation of red-black trees. This code was originally copied from [programiz.com](https://www.programiz.com/dsa/red-black-tree), but I have made a few tweaks to improve the user interface. I have also fixed a hard-to-catch but serious bug in the original implementation (which has since been propogated to a number of tutorials on the internet), and added a rigorous testing suite to ensure there are no further bugs.
+A Python implementation of red-black trees. Thos implementation is unique in that instead of hiding the nodes within the implementation, the nodes are easily seen so that the user can inspect the color and relationships between bodes at any time. Highly specialized comparison functions can be specified to determine which bose is greater than or less than another
 
 ## What is this for?
 
-I made this repo so that students in my algorithms class can try out red-black trees without needing to use C++. Feel free to use it for similar educational purposes! For more practical use-cases, you're probably better off using the [SortedContainers](http://www.grantjenks.com/docs/sortedcontainers/) library, which is more efficient, more scalable, and better maintained.
-
+This implementation was created for MS-CFB, a project where files must be saved in a Red Black Tree, and this tree stricture is to be saved to disk. Most Red Black Tree implementations would use a dictionary sort when comparing which string is larger or smaller than another, but this project requires using the file name length along with converting to uppercase unicode. To accomodate custom sorting, this library requires the user to define dunder methods do imporm the tree which of two nodes is larger or smaller.
 
 ## Documentation
 
-This data structure is designed to be used either as a standard red-black binary search tree or as a red-black tree backed dictionary.
 
 ### Standard red-black tree interface
 
