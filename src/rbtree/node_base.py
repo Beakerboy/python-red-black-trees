@@ -1,4 +1,4 @@
-from typing import Any, TypeVar
+from typing import TypeVar
 from rbtree.null_node import NullNode
 
 
@@ -8,8 +8,7 @@ T = TypeVar('T', bound='Node')
 class NodeBase():
     NIL = NullNode()
 
-    def __init__(self: T, key: Any = None) -> None:
-        self._key = key
+    def __init__(self: T) -> None:
         self.parent: NodeBase.NIL
         self.left: NodeBase.NIL
         self.right: NodeBase.NIL
