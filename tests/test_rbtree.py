@@ -93,9 +93,9 @@ def test_delete_not_exist() -> None:
 
 def test_get_root() -> None:
     bst = RedBlackTree()
-    assert bst.get_root().is_null()
+    assert bst.root.is_null()
     bst.insert(3)
-    assert bst.get_root().key == 3
+    assert bst.root.key == 3
 
 
 def test_rotation1() -> None:
