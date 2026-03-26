@@ -46,7 +46,7 @@ class RedBlackTree():
         """
         return self._search_tree_helper(self.root, key)
 
-    def minimum(self: T, node: Optional[Node] = None) -> NodeBase:
+    def minimum(self: T, node: Optional[NodeBase] = None) -> NodeBase:
         if node is None:
             node = self.root
         if node.is_null():
@@ -64,13 +64,13 @@ class RedBlackTree():
             node = node.right
         return node
 
-    def successor(self: T, x: NodeBase) -> Optional[Node]:
+    def successor(self: T, x: NodeBase) -> Optional[NodeBase]:
         if not x.right.is_null():
             return self.minimum(x.right)
 
         y = x.parent
 
-        while y is not None and not y.is_null() and x == y.right:
+        while not y.is_null() and x == y.right:
             x = y
             y = y.parent
         return y
@@ -80,7 +80,7 @@ class RedBlackTree():
             return self.maximum(x.left)
 
         y = x.parent
-        while y is not None and not y.is_null() and x == y.left:
+        while not y.is_null() and x == y.left:
             x = y
             y = y.parent
 
@@ -105,7 +105,7 @@ class RedBlackTree():
                 x = x.right
 
         node.parent = y
-        if y is None:
+        if y.is_null():
             self.root = node
         elif node < y:
             y.left = node
