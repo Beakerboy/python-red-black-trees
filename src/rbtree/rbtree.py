@@ -40,7 +40,7 @@ class RedBlackTree():
     def postorder(self: T) -> None:
         self._post_order_helper(self.root)
 
-    def search(self: T, key: Any) -> Node:
+    def search(self: T, key: Any) -> NodeBase:
         """
         Find the node with the given key
         """
@@ -64,7 +64,7 @@ class RedBlackTree():
             node = node.right
         return node
 
-    def successor(self: T, x: Node) -> Optional[Node]:
+    def successor(self: T, x: NodeBase) -> Optional[Node]:
         if not x.right.is_null():
             return self.minimum(x.right)
 
@@ -75,7 +75,7 @@ class RedBlackTree():
             y = y.parent
         return y
 
-    def predecessor(self: T,  x: Node) -> Optional[Node]:
+    def predecessor(self: T,  x: NodeBase) -> Optional[Node]:
         if (not x.left.is_null()):
             return self.maximum(x.left)
 
@@ -88,7 +88,7 @@ class RedBlackTree():
 
     def insert(self: T, key: Any) -> None:
         # Allow the user to provide a custom node.
-        if isinstance(key, Node):
+        if isinstance(key, NodeBase):
             node = key
         else:
             node = Node(key)
@@ -210,7 +210,7 @@ class RedBlackTree():
     def _delete_node_helper(self: T, node: NodeBase, key: Any) -> None:
         z = self.search(key)
         if z.is_null():
-            # print("Cannot find key in the tree")
+            # Key not in tree.
             return
 
         y = z
