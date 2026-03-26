@@ -357,7 +357,9 @@ class RedBlackTree():
     def _search_tree_helper(
             self: T, node: NodeBase, node_to_find: NodeBase) -> NodeBase:
 
-        if node_to_find.is_null():
+        if node.is_null() or node_to_find.is_null():
+            return NodeBase.NIL
+        if node == node_to_find:
             return node
 
         if node_to_find < node:
