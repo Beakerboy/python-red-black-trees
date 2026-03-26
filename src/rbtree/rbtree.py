@@ -129,7 +129,7 @@ class RedBlackTree():
         else:
             y.right = node
 
-        self.size += 1
+        self._size += 1
 
         if node.parent is None:
             node.set_color("black")
@@ -266,7 +266,7 @@ class RedBlackTree():
         if y_original_color == "black":
             self._delete_fix(x)
 
-        self.size -= 1
+        self._size -= 1
 
     # Balancing the tree after deletion
     def _delete_fix(self: T, x: Node) -> None:
