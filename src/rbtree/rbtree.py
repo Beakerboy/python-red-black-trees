@@ -17,12 +17,6 @@ class RedBlackTree():
         nulls = self._iterator_include_nulls
         return iter(self.preorder(nulls))
 
-    def __getitem__(self: T, key: Any) -> Any:
-        return self.search(key).value
-
-    def __setitem__(self: T, key: Any, value: Any) -> None:
-        self.search(key).value = value
-
     def __len__(self: T) -> int:
         return self.size
 
