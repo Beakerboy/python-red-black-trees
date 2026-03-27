@@ -66,6 +66,7 @@ class NullNode(NodeBase):
     def __ne__(self: T, other: Any) -> bool:
         return not other.is_null()
 
+    def __lt__(self: T, other: Any) -> bool: return False
     def __repr__(self: N) -> str: return "NullNode"
 
     def depth(self: N) -> int: return -1
