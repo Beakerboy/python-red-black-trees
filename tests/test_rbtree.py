@@ -321,12 +321,24 @@ def test_null_depth() -> None:
 
 def test_iter_no_nulls() -> None:
     bst = three_tree()
+    bst.exclude_nulls()
     expected = [2, 1, 3]
     i = 0
     for node in bst:
         assert node.key == expected[i]
         i += 1
 
+def test_iter_nulls() -> None:
+    bst = three_tree()
+    bst.include_nulls()
+    expected = [2, 1, "", "", 3, "", ""]
+    i = 0
+    for node in bst:
+        if expected[i] == "":
+            assert node.is_null()
+        else:
+            assert node.key == expected[i]
+        i += 1
 
 def test_to_mindmap() -> None:
     bst = RedBlackTree()
