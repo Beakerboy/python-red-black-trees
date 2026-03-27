@@ -321,6 +321,7 @@ def test_null_depth() -> None:
 
 def test_iter_no_nulls() -> None:
     bst = three_tree()
+    bst.use_preorder()
     bst.exclude_nulls()
     expected = [2, 1, 3]
     i = 0
@@ -333,6 +334,34 @@ def test_iter_nulls() -> None:
     bst = three_tree()
     bst.include_nulls()
     expected = [2, 1, "", "", 3, "", ""]
+    i = 0
+    for node in bst:
+        if expected[i] == "":
+            assert node.is_null()
+        else:
+            assert node.key == expected[i]
+        i += 1
+
+
+def test_postorder_iter() -> None:
+    bst = three_tree()
+    bst.include_nulls()
+    bst.use_postorder()
+    expected = ["", "", 1, "", "", 3, 2]
+    i = 0
+    for node in bst:
+        if expected[i] == "":
+            assert node.is_null()
+        else:
+            assert node.key == expected[i]
+        i += 1
+
+
+def test_inorder_iter() -> None:
+    bst = three_tree()
+    bst.include_nulls()
+    bst.use_inorder()
+    expected = ["", 1, "", 2, "", 3, ""]
     i = 0
     for node in bst:
         if expected[i] == "":
