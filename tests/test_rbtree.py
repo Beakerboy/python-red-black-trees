@@ -48,6 +48,20 @@ def check_valid(bst: RedBlackTree) -> None:
     check_valid_recur(bst, root)
 
 
+def three_tree() -> RedBlackTree:
+    bst = RedBlackTree()
+    two = Node(2)
+    bst._root = two
+    two._red = False
+    one = Node(1)
+    one.parent = two
+    two.left = one
+    three = Node(3)
+    three.parent = two
+    two.right = three
+    return bst
+
+
 def test_insert() -> None:
     bst = RedBlackTree()
     assert len(bst) == 0
@@ -191,17 +205,7 @@ def test_delete_given_node() -> None:
 
 
 def test_delete_root_with_children() -> None:
-    bst = RedBlackTree()
-    two = Node(2)
-    bst._root = two
-    two._red = False
-    one = Node(1)
-    one.parent = two
-    two.left = one
-    three = Node(3)
-    three.parent = two
-    two.right = three
-    check_valid(bst)
+    bst = three_tree()
 
     # Test
     bst.delete(two)
@@ -289,10 +293,7 @@ def test_string() -> None:
 
 
 def test_preorder() -> None:
-    bst = RedBlackTree()
-    bst.insert(1)
-    bst.insert(3)
-    bst.insert(2)
+    bst = three_tree()
     assert len(bst.preorder()) == 3
 
     # There should be 4 additional Null Nodes.
@@ -316,6 +317,15 @@ def test_null_depth() -> None:
     assert nodes[5].is_null()
     assert nodes[5].depth() == 2
     assert nodes[6].is_null()
+
+
+def test_iter_no_nulls() -> None:
+    bst = three_tree()
+    expected = [2, 3, 1]
+    i = 0
+    for node in bst:
+        assert node.key = expected[i]
+        i += 1
 
 
 def test_to_mindmap() -> None:
