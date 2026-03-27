@@ -68,7 +68,6 @@ class NullNode(NodeBase):
 
     def __lt__(self: T, other: Any) -> bool: return False
 
-    def depth(self: N) -> int: return -1
     def is_null(self: N) -> bool: return True
 
 
