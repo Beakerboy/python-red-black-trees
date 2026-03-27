@@ -58,13 +58,13 @@ class RedBlackTree():
         self._iterator_include_nulls = False
 
     def use_preorder(self: T) -> None:
-        self._traversal_type = Iterator.PRE
+        self._traversal_type = IteratorType.PRE
 
     def use_postorder(self: T) -> None:
-        self._traversal_type = Iterator.POST
+        self._traversal_type = IteratorType.POST
 
     def use_inorder(self: T) -> None:
-        self._traversal_type = Iterator.IN
+        self._traversal_type = IteratorType.IN
 
     def preorder(self: T, include_nulls: bool = False) -> list:
         return self._pre_order_helper(self.root, include_nulls)
