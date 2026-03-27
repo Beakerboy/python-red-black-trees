@@ -318,5 +318,6 @@ def test_str() -> None:
     expected = """2(BLACK)
      L----   1(BLACK)
      R----  3(BLACK)
-          R----  4(RED)"""
+          R----  4(RED)
+"""
     assert str(bst) == expected
