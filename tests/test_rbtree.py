@@ -315,5 +315,8 @@ def test_str() -> None:
     two._red = False
     three._red = False
 
-    expected = ""
+    expected = """2(BLACK)
+       L----   1(BLACK)
+       R----  3(BLACK)
+           R----  4(RED)"""
     assert str(bst) == expected
