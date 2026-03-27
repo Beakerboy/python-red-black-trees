@@ -321,10 +321,10 @@ def test_null_depth() -> None:
 
 def test_iter_no_nulls() -> None:
     bst = three_tree()
-    expected = [2, 3, 1]
+    expected = [2, 1, 3]
     i = 0
     for node in bst:
-        assert node.key = expected[i]
+        assert node.key == expected[i]
         i += 1
 
 
