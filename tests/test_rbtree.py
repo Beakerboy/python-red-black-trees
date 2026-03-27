@@ -328,6 +328,7 @@ def test_iter_no_nulls() -> None:
         assert node.key == expected[i]
         i += 1
 
+
 def test_iter_nulls() -> None:
     bst = three_tree()
     bst.include_nulls()
@@ -339,6 +340,7 @@ def test_iter_nulls() -> None:
         else:
             assert node.key == expected[i]
         i += 1
+
 
 def test_to_mindmap() -> None:
     bst = RedBlackTree()
