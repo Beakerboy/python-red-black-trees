@@ -303,7 +303,7 @@ def test_preorder() -> None:
 def test_depth() -> None:
     bst = three_tree()
     assert bst.root.depth() == 0
-    assert bat.root.left.depth() == 1
+    assert bst.root.left.depth() == 1
 
 
 def test_iter_no_nulls() -> None:
