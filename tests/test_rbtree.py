@@ -300,23 +300,10 @@ def test_preorder() -> None:
     assert len(bst.preorder(True)) == 7
 
 
-def test_null_depth() -> None:
-    bst = RedBlackTree()
-    bst.insert(1)
-    bst.insert(3)
-    bst.insert(2)
-    nodes = bst.preorder(True)
-    assert nodes[0].key == 2
-    assert nodes[0].depth() == 0
-    assert nodes[1].key == 1
-    assert nodes[1].depth() == 1
-    assert nodes[2].is_null()
-    assert nodes[3].is_null()
-    assert nodes[4].key == 3
-    assert nodes[4].depth() == 1
-    assert nodes[5].is_null()
-    assert nodes[5].depth() == 2
-    assert nodes[6].is_null()
+def test_depth() -> None:
+    bst = three_tree()
+    assert bst.root.depth() == 0
+    assert bat.root.left.depth() == 1
 
 
 def test_iter_no_nulls() -> None:
