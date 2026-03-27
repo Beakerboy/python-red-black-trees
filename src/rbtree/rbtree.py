@@ -64,7 +64,7 @@ class RedBlackTree():
         if node is None:
             node = self.root
         if node.is_null():
-            return Node()
+            return node
         while not node.right.is_null():
             node = node.right
         return node
