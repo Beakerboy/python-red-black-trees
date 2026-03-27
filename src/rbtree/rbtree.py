@@ -9,6 +9,7 @@ class Iterator(Enum):
     IN = 0
     POST = 1
 
+
 T = TypeVar('T', bound='RedBlackTree')
 
 
