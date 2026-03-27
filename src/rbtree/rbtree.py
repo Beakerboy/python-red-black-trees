@@ -1,7 +1,13 @@
 from typing import Any, Optional, TypeVar, Iterator
+from enum import Enum
 from rbtree.node import Node
 from rbtree.node_base import NodeBase
 
+
+class Iterator(Enum):
+    PRE = -1
+    IN = 0
+    POST = 1
 
 T = TypeVar('T', bound='RedBlackTree')
 
@@ -11,12 +17,19 @@ class RedBlackTree():
         self._root: NodeBase = NodeBase.NIL
         self.size = 0
         self._iterator_include_nulls = False
+        self._traversal_type = Iterator.PRE
 
     # Dunder Methods
 
     def __iter__(self: T) -> Iterator:
         nulls = self._iterator_include_nulls
-        return iter(self.preorder(nulls))
+        match self._traversal_type:
+            case Iterator.PRE:
+                return iter(self.preorder(nulls))
+            case Iterator.IN:
+                return iter(self.inorder(nulls))
+            case Iterator.POST:
+                return iter(self.postorder(nulls))
 
     def __len__(self: T) -> int:
         return self.size
@@ -42,6 +55,15 @@ class RedBlackTree():
         Configure the iterator to exclude nulls
         """
         self._iterator_include_nulls = False
+
+    def use_preorder(self: T) -> None:
+        self._traversal_type = Iterator.PRE
+
+    def use_postorder(self: T) -> None:
+        self._traversal_type = Iterator.POST
+
+    def use_inorder(self: T) -> None:
+        self._traversal_type = Iterator.IN
 
     def preorder(self: T, include_nulls: bool = False) -> list:
         return self._pre_order_helper(self.root, include_nulls)
