@@ -31,6 +31,18 @@ class RedBlackTree():
 
     # Public Methods
 
+    def include_nulls(self: T) -> None:
+        """
+        Configure the iterator to include nulls
+        """
+        self._iterator_include_nulls = True
+
+    def exclude_nulls(self: T) -> None:
+        """
+        Configure the iterator to exclude nulls
+        """
+        self._iterator_include_nulls = False
+
     def preorder(self: T, include_nulls: bool = False) -> list:
         return self._pre_order_helper(self.root, include_nulls)
 
