@@ -1,6 +1,6 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from typing import Literal, TypeVar
+from typing import Any, Literal, TypeVar
 
 
 T = TypeVar('T', bound='NodeBase')
@@ -33,18 +33,18 @@ class NodeBase(ABC):
 
     # Comparison operators should be abstract if they depend on data
     @abstractmethod
-    def __lt__(self: T, other: T) -> bool: ...
+    def __lt__(self: T, other: Any) -> bool: ...
 
     @abstractmethod
-    def __eq__(self: T, other: T) -> bool: ...
+    def __eq__(self: T, other: Any) -> bool: ...
 
     # Python can derive these if you use functools.total_ordering
-    def __le__(self: T, other: T) -> bool:
+    def __le__(self: T, other: Any) -> bool:
         return self < other or self == other
 
-    def __gt__(self: T, other: T) -> bool: return not self <= other
-    def __ge__(self: T, other: T) -> bool: return not self < other
-    def __ne__(self: T, other: T) -> bool: return not self == other
+    def __gt__(self: T, other: Any) -> bool: return not self <= other
+    def __ge__(self: T, other: Any) -> bool: return not self < other
+    def __ne__(self: T, other: Any) -> bool: return not self == other
 
 
 N = TypeVar('N', bound='NullNode')
@@ -63,9 +63,9 @@ class NullNode(NodeBase):
     def depth(self: N) -> int:
         return -1
 
-    def __lt__(self: N, other: N) -> bool: return False
+    def __lt__(self: N, other: Any) -> bool: return False
 
-    def __eq__(self: N, other: N) -> bool:
+    def __eq__(self: N, other: Any) -> bool:
         return isinstance(other, NullNode)
 
     def __repr__(self: N) -> str: return "NullNode"
