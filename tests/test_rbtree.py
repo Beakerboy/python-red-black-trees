@@ -307,6 +307,11 @@ def test_depth() -> None:
     assert bst.root.left.depth() == 1
 
 
+def test_null_depth() -> None:
+    bst = RedBlackTree()
+    assert bst.root.depth() == -1
+
+
 def test_iter_no_nulls() -> None:
     bst = three_tree()
     bst.use_preorder()
@@ -360,10 +365,7 @@ def test_inorder_iter() -> None:
 
 
 def test_to_mindmap() -> None:
-    bst = RedBlackTree()
-    bst.insert(1)
-    bst.insert(3)
-    bst.insert(2)
+    bst = three_tree()
     lat = " <latex>\\rotatebox{-90}{"
     expected = ("@startmindmap\n"
                 + "-[#white]" + lat + "2}</latex>\n"
