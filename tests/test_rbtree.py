@@ -406,4 +406,3 @@ def test_bad_color() -> None:
     one = Node(1)
     with pytest.raises(Exception):
         one.color = "blue"
-        
