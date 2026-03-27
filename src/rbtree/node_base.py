@@ -44,7 +44,7 @@ class NodeBase():
         return True
 
     @property
-    def color(self: T) -> str:
+    def color(self: T) -> Literal["red", "black"]:
         return "red" if self._red else "black"
 
     @color.setter
