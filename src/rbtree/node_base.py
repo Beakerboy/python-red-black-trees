@@ -1,4 +1,4 @@
-from typing import Any, TypeVar
+from typing import Any, Literal, TypeVar
 
 
 T = TypeVar('T', bound='NodeBase')
@@ -45,16 +45,13 @@ class NodeBase():
 
     @property
     def color(self: T) -> str:
-        return "black" if not self._red else "red"
+        return "red" if self._red else "black"
 
     @color.setter
-    def color(self: T, color: str) -> None:
-        if color == "black":
-            self._red = False
-        elif color == "red":
-            self._red = True
-        else:
-            raise Exception("Unknown color")
+    def color(self: T, value: Literal["red", "black"]) -> None:
+        if value not in ("red", "black"):
+            raise ValueError("Color must be 'red' or 'black'")
+        self._red = (value == "red")
 
     def is_red(self: T) -> bool:
         return self._red
