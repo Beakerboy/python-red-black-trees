@@ -296,3 +296,24 @@ def test_to_mindmap() -> None:
                 + "---[#white]" + lat + "}</latex>\n"
                 + "@endmindmap")
     assert bst.to_mindmap() == expected
+
+
+def test_str() -> None:
+    bst = RedBlackTree()
+    one = Node(1)
+    two = Node(2)
+    three = Node(3)
+    four = Node(4)
+    bst._root = two
+    two.left = one
+    one.parent = two
+    two.right = three
+    three.parent = two
+    three.right = four
+    four.parent = three
+    one._red = False
+    two._red = False
+    three._red = False
+
+    expected = ""
+    assert str(bst) == expected
