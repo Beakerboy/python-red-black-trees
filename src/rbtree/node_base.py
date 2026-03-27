@@ -83,5 +83,11 @@ class NullNode(NodeBase):
     def is_null(self: N) -> bool:
         return True
 
+    def __eq__(self: T, other: Any) -> bool:
+        return other.is_null()
+
+    def __ne__(self: T, other: Any) -> bool:
+        return not other.is_null()
+
 
 NodeBase.NIL = NullNode()
