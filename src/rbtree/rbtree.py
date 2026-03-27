@@ -1,4 +1,4 @@
-from typing import Any, Optional, TypeVar, Iterator
+from typing import Any, Optional, TypeVar
 from enum import Enum
 from rbtree.node import Node
 from rbtree.node_base import NodeBase
