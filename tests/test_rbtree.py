@@ -399,3 +399,10 @@ def test_str() -> None:
           R----  4(RED)
 """
     assert str(bst) == expected
+
+
+dev test_bad_color() -> None:
+    one = Node(1)
+    with pytest.raises(Exception):
+        one.color = "blue"
+        
