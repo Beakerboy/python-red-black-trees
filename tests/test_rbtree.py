@@ -56,6 +56,14 @@ def test_insert() -> None:
     check_valid(bst)
 
 
+def test_insert_node() -> None:
+    bst = RedBlackTree()
+    one = Node(1)
+    bst.insert(one)
+    assert len(bst) == 1
+    check_valid(bst)
+
+
 def test_duplicate_insert() -> None:
     """
     bst will silently do nothing if adding a key that already exists
