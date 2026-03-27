@@ -150,12 +150,23 @@ def test_rotation4() -> None:
 
 def test_delete_rotation1() -> None:
     bst = RedBlackTree()
-    bst.insert(1)
-    bst.insert(2)
-    bst.insert(3)
-    bst.insert(4)
-    assert bst.root.key == 2
+    one = Node(1)
+    two = Node(2)
+    three = Node(3)
+    four = Node(4)
+    bst._root = two
+    two.left = one
+    one.parent = two
+    two.right = three
+    three.parent = two
+    three.right = four
+    foir.parent = three
+    one._red = False
+    two._red = False
+    three._red = False
+    check_valid(bst)
     bst.delete(1)
+    check_valid(bst)
     assert bst.root.key == 3
 
 
