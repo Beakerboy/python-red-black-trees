@@ -1,10 +1,11 @@
 from typing import Any, Literal, TypeVar
+from abc import ABC, abstractmethod
 
 
 T = TypeVar('T', bound='NodeBase')
 
 
-class NodeBase():
+class NodeBase(ABC):
     NIL: 'NullNode'
 
     def __init__(self: T) -> None:
@@ -19,29 +20,11 @@ class NodeBase():
     def __str__(self: T) -> str:
         return ""
 
-    def __lt__(self: T, other: Any) -> bool:
-        raise Exception()
-        return True
+    @abstractmethod
+    def __lt__(self: T, other: Any) -> bool: ...
 
-    def __le__(self: T, other: Any) -> bool:
-        raise Exception()
-        return True
-
-    def __gt__(self: T, other: Any) -> bool:
-        raise Exception()
-        return True
-
-    def __ge__(self: T, other: Any) -> bool:
-        raise Exception()
-        return True
-
-    def __eq__(self: T, other: Any) -> bool:
-        raise Exception()
-        return True
-
-    def __ne__(self: T, other: Any) -> bool:
-        raise Exception()
-        return True
+    @abstractmethod
+    def __eq__(self: T, other: Any) -> bool: ...
 
     @property
     def color(self: T) -> Literal["red", "black"]:
