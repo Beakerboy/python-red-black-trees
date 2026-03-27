@@ -137,9 +137,6 @@ class RedBlackTree():
             node = Node(key)
         self._delete_node_helper(self.root, node)
 
-    def print_tree(self: T) -> str:
-        return self.__print_helper(self.root, "", 'root')
-
     def to_mindmap(self: T) -> str:
         output = "@startmindmap\n"
         for node in self.preorder(True):
