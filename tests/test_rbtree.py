@@ -1,3 +1,4 @@
+import pytest
 from rbtree.rbtree import RedBlackTree
 from rbtree.node import Node
 
