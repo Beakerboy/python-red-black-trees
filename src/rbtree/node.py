@@ -33,10 +33,10 @@ class Node(NodeBase):
         return self.key >= other.key
 
     def __eq__(self: T, other: Any) -> bool:
-        return self.key == other.key
+        return not other.is_null() and self.key == other.key
 
     def __ne__(self: T, other: Any) -> bool:
-        return self.key != other.key
+        return other.is_null() or self.key != other.key
 
     @property
     def key(self: T) -> Any:
