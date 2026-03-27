@@ -404,7 +404,7 @@ class RedBlackTree():
         return basenode
 
     def _in_order_helper(self: T, node: NodeBase,
-                          include_nulls: bool = False) -> list:
+                         include_nulls: bool = False) -> list:
         """
         Create an array of child elements following a inorder traversal of the
         tree.
@@ -419,7 +419,7 @@ class RedBlackTree():
         return basenode
 
     def _post_order_helper(self: T, node: NodeBase,
-                          include_nulls: bool = False) -> list:
+                           include_nulls: bool = False) -> list:
         """
         Create an array of child elements following a postorder traversal of
         the tree.
