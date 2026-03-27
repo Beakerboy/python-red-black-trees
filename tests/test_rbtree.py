@@ -208,7 +208,7 @@ def test_delete_root_with_children() -> None:
     bst = three_tree()
 
     # Test
-    bst.delete(two)
+    bst.delete(2)
     check_valid(bst)
 
 
