@@ -170,6 +170,18 @@ def test_delete_rotation1() -> None:
     assert bst.root.key == 3
 
 
+def test_delete_root() -> None:
+    bst = RedBlackTree()
+    one = Node(1)
+    bst._root = one
+    one._red = False
+    check_valid(bst)
+
+    # Test
+    bst.delete(one)
+    check_valid(bst)
+
+
 def test_delete_rotation2() -> None:
     bst = RedBlackTree()
     bst.insert(4)
