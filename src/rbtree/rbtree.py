@@ -34,11 +34,11 @@ class RedBlackTree():
     def preorder(self: T, include_nulls: bool = False) -> list:
         return self._pre_order_helper(self.root, include_nulls)
 
-    def inorder(self: T) -> None:
-        self._in_order_helper(self.root)
+    def inorder(self: T, include_nulls: bool = False) -> list:
+        self._in_order_helper(self.root, include_nulls)
 
-    def postorder(self: T) -> None:
-        self._post_order_helper(self.root)
+    def postorder(self: T, include_nulls: bool = False) -> list:
+        self._post_order_helper(self.root, include_nulls)
 
     def search(self: T, key: Any) -> NodeBase:
         """
@@ -385,32 +385,38 @@ class RedBlackTree():
             basenode = [node]
             left = self._pre_order_helper(node.left, include_nulls)
             right = self._pre_order_helper(node.right, include_nulls)
-        if include_nulls:
+        elif include_nulls:
             basenode = [node]
         basenode.extend(left)
         basenode.extend(right)
         return basenode
 
-    def _in_order_helper(self: T, node: NodeBase) -> str:
+    def _in_order_helper(self: T, node: NodeBase,
+                          include_nulls: bool = False) -> list:
         """
-        Create an array of child elements following
-        a inorder traversal of the tree.
+        Create an array of child elements following a inorder traversal of the
+        tree.
         """
-        result = ""
+        basenode = []
         if not node.is_null():
-            self._in_order_helper(node.left)
-            result += str(node) + " "
-            self._in_order_helper(node.right)
-        return result
+            basenode = self._in_order_helper(node.left, include_nulls))
+            basenode.extend([node])
+            basenode.extend(self._in_order_helper(node.right, include_nulls))
+        elif include_nulls:
+            basenode = [node]
+        return basenode
 
-    def _post_order_helper(self: T, node: NodeBase) -> str:
+    def _post_order_helper(self: T, node: NodeBase,
+                          include_nulls: bool = False) -> list:
         """
-        Create an array of child elements following
-        a postorder traversal of the tree.
+        Create an array of child elements following a postorder traversal of
+        the tree.
         """
-        result = ""
+        basenode = []
         if not node.is_null():
-            self._post_order_helper(node.left)
-            self._post_order_helper(node.right)
-            result += str(node) + " "
-        return result
+            basenode = self._in_order_helper(node.left, include_nulls))
+            basenode.extend(self._in_order_helper(node.right, include_nulls))
+            basenode.extend([node])
+        elif include_nulls:
+            basenode = [node]
+        return basenode
