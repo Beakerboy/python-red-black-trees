@@ -229,7 +229,14 @@ class RedBlackTree():
 
         y = z
         y_original_color = y.color
-        if z.left.is_null():
+        np = z.parent
+        if z.right.is_null() and z.left.is_null():
+            x = z.right
+            if z == z.parent.left:
+                z.parent.left = z.left
+            else:
+                z.parent.right = z.right
+        elif z.left.is_null():
             # If no left child, just scoot the right subtree up
             x = z.right
             self.__rb_transplant(z, z.right)
@@ -253,16 +260,13 @@ class RedBlackTree():
             y.left.parent = y
             y.color = z.color
         if y_original_color == "black":
-            self._delete_fix(x)
+            self._delete_fix(x, np)
 
         self.size -= 1
 
     # Balancing the tree after deletion
-    def _delete_fix(self: T, x: NodeBase) -> None:
-        while (
-            (x.is_null() and not self.root.is_null()) or x != self.root
-        ) and x.is_black():
-            np = x.parent
+    def _delete_fix(self: T, x: NodeBase, np: NodeBase) -> None:
+        while x != self.root and x.is_black():
             if x == np.left:
                 s = np.right
                 if s.is_red():
