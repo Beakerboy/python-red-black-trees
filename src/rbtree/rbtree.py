@@ -449,8 +449,8 @@ class RedBlackTree():
         """
         basenode = []
         if not node.is_null():
-            basenode = self._in_order_helper(node.left, include_nulls)
-            basenode.extend(self._in_order_helper(node.right, include_nulls))
+            basenode = self._post_order_helper(node.left, include_nulls)
+            basenode.extend(self._post_order_helper(node.right, include_nulls))
             basenode.extend([node])
         elif include_nulls:
             basenode = [node]
