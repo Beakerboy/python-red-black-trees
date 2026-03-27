@@ -160,7 +160,7 @@ def test_delete_rotation1() -> None:
     two.right = three
     three.parent = two
     three.right = four
-    foir.parent = three
+    four.parent = three
     one._red = False
     two._red = False
     three._red = False
