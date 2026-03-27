@@ -47,10 +47,10 @@ class RedBlackTree():
         return self._pre_order_helper(self.root, include_nulls)
 
     def inorder(self: T, include_nulls: bool = False) -> list:
-        self._in_order_helper(self.root, include_nulls)
+        return self._in_order_helper(self.root, include_nulls)
 
     def postorder(self: T, include_nulls: bool = False) -> list:
-        self._post_order_helper(self.root, include_nulls)
+        return self._post_order_helper(self.root, include_nulls)
 
     def search(self: T, key: Any) -> NodeBase:
         """
