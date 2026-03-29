@@ -1,4 +1,6 @@
+import pytest
 from rbtree.node_base import NullNode
+
 
 def test_null_parent() -> None:
     null = NullNode()
