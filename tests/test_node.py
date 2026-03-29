@@ -6,6 +6,7 @@ def test_lt() -> None:
     one = Node(1)
     assert zero < one
 
+
 def test_str() -> None:
     zero = Node(0)
     assert str(zero) == "0"
