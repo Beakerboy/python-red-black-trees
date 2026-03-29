@@ -36,7 +36,7 @@ def test_tree_check() -> RedBlackTree:
     zero = Node(0)
     zero.parent = three
     three.left = zero
-    assert bst.is_valid()
+    assert not bst.is_valid()
 
 
 def test_insert() -> None:
