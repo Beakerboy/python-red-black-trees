@@ -281,12 +281,13 @@ class RedBlackTree():
             y = self.minimum(z.right)
             y_original_color = y.color
             x = y.right
-            if y.parent == z:
+            if y.parent == z and not x.is_null():
                 x.parent = y
             else:
                 self.__rb_transplant(y, y.right)
                 y.right = z.right
-                y.right.parent = y
+                if not y.right.is_null():
+                    y.right.parent = y
 
             self.__rb_transplant(z, y)
             y.left = z.left
