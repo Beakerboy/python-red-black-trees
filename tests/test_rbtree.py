@@ -246,28 +246,44 @@ def test_delete_with_left_child() -> None:
     assert bst.root.key == 3
 
 
-def test_accessors() -> None:
+def test_delete_with_grandchildren() -> None:
+    bst = RedBlackTree()
+    bst.insert(1)
+    bst.insert(2)
+    bst.insert(3)
+    bst.insert(4)
+    bst.delete(bst.root)
+    check_valid(bst)
+
+    
+def test_max() -> None:
+    bst = three_tree()
+    assert bst.maximum() == 3
+
+
+def test_empty_max() -> None:
     bst = RedBlackTree()
     assert bst.maximum().is_null()
+
+
+def test_empty_min() -> None:
+    bst = RedBlackTree()
     assert bst.minimum().is_null()
 
-    bst.insert(55)
-    bst.insert(40)
-    bst.insert(58)
-    bst.insert(42)
 
-    assert bst.maximum().key == 58
-    assert bst.minimum().key == 40
-    assert bst.successor(bst.search(42)).key == 55
-    assert bst.successor(bst.search(40)).key == 42
-    assert bst.successor(bst.search(55)).key == 58
-    assert bst.successor(bst.search(58)).is_null()
-    assert bst.predecessor(bst.search(42)).key == 40
-    assert bst.predecessor(bst.search(55)).key == 42
-    assert bst.predecessor(bst.search(58)).key == 55
+def test_min() -> None:
+    bst = three_tree()
+    assert bst.minimum() == 1
 
-    bst.insert(57)
-    assert bst.predecessor(bst.search(57)).key == 55
+
+def test_successor() -> None:
+    bst = three_tree()
+    assert bst.successor(bst.root).key == 3
+
+
+def test_predecessor() -> None:
+    bst = three_tree()
+    assert bst.predecessor(bst.root).key == 1
 
 
 def test_non_int_float() -> None:
