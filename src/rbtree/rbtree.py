@@ -462,7 +462,10 @@ class RedBlackTree():
         return basenode
 
     @staticmethod
-    def validate_red_black_tree(node: NodeBase, min_val=float('-inf'), max_val=float('inf')):
+    def validate_red_black_tree(
+        node: NodeBase,
+        min_val=float('-inf'),
+        max_val=float('inf')):
         """
         Validates all Red-Black Tree properties in one pass.
         Returns (is_valid, black_height) or (False, -1).
@@ -482,13 +485,18 @@ class RedBlackTree():
                 return False, -1
 
         # Recursive checks for children
-        left_valid, left_bh = validate_red_black_tree(node.left, min_val, node.key)
-        right_valid, right_bh = validate_red_black_tree(node.right, node.key, max_val)
+        left_valid, left_bh = validate_red_black_tree(
+            node.left, min_val, node.key
+        )
+        right_valid, right_bh = validate_red_black_tree(
+            node.right, node.key, max_val
+        )
 
         if not left_valid or not right_valid:
             return False, -1
 
-        # 4. Black Height Property: Left and right subtrees must have same black height
+        # 4. Black Height Property: Left and right subtrees must have same
+        # black height
         if left_bh != right_bh:
             return False, -1
 
