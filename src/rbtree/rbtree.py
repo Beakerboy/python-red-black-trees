@@ -357,7 +357,7 @@ class RedBlackTree():
         x.color = "black"
 
     def __rb_transplant(self: T, u: NodeBase, v: NodeBase) -> None:
-        if u.parent.is_null():
+        if u.parent.is_null(): # We are removing the root node
             self._root = v
         elif u == u.parent.left:
             u.parent.left = v
@@ -365,6 +365,7 @@ class RedBlackTree():
             u.parent.right = v
         if not v.is_null():
             v.parent = u.parent
+        u.parent = NodeBase.NIL
 
     def _left_rotate(self: T, x: NodeBase) -> None:
         y = x.right
