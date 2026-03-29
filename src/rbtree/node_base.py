@@ -56,8 +56,8 @@ class NullNode(NodeBase):
 
     def __init__(self: N) -> None:
         self._parent = self
-        self.left = self
-        self.right = self
+        self._left = self
+        self._right = self
         self._red = False
 
     @property
@@ -67,6 +67,22 @@ class NullNode(NodeBase):
     @parent.setter
     def parent(self: N, node: NodeBase) -> None:
         raise Exception("Cannot Change Null Node Parent")
+
+    @property
+    def left(self: N) -> NodeBase:
+        return self._left
+
+    @left.setter
+    def left(self: N, node: NodeBase) -> None:
+        raise Exception("Cannot Change Null Node Child")
+
+    @property
+    def right(self: N) -> NodeBase:
+        return self._right
+
+    @righy.setter
+    def righy(self: N, node: NodeBase) -> None:
+        raise Exception("Cannot Change Null Node Child")
 
     def __eq__(self: T, other: Any) -> bool: return other.is_null()
     def __ne__(self: T, other: Any) -> bool: return not other.is_null()
