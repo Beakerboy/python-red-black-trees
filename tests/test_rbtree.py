@@ -46,6 +46,46 @@ def check_red_root() -> None:
     assert not bst.is_valid()
 
 
+def check_empty() -> None:
+    bst = RedBlackTree()
+    assert bst.is_valid()
+
+
+def check_red_parent_child() -> None:
+    bst = RedBlackTree()
+    two = Node(2)
+    bst._root = two
+    two._red = False
+    one = Node(1)
+    one.parent = two
+    two.left = one
+    three = Node(3)
+    three.parent = two
+    two.right = three
+    four = Node(4)
+    four.parent = three
+    three.right = four
+    assert not bst.is_valid()
+
+
+def check_black_length() -> None:
+    bst = RedBlackTree()
+    two = Node(2)
+    bst._root = two
+    two._red = False
+    one = Node(1)
+    one.parent = two
+    two.left = one
+    three = Node(3)
+    three.parent = two
+    two.right = three
+    four = Node(4)
+    four.parent = three
+    three.right = four
+    four._red = False
+    assert not bst.is_valid()
+
+
 def test_insert() -> None:
     bst = RedBlackTree()
     assert len(bst) == 0
