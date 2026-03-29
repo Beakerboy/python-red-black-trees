@@ -96,7 +96,7 @@ def test_backwords() -> None:
     two.left = one
 
 
-def test_backwords() -> None:
+def test_backwords1() -> None:
     bst = RedBlackTree()
     two = Node(2)
     bst._root = two
