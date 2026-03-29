@@ -290,7 +290,7 @@ class RedBlackTree():
 
             self.__rb_transplant(z, y)
             y.left = z.left
-            if not y.left.is_null()
+            if not y.left.is_null():
                 y.left.parent = y
             y.color = z.color
         if y_original_color == "black":
