@@ -173,10 +173,16 @@ class RedBlackTree():
         self._delete_node_helper(self.root, node)
 
     def to_mindmap(self: T) -> str:
+        null_depths = []
         output = "@startmindmap\n"
         for node in self.preorder(True):
+            if node.right.is_null():
+                null_depths.append(node.depth() + 1)
+            if node.left.is_null():
+                null_depths.append(node.depth() + 1)
             color = "white" if node.is_black() else "red"
-            output += ("-" * (node.depth() + 1)
+            depth = null_depths.pop() if node.is_null() else node.depth()
+            output += ("-" * (depth + 1)
                        + "[#" + color + "] <latex>\\rotatebox{-90}{"
                        + str(node)
                        + "}</latex>\n")
