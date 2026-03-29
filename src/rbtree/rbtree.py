@@ -176,16 +176,17 @@ class RedBlackTree():
         null_depths = []
         output = "@startmindmap\n"
         for node in self.preorder(True):
-            if node.right.is_null():
-                null_depths.append(node.depth() + 1)
-            if node.left.is_null():
-                null_depths.append(node.depth() + 1)
+            if not node.is_null():
+                if node.right.is_null():
+                    null_depths.append(node.depth() + 1)
+                if node.left.is_null():
+                    null_depths.append(node.depth() + 1)
             color = "white" if node.is_black() else "red"
             depth = null_depths.pop() if node.is_null() else node.depth()
-            output += ("-" * (depth + 1)
-                       + "[#" + color + "] <latex>\\rotatebox{-90}{"
-                       + str(node)
-                       + "}</latex>\n")
+            output += (
+                "-" * (depth + 1) + "[#" + color +
+                r"] <latex>\rotatebox{-90}{" + str(node) + "}</latex>\n"
+            )
         return output + "@endmindmap"
 
     # Protected Methods
