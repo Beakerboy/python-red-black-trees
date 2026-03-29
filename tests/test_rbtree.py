@@ -178,7 +178,7 @@ def test_delete_given_node() -> None:
 
     # Test
     bst.delete(one)
-    check_valid(bst)
+    assert bst.is_valid()
 
 
 def test_delete_root_with_children() -> None:
