@@ -61,7 +61,7 @@ class NullNode(NodeBase):
         self._red = False
 
     @property
-    def parent(self: N) -> 'NullNode':
+    def parent(self: N) -> NodeBase:
         return self._parent
 
     @parent.setter
