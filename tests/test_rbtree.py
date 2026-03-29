@@ -296,20 +296,24 @@ def test_null_right_successor() -> None:
     assert bst.successor(bst.search(1)).key == 2
 
 
-def test_predecessor() -> None:
+def test_child_predecessor() -> None:
     bst = three_tree()
     assert bst.predecessor(bst.root).key == 1
+
+
+def test_parent_predecessor() -> None:
+    bst = three_tree()
+    assert bst.predecessor(bst.search(3)).key == 2
+
+
+def test_no_predecessor() -> None:
+    bst = three_tree()
+    assert bst.predecessor(bst.search(1)).key == 2
 
 
 def test_empty_predecessor() -> None:
     bst = RedBlackTree()
     assert bst.predecessor(bst.root).is_null()
-
-
-def test_null_left_predecessor() -> None:
-    bst = three_tree()
-    bst.insert(4)
-    assert bst.predecessor(bst.search(3)).key == 2
 
 
 def test_non_int_float() -> None:
