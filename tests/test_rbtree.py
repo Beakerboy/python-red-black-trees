@@ -255,7 +255,7 @@ def test_delete_with_grandchildren() -> None:
     bst.delete(bst.root)
     check_valid(bst)
 
-    
+
 def test_max() -> None:
     bst = three_tree()
     assert bst.maximum() == 3
