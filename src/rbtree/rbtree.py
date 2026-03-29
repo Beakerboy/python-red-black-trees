@@ -269,13 +269,7 @@ class RedBlackTree():
         y = z
         y_original_color = y.color
         np = z.parent
-        if z.right.is_null() and z.left.is_null():
-            x = z.right
-            if z == z.parent.left:
-                z.parent.left = z.left
-            else:
-                z.parent.right = z.right
-        elif z.left.is_null():
+        if z.left.is_null():
             # If no left child, just scoot the right subtree up
             x = z.right
             self.__rb_transplant(z, z.right)
