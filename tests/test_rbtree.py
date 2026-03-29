@@ -3,57 +3,6 @@ from rbtree.rbtree import RedBlackTree
 from rbtree.node import Node
 
 
-def validate_red_black_tree(node: NodeBase, min_val=float('-inf'), max_val=float('inf')):
-    """
-    Validates all Red-Black Tree properties in one pass.
-    Returns (is_valid, black_height) or (False, -1).
-    """
-    # 1. Leaf Property: NIL nodes are always valid and have black height 0
-    if node.is_null():
-        return True, 0
-
-    # 2. BST Property: Key must be within valid range
-    assert (
-        (min_val < node.key < max_val),
-        f"BST Violation: Key {node.key} is out of range ({min_val}, {max_val})"
-    )
-
-    # 3. Red Property: No red node can have a red child
-    # Note: node._red is True if red, False if black
-    if node._red:
-        if (node.left and node.left._red) or (node.right and node.right._red):
-            print(f"Red Violation: Node {node.key} and its child are both RED")
-            return False, -1
-
-    # Recursive checks for children
-    left_valid, left_bh = validate_red_black_tree(node.left, min_val, node.key)
-    right_valid, right_bh = validate_red_black_tree(node.right, node.key, max_val)
-
-    if not left_valid or not right_valid:
-        return False, -1
-
-    # 4. Black Height Property: Left and right subtrees must have same black height
-    assert (
-        left_bh != right_bh,
-        f"Balance Violation: Node {node.key} has unequal black heights (L:{left_bh}, R:{right_bh})"
-    )
-
-    # Calculate current node's black height contribution
-    # If node is black, height increases by 1
-    current_bh = left_bh + (0 if node._red else 1)
-    return True, current_bh
-
-def check_valid(tree):
-    if tree._root.is_null():
-        return True
-    
-    # 5. Root Property: Root must be black
-    assert tree._root._red, "Root Violation: The root node is RED"
-        
-    valid, _ = validate_red_black_tree(tree._root)
-    return valid
-
-
 def three_tree() -> RedBlackTree:
     bst = RedBlackTree()
     two = Node(2)
@@ -87,8 +36,7 @@ def test_tree_check() -> RedBlackTree:
     zero = Node(0)
     zero.parent = three
     three.left = zero
-    check_valid(bst)
-    assert bst.to_mindmap() == ''
+    assert bst.is_valid()
 
 
 def test_insert() -> None:
@@ -96,7 +44,7 @@ def test_insert() -> None:
     assert len(bst) == 0
     bst.insert(55)
     assert len(bst) == 1
-    check_valid(bst)
+    assert bst.is_valid()
 
 
 def test_insert_node() -> None:
@@ -104,7 +52,7 @@ def test_insert_node() -> None:
     one = Node(1)
     bst.insert(one)
     assert len(bst) == 1
-    check_valid(bst)
+    assert bst.is_valid()
 
 
 def test_duplicate_insert() -> None:
@@ -215,9 +163,9 @@ def test_delete_rotation1() -> None:
     one._red = False
     two._red = False
     three._red = False
-    check_valid(bst)
+    assert bst.is_valid()
     bst.delete(1)
-    check_valid(bst)
+    assert bst.is_valid()
     assert bst.root.key == 3
 
 
@@ -226,7 +174,7 @@ def test_delete_given_node() -> None:
     one = Node(1)
     bst._root = one
     one._red = False
-    check_valid(bst)
+    assert bst.is_valid()
 
     # Test
     bst.delete(one)
@@ -238,7 +186,7 @@ def test_delete_root_with_children() -> None:
 
     # Test
     bst.delete(2)
-    check_valid(bst)
+    assert bst.is_valid()
 
 
 def test_delete_rotation2() -> None:
@@ -281,7 +229,7 @@ def test_delete_with_grandchildren() -> None:
     bst.insert(3)
     bst.insert(4)
     bst.delete(bst.root)
-    check_valid(bst)
+    assert bst.is_valid()
 
 
 def test_max() -> None:
@@ -350,7 +298,7 @@ def test_non_int_float() -> None:
     bst = RedBlackTree()
     bst.insert(42)
     bst.insert(42.5)
-    check_valid(bst)
+    assert bst.is_valid()
 
 
 def test_tuple() -> None:
@@ -358,7 +306,7 @@ def test_tuple() -> None:
     bst.insert((2, 6))
     bst.insert((1, 42))
     bst.insert((1, 16))
-    check_valid(bst)
+    assert bst.is_valid()
 
 
 def test_string() -> None:
@@ -366,7 +314,7 @@ def test_string() -> None:
     bst.insert("foo")
     bst.insert("bar")
     bst.insert("Foo")
-    check_valid(bst)
+    assert bst.is_valid()
 
 
 def test_preorder() -> None:
