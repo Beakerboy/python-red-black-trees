@@ -283,6 +283,7 @@ def test_successor() -> None:
 
 def test_empty_successor() -> None:
     bst = RedBlackTree()
+    bst.root.parent == bst.root
     assert bst.successor(bst.root).is_null()
 
 
