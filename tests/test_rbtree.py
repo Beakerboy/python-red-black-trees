@@ -66,6 +66,28 @@ def three_tree() -> RedBlackTree:
     return bst
 
 
+def test_tree_check() -> RedBlackTree:
+    bst = RedBlackTree()
+    two = Node(2)
+    bst._root = two
+    two._red = False
+    one = Node(1)
+    one.parent = two
+    one._red = False
+    two.left = one
+    three = Node(3)
+    three.parent = two
+    three._red = False
+    two.right = three
+    four = Node(4)
+    four.parent = three
+    three.right = four
+    zero = Node(0)
+    zero.parent = three
+    three.left = zero
+    check_valid(bst)
+
+
 def test_insert() -> None:
     bst = RedBlackTree()
     assert len(bst) == 0
