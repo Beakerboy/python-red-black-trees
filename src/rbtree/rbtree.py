@@ -290,7 +290,8 @@ class RedBlackTree():
 
             self.__rb_transplant(z, y)
             y.left = z.left
-            y.left.parent = y
+            if not y.left.is_null()
+                y.left.parent = y
             y.color = z.color
         if y_original_color == "black":
             self._delete_fix(x, np)
@@ -357,7 +358,7 @@ class RedBlackTree():
         x.color = "black"
 
     def __rb_transplant(self: T, u: NodeBase, v: NodeBase) -> None:
-        if u.parent.is_null(): # We are removing the root node
+        if u.parent.is_null():  # We are removing the root node
             self._root = v
         elif u == u.parent.left:
             u.parent.left = v
