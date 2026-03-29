@@ -3,52 +3,6 @@ from rbtree.rbtree import RedBlackTree
 from rbtree.node import Node
 
 
-def check_node_valid(bst: RedBlackTree, node: Node) -> None:
-    if node.is_null():
-        assert node.is_black()
-        return
-
-    if node.is_red():
-        assert node.left.is_black()
-        assert node.right.is_black()
-
-    if not node.left.is_null():
-        assert node >= node.left
-    if not node.right.is_null():
-        assert node <= node.right
-
-
-def check_valid_recur(bst: RedBlackTree, node: Node) -> int:
-    check_node_valid(bst, node)
-
-    if node.is_null():
-        return 1
-
-    if node.left.is_null() and node.right.is_null():
-        if node.is_black():
-            return 2
-        else:
-            return 1
-
-    left_count = check_valid_recur(bst, node.left)
-    right_count = check_valid_recur(bst, node.right)
-
-    assert left_count == right_count
-
-    # doesn't matter which one we choose because they're the same
-    cur_count = left_count
-    if node.is_black():
-        cur_count += 1
-
-    return cur_count
-
-
-def check_valid(bst: RedBlackTree) -> None:
-    root = bst.root
-    assert root.is_black()
-    check_valid_recur(bst, root)
-
-
 def three_tree() -> RedBlackTree:
     bst = RedBlackTree()
     two = Node(2)
@@ -63,12 +17,103 @@ def three_tree() -> RedBlackTree:
     return bst
 
 
+def test_tree_check() -> RedBlackTree:
+    bst = RedBlackTree()
+    two = Node(2)
+    bst._root = two
+    two._red = False
+    one = Node(1)
+    one.parent = two
+    one._red = False
+    two.left = one
+    three = Node(3)
+    three.parent = two
+    three._red = False
+    two.right = three
+    four = Node(4)
+    four.parent = three
+    three.right = four
+    zero = Node(0)
+    zero.parent = three
+    three.left = zero
+    assert not bst.is_valid()
+
+
+def test_red_root() -> None:
+    bst = RedBlackTree()
+    zero = Node(0)
+    bst._root = zero
+    assert not bst.is_valid()
+
+
+def test_empty() -> None:
+    bst = RedBlackTree()
+    assert bst.is_valid()
+
+
+def test_red_parent_child() -> None:
+    bst = RedBlackTree()
+    two = Node(2)
+    bst._root = two
+    two._red = False
+    one = Node(1)
+    one.parent = two
+    two.left = one
+    three = Node(3)
+    three.parent = two
+    two.right = three
+    four = Node(4)
+    four.parent = three
+    three.right = four
+    assert not bst.is_valid()
+
+
+def test_black_length() -> None:
+    bst = RedBlackTree()
+    two = Node(2)
+    bst._root = two
+    two._red = False
+    one = Node(1)
+    one.parent = two
+    two.left = one
+    three = Node(3)
+    three.parent = two
+    two.right = three
+    four = Node(4)
+    four.parent = three
+    three.right = four
+    four._red = False
+    assert not bst.is_valid()
+
+
+def test_backwords() -> None:
+    bst = RedBlackTree()
+    two = Node(2)
+    bst._root = two
+    two._red = False
+    one = Node(3)
+    one.parent = two
+    two.left = one
+    assert not bst.is_valid()
+
+
+def test_backwords1() -> None:
+    bst = RedBlackTree()
+    two = Node(2)
+    bst._root = two
+    two._red = False
+    one = Node(1)
+    one.parent = two
+    two.right = one
+    assert not bst.is_valid()
+
+
 def test_insert() -> None:
     bst = RedBlackTree()
     assert len(bst) == 0
     bst.insert(55)
     assert len(bst) == 1
-    check_valid(bst)
+    assert bst.is_valid()
 
 
 def test_insert_node() -> None:
@@ -76,7 +121,7 @@ def test_insert_node() -> None:
     one = Node(1)
     bst.insert(one)
     assert len(bst) == 1
-    check_valid(bst)
+    assert bst.is_valid()
 
 
 def test_duplicate_insert() -> None:
@@ -187,9 +232,9 @@ def test_delete_rotation1() -> None:
     one._red = False
     two._red = False
     three._red = False
-    check_valid(bst)
+    assert bst.is_valid()
     bst.delete(1)
-    check_valid(bst)
+    assert bst.is_valid()
     assert bst.root.key == 3
 
 
@@ -198,11 +243,11 @@ def test_delete_given_node() -> None:
     one = Node(1)
     bst._root = one
     one._red = False
-    check_valid(bst)
+    assert bst.is_valid()
 
     # Test
     bst.delete(one)
-    check_valid(bst)
+    assert bst.is_valid()
 
 
 def test_delete_root_with_children() -> None:
@@ -210,7 +255,7 @@ def test_delete_root_with_children() -> None:
 
     # Test
     bst.delete(2)
-    check_valid(bst)
+    assert bst.is_valid()
 
 
 def test_delete_rotation2() -> None:
@@ -246,35 +291,96 @@ def test_delete_with_left_child() -> None:
     assert bst.root.key == 3
 
 
-def test_accessors() -> None:
+def test_delete_with_grandchildren() -> None:
+    bst = RedBlackTree()
+    bst.insert(1)
+    bst.insert(2)
+    bst.insert(3)
+    bst.insert(4)
+    bst.delete(bst.root)
+    assert bst.is_valid()
+
+
+def test_delete_red_with_child() -> None:
+    bst = three_tree()
+    zero = Node(0)
+    zero._red = False
+    zero.parent = bst.search(1)
+    four = Node(4)
+    four._red = False
+    four.parent = bst.search(3)
+    assert bst.is_valid()
+    bst.delete(0)
+    assert bst.is_valid()
+
+
+def test_max() -> None:
+    bst = three_tree()
+    assert bst.maximum().key == 3
+
+
+def test_empty_max() -> None:
     bst = RedBlackTree()
     assert bst.maximum().is_null()
+
+
+def test_empty_min() -> None:
+    bst = RedBlackTree()
     assert bst.minimum().is_null()
 
-    bst.insert(55)
-    bst.insert(40)
-    bst.insert(58)
-    bst.insert(42)
 
-    assert bst.maximum().key == 58
-    assert bst.minimum().key == 40
-    assert bst.successor(bst.search(42)).key == 55
-    assert bst.successor(bst.search(40)).key == 42
-    assert bst.successor(bst.search(55)).key == 58
-    assert bst.successor(bst.search(58)).is_null()
-    assert bst.predecessor(bst.search(42)).key == 40
-    assert bst.predecessor(bst.search(55)).key == 42
-    assert bst.predecessor(bst.search(58)).key == 55
+def test_min() -> None:
+    bst = three_tree()
+    assert bst.minimum().key == 1
 
-    bst.insert(57)
-    assert bst.predecessor(bst.search(57)).key == 55
+
+def test_child_successor() -> None:
+    bst = three_tree()
+    assert bst.successor(bst.root).key == 3
+
+
+def test_empty_successor() -> None:
+    bst = RedBlackTree()
+    bst.root.parent == bst.root
+    assert bst.successor(bst.root).is_null()
+
+
+def test_parent_successor() -> None:
+    bst = three_tree()
+    bst.insert(0)
+    assert bst.successor(bst.search(1)).key == 2
+
+
+def test_no_successor() -> None:
+    bst = three_tree()
+    assert bst.successor(bst.search(3)).is_null()
+
+
+def test_child_predecessor() -> None:
+    bst = three_tree()
+    assert bst.predecessor(bst.root).key == 1
+
+
+def test_parent_predecessor() -> None:
+    bst = three_tree()
+    assert bst.predecessor(bst.search(3)).key == 2
+
+
+def test_no_predecessor() -> None:
+    bst = three_tree()
+    assert bst.predecessor(bst.search(1)).is_null()
+
+
+def test_empty_predecessor() -> None:
+    bst = RedBlackTree()
+    assert bst.predecessor(bst.root).is_null()
 
 
 def test_non_int_float() -> None:
     bst = RedBlackTree()
     bst.insert(42)
     bst.insert(42.5)
-    check_valid(bst)
+    assert bst.is_valid()
 
 
 def test_tuple() -> None:
@@ -282,7 +388,7 @@ def test_tuple() -> None:
     bst.insert((2, 6))
     bst.insert((1, 42))
     bst.insert((1, 16))
-    check_valid(bst)
+    assert bst.is_valid()
 
 
 def test_string() -> None:
@@ -290,7 +396,7 @@ def test_string() -> None:
     bst.insert("foo")
     bst.insert("bar")
     bst.insert("Foo")
-    check_valid(bst)
+    assert bst.is_valid()
 
 
 def test_preorder() -> None:

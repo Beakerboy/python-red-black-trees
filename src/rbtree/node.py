@@ -1,9 +1,11 @@
+from functools import total_ordering
 from typing import Any, TypeVar
 from rbtree.node_base import NodeBase
 
 T = TypeVar('T', bound='Node')
 
 
+@total_ordering
 class Node(NodeBase):
     """
     This node can work with any python primative type
@@ -23,20 +25,8 @@ class Node(NodeBase):
     def __lt__(self: T, other: Any) -> bool:
         return self.key < other.key
 
-    def __le__(self: T, other: Any) -> bool:
-        return self.key <= other.key
-
-    def __gt__(self: T, other: Any) -> bool:
-        return self.key > other.key
-
-    def __ge__(self: T, other: Any) -> bool:
-        return self.key >= other.key
-
     def __eq__(self: T, other: Any) -> bool:
         return not other.is_null() and self.key == other.key
-
-    def __ne__(self: T, other: Any) -> bool:
-        return other.is_null() or self.key != other.key
 
     @property
     def key(self: T) -> Any:

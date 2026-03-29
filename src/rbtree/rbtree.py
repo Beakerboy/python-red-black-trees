@@ -269,13 +269,7 @@ class RedBlackTree():
         y = z
         y_original_color = y.color
         np = z.parent
-        if z.right.is_null() and z.left.is_null():
-            x = z.right
-            if z == z.parent.left:
-                z.parent.left = z.left
-            else:
-                z.parent.right = z.right
-        elif z.left.is_null():
+        if z.left.is_null():
             # If no left child, just scoot the right subtree up
             x = z.right
             self.__rb_transplant(z, z.right)
@@ -287,16 +281,18 @@ class RedBlackTree():
             y = self.minimum(z.right)
             y_original_color = y.color
             x = y.right
-            if y.parent == z:
+            if y.parent == z and not x.is_null():
                 x.parent = y
             else:
                 self.__rb_transplant(y, y.right)
                 y.right = z.right
-                y.right.parent = y
+                if not y.right.is_null():
+                    y.right.parent = y
 
             self.__rb_transplant(z, y)
             y.left = z.left
-            y.left.parent = y
+            if not y.left.is_null():
+                y.left.parent = y
             y.color = z.color
         if y_original_color == "black":
             self._delete_fix(x, np)
@@ -363,7 +359,7 @@ class RedBlackTree():
         x.color = "black"
 
     def __rb_transplant(self: T, u: NodeBase, v: NodeBase) -> None:
-        if u.parent.is_null():
+        if u.parent.is_null():  # We are removing the root node
             self._root = v
         elif u == u.parent.left:
             u.parent.left = v
@@ -371,11 +367,13 @@ class RedBlackTree():
             u.parent.right = v
         if not v.is_null():
             v.parent = u.parent
+        u.parent = NodeBase.NIL
 
     def _left_rotate(self: T, x: NodeBase) -> None:
         y = x.right
         x.right = y.left
-        y.left.parent = x
+        if not y.left.is_null():
+            y.left.parent = x
         y.parent = x.parent
         if x.parent.is_null():
             self._root = y
@@ -389,8 +387,8 @@ class RedBlackTree():
     def _right_rotate(self: T, x: NodeBase) -> None:
         y = x.left
         x.left = y.right
-        y.right.parent = x
-
+        if not y.right.is_null():
+            y.right.parent = x
         y.parent = x.parent
         if x.parent.is_null():
             self._root = y
@@ -462,3 +460,67 @@ class RedBlackTree():
         elif include_nulls:
             basenode = [node]
         return basenode
+
+    @staticmethod
+    def validate_red_black_tree(
+            node: NodeBase,
+            min_val: Optional[NodeBase] = None,
+            max_val: Optional[NodeBase] = None) -> tuple[bool, int]:
+        """
+        Validates all Red-Black Tree properties in one pass.
+        Returns (is_valid, black_height) or (False, -1).
+        """
+        # 1. Leaf Property: NIL nodes are always valid and have black height 0
+        if node.is_null():
+            return True, 0
+
+        # 2. BST Property: Key must be within valid range
+        if min_val is not None:
+            if max_val is not None:
+                if not min_val < node < max_val:
+                    return False, -1
+            else:
+                if not min_val < node:
+                    return False, -1
+        else:
+            if max_val is not None:
+                if not node < max_val:
+                    return False, -1
+
+        # 3. Red Property: No red node can have a red child
+        # Note: node._red is True if red, False if black
+        if node.is_red():
+            if node.left.is_red() or node.right.is_red():
+                return False, -1
+
+        # Recursive checks for children
+        left_valid, left_bh = RedBlackTree.validate_red_black_tree(
+            node.left, min_val, node
+        )
+        right_valid, right_bh = RedBlackTree.validate_red_black_tree(
+            node.right, node, max_val
+        )
+
+        if not left_valid or not right_valid:
+            return False, -1
+
+        # 4. Black Height Property: Left and right subtrees must have same
+        # black height
+        if left_bh != right_bh:
+            return False, -1
+
+        # Calculate current node's black height contribution
+        # If node is black, height increases by 1
+        current_bh = left_bh + (0 if node.is_red() else 1)
+        return True, current_bh
+
+    def is_valid(self: T) -> bool:
+        if self._root.is_null():
+            return True
+
+        # 5. Root Property: Root must be black
+        if self._root.is_red():
+            return False
+
+        valid, _ = RedBlackTree.validate_red_black_tree(self._root)
+        return valid
