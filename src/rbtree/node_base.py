@@ -55,10 +55,18 @@ N = TypeVar('N', bound='NullNode')
 class NullNode(NodeBase):
 
     def __init__(self: N) -> None:
-        self.parent = self
+        self._parent = self
         self.left = self
         self.right = self
         self._red = False
+
+    @property
+    def parent(self: N) -> NullNode:
+        return self._parent
+
+    @parent.setter
+    def parent(self: N, node: NodeBase) -> None:
+        raise Exeception("Cannot Change Null Node Parent")
 
     def __eq__(self: T, other: Any) -> bool: return other.is_null()
     def __ne__(self: T, other: Any) -> bool: return not other.is_null()
