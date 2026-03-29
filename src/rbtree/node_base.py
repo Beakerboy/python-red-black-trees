@@ -80,7 +80,7 @@ class NullNode(NodeBase):
     def right(self: N) -> NodeBase:
         return self._right
 
-    @righy.setter
+    @right.setter
     def righy(self: N, node: NodeBase) -> None:
         raise Exception("Cannot Change Null Node Child")
 
