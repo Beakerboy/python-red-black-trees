@@ -465,7 +465,7 @@ class RedBlackTree():
     def validate_red_black_tree(
             node: NodeBase,
             min_val: Optional[NodeBase] = None,
-            max_val: Optional[NodeBase] = None) -> tuple[bool, int)]:
+            max_val: Optional[NodeBase] = None) -> tuple[bool, int]:
         """
         Validates all Red-Black Tree properties in one pass.
         Returns (is_valid, black_height) or (False, -1).
