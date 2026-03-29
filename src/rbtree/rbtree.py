@@ -460,3 +460,67 @@ class RedBlackTree():
         elif include_nulls:
             basenode = [node]
         return basenode
+
+    @staticmethod
+    def validate_red_black_tree(
+            node: NodeBase,
+            min_val: Optional[NodeBase] = None,
+            max_val: Optional[NodeBase] = None) -> tuple[bool, int]:
+        """
+        Validates all Red-Black Tree properties in one pass.
+        Returns (is_valid, black_height) or (False, -1).
+        """
+        # 1. Leaf Property: NIL nodes are always valid and have black height 0
+        if node.is_null():
+            return True, 0
+
+        # 2. BST Property: Key must be within valid range
+        if min_val is not None:
+            if max_val is not None:
+                if not min_val < node < max_val:
+                    return False, -1
+            else:
+                if not min_val < node:
+                    return False, -1
+        else:
+            if max_val is not None:
+                if not node < max_val:
+                    return False, -1
+
+        # 3. Red Property: No red node can have a red child
+        # Note: node._red is True if red, False if black
+        if node.is_red():
+            if node.left.is_red() or node.right.is_red():
+                return False, -1
+
+        # Recursive checks for children
+        left_valid, left_bh = RedBlackTree.validate_red_black_tree(
+            node.left, min_val, node
+        )
+        right_valid, right_bh = RedBlackTree.validate_red_black_tree(
+            node.right, node, max_val
+        )
+
+        if not left_valid or not right_valid:
+            return False, -1
+
+        # 4. Black Height Property: Left and right subtrees must have same
+        # black height
+        if left_bh != right_bh:
+            return False, -1
+
+        # Calculate current node's black height contribution
+        # If node is black, height increases by 1
+        current_bh = left_bh + (0 if node.is_red() else 1)
+        return True, current_bh
+
+    def is_valid(self: T) -> bool:
+        if self._root.is_null():
+            return True
+
+        # 5. Root Property: Root must be black
+        if self._root.is_red():
+            return False
+
+        valid, _ = RedBlackTree.validate_red_black_tree(self._root)
+        return valid
