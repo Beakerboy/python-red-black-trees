@@ -6,6 +6,9 @@ from rbtree.node import Node
 def check_node_valid(bst: RedBlackTree, node: Node) -> None:
     if node.is_null():
         assert node.is_black()
+        assert node.parent.is_null()
+        assert node.left.is_null()
+        assert node.right.is_null()
         return
 
     if node.is_red():
