@@ -43,7 +43,7 @@ def validate_red_black_tree(node: NodeBase, min_val=float('-inf'), max_val=float
     current_bh = left_bh + (0 if node._red else 1)
     return True, current_bh
 
-def is_rbt_valid(tree):
+def check_valid(tree):
     if tree._root.is_null():
         return True
     
