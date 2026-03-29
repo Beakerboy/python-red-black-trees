@@ -464,8 +464,8 @@ class RedBlackTree():
     @staticmethod
     def validate_red_black_tree(
             node: NodeBase,
-            min_val: Any = float('-inf'),
-            max_val: Any = float('inf')) -> tuple[bool, int)]:
+            min_val: Optional[NodeBase] = None,
+            max_val: Optional[NodeBase] = None,) -> tuple[bool, int)]:
         """
         Validates all Red-Black Tree properties in one pass.
         Returns (is_valid, black_height) or (False, -1).
@@ -475,8 +475,16 @@ class RedBlackTree():
             return True, 0
 
         # 2. BST Property: Key must be within valid range
-        if Node(min_val) < node < Node(max_val):
-            return False, -1
+        if min_val is not None:
+            if max_val is not None:
+                if not min_val < node < max_val:
+                    return False, -1
+            else:
+                if not min_val < node:
+                    return False, -1
+        else:
+            if not node < max_val:
+                return False, -1
 
         # 3. Red Property: No red node can have a red child
         # Note: node._red is True if red, False if black
@@ -486,10 +494,10 @@ class RedBlackTree():
 
         # Recursive checks for children
         left_valid, left_bh = RedBlackTree.validate_red_black_tree(
-            node.left, min_val, node.key
+            node.left, min_val, node
         )
         right_valid, right_bh = RedBlackTree.validate_red_black_tree(
-            node.right, node.key, max_val
+            node.right, node, max_val
         )
 
         if not left_valid or not right_valid:
