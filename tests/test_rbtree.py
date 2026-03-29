@@ -86,6 +86,26 @@ def test_black_length() -> None:
     assert not bst.is_valid()
 
 
+def test_backwords() -> None:
+    bst = RedBlackTree()
+    two = Node(2)
+    bst._root = two
+    two._red = False
+    one = Node(3)
+    one.parent = two
+    two.left = one
+
+
+def test_backwords() -> None:
+    bst = RedBlackTree()
+    two = Node(2)
+    bst._root = two
+    two._red = False
+    one = Node(1)
+    one.parent = two
+    two.right = one
+
+
 def test_insert() -> None:
     bst = RedBlackTree()
     assert len(bst) == 0
