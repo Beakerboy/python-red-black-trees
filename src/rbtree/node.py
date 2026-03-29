@@ -4,6 +4,7 @@ from rbtree.node_base import NodeBase
 
 T = TypeVar('T', bound='Node')
 
+
 @total_ordering
 class Node(NodeBase):
     """
@@ -26,7 +27,6 @@ class Node(NodeBase):
 
     def __eq__(self: T, other: Any) -> bool:
         return not other.is_null() and self.key == other.key
-
 
     @property
     def key(self: T) -> Any:
