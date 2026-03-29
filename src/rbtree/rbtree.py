@@ -485,10 +485,10 @@ class RedBlackTree():
                 return False, -1
 
         # Recursive checks for children
-        left_valid, left_bh = validate_red_black_tree(
+        left_valid, left_bh = RedBlackTree.validate_red_black_tree(
             node.left, min_val, node.key
         )
-        right_valid, right_bh = validate_red_black_tree(
+        right_valid, right_bh = RedBlackTree.validate_red_black_tree(
             node.right, node.key, max_val
         )
 
