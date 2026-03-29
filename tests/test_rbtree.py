@@ -308,7 +308,7 @@ def test_parent_predecessor() -> None:
 
 def test_no_predecessor() -> None:
     bst = three_tree()
-    assert bst.predecessor(bst.search(1)).key == 2
+    assert bst.predecessor(bst.search(1)).is_null()
 
 
 def test_empty_predecessor() -> None:
