@@ -463,9 +463,9 @@ class RedBlackTree():
 
     @staticmethod
     def validate_red_black_tree(
-        node: NodeBase,
-        min_val=float('-inf'),
-        max_val=float('inf')):
+            node: NodeBase,
+            min_val=float('-inf'),
+            max_val=float('inf')):
         """
         Validates all Red-Black Tree properties in one pass.
         Returns (is_valid, black_height) or (False, -1).
