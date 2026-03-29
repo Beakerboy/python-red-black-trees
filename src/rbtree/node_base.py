@@ -66,7 +66,7 @@ class NullNode(NodeBase):
 
     @parent.setter
     def parent(self: N, node: NodeBase) -> None:
-        raise Exeception("Cannot Change Null Node Parent")
+        raise Exception("Cannot Change Null Node Parent")
 
     def __eq__(self: T, other: Any) -> bool: return other.is_null()
     def __ne__(self: T, other: Any) -> bool: return not other.is_null()
