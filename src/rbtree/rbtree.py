@@ -488,7 +488,7 @@ def validate_red_black_tree(node: NodeBase, min_val=float('-inf'), max_val=float
         return False, -1
 
     # 4. Black Height Property: Left and right subtrees must have same black height
-    if left_bh != right_bh
+    if left_bh != right_bh:
         return False, -1
 
     # Calculate current node's black height contribution
