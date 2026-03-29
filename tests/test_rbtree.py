@@ -39,19 +39,19 @@ def test_tree_check() -> RedBlackTree:
     assert not bst.is_valid()
 
 
-def check_red_root() -> None:
+def test_red_root() -> None:
     bst = RedBlackTree()
     zero = Node(0)
     bst._root = zero
     assert not bst.is_valid()
 
 
-def check_empty() -> None:
+def test_empty() -> None:
     bst = RedBlackTree()
     assert bst.is_valid()
 
 
-def check_red_parent_child() -> None:
+def test_red_parent_child() -> None:
     bst = RedBlackTree()
     two = Node(2)
     bst._root = two
@@ -68,7 +68,7 @@ def check_red_parent_child() -> None:
     assert not bst.is_valid()
 
 
-def check_black_length() -> None:
+def test_black_length() -> None:
     bst = RedBlackTree()
     two = Node(2)
     bst._root = two
