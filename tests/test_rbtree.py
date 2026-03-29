@@ -293,7 +293,7 @@ def test_empty_successor() -> None:
 def test_null_right_successor() -> None:
     bst = three_tree()
     bst.insert(0)
-    assert bst.successor(1).key == 2
+    assert bst.successor(bst.search(1)).key == 2
 
 
 def test_predecessor() -> None:
@@ -309,7 +309,7 @@ def test_empty_predecessor() -> None:
 def test_null_left_predecessor() -> None:
     bst = three_tree()
     bst.insert(4)
-    assert bst.predecessor(3).key == 2
+    assert bst.predecessor(bst.search(3)).key == 2
 
 
 def test_non_int_float() -> None:
