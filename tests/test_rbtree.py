@@ -94,6 +94,7 @@ def test_backwords() -> None:
     one = Node(3)
     one.parent = two
     two.left = one
+    assert not bst.is_valid()
 
 
 def test_backwords1() -> None:
@@ -104,6 +105,7 @@ def test_backwords1() -> None:
     one = Node(1)
     one.parent = two
     two.right = one
+    assert not bst.is_valid()
 
 
 def test_insert() -> None:
