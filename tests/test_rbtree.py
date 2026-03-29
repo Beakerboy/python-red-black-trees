@@ -3,53 +3,55 @@ from rbtree.rbtree import RedBlackTree
 from rbtree.node import Node
 
 
-def check_node_valid(bst: RedBlackTree, node: Node) -> None:
+def validate_red_black_tree(node: NodeBase, min_val=float('-inf'), max_val=float('inf')):
+    """
+    Validates all Red-Black Tree properties in one pass.
+    Returns (is_valid, black_height) or (False, -1).
+    """
+    # 1. Leaf Property: NIL nodes are always valid and have black height 0
     if node.is_null():
-        assert node.is_black()
-        assert node.parent.is_null()
-        assert node.left.is_null()
-        assert node.right.is_null()
-        return
+        return True, 0
 
-    if node.is_red():
-        assert node.left.is_black()
-        assert node.right.is_black()
+    # 2. BST Property: Key must be within valid range
+    assert (
+        (min_val < node.key < max_val),
+        f"BST Violation: Key {node.key} is out of range ({min_val}, {max_val})"
+    )
 
-    if not node.left.is_null():
-        assert node >= node.left
-    if not node.right.is_null():
-        assert node <= node.right
+    # 3. Red Property: No red node can have a red child
+    # Note: node._red is True if red, False if black
+    if node._red:
+        if (node.left and node.left._red) or (node.right and node.right._red):
+            print(f"Red Violation: Node {node.key} and its child are both RED")
+            return False, -1
 
+    # Recursive checks for children
+    left_valid, left_bh = validate_red_black_tree(node.left, min_val, node.key)
+    right_valid, right_bh = validate_red_black_tree(node.right, node.key, max_val)
 
-def check_valid_recur(bst: RedBlackTree, node: Node) -> int:
-    check_node_valid(bst, node)
+    if not left_valid or not right_valid:
+        return False, -1
 
-    if node.is_null():
-        return 1
+    # 4. Black Height Property: Left and right subtrees must have same black height
+    assert (
+        left_bh != right_bh,
+        f"Balance Violation: Node {node.key} has unequal black heights (L:{left_bh}, R:{right_bh})"
+    )
 
-    if node.left.is_null() and node.right.is_null():
-        if node.is_black():
-            return 2
-        else:
-            return 1
+    # Calculate current node's black height contribution
+    # If node is black, height increases by 1
+    current_bh = left_bh + (0 if node._red else 1)
+    return True, current_bh
 
-    left_count = check_valid_recur(bst, node.left)
-    right_count = check_valid_recur(bst, node.right)
-
-    assert left_count == right_count
-
-    # doesn't matter which one we choose because they're the same
-    cur_count = left_count
-    if node.is_black():
-        cur_count += 1
-
-    return cur_count
-
-
-def check_valid(bst: RedBlackTree) -> None:
-    root = bst.root
-    assert root.is_black()
-    check_valid_recur(bst, root)
+def is_rbt_valid(tree):
+    if tree._root.is_null():
+        return True
+    
+    # 5. Root Property: Root must be black
+    assert tree._root._red, "Root Violation: The root node is RED"
+        
+    valid, _ = validate_red_black_tree(tree._root)
+    return valid
 
 
 def three_tree() -> RedBlackTree:
