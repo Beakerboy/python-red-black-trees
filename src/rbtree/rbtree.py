@@ -483,8 +483,9 @@ class RedBlackTree():
                 if not min_val < node:
                     return False, -1
         else:
-            if not node < max_val:
-                return False, -1
+            if max_val is not None:
+                if not node < max_val:
+                    return False, -1
 
         # 3. Red Property: No red node can have a red child
         # Note: node._red is True if red, False if black
