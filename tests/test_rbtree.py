@@ -258,7 +258,7 @@ def test_delete_with_grandchildren() -> None:
 
 def test_max() -> None:
     bst = three_tree()
-    assert bst.maximum() == 3
+    assert bst.maximum().key == 3
 
 
 def test_empty_max() -> None:
@@ -273,7 +273,7 @@ def test_empty_min() -> None:
 
 def test_min() -> None:
     bst = three_tree()
-    assert bst.minimum() == 1
+    assert bst.minimum().key == 1
 
 
 def test_successor() -> None:
