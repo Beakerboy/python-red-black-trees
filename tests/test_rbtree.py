@@ -279,7 +279,7 @@ def test_min() -> None:
     assert bst.minimum().key == 1
 
 
-def test_successor() -> None:
+def test_child_successor() -> None:
     bst = three_tree()
     assert bst.successor(bst.root).key == 3
 
@@ -290,10 +290,15 @@ def test_empty_successor() -> None:
     assert bst.successor(bst.root).is_null()
 
 
-def test_null_right_successor() -> None:
+def test_parent_successor() -> None:
     bst = three_tree()
     bst.insert(0)
     assert bst.successor(bst.search(1)).key == 2
+
+
+def test_no_successor() -> None:
+    bst = three_tree()
+    assert bst.successor(bst.search(3)).is_null()
 
 
 def test_child_predecessor() -> None:
