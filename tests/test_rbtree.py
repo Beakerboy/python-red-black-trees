@@ -300,6 +300,18 @@ def test_delete_with_grandchildren() -> None:
     bst.delete(bst.root)
     assert bst.is_valid()
 
+def test_delete_red_with_child() -> None:
+    bst = three_tree()
+    zero = Node(0)
+    zero._red = False
+    zero.parent = bst.search(1)
+    four = Node(4)
+    four._red = False
+    four.parent = bst.search(3)
+    assert bst.is_valid()
+    bst.delete(0)
+    assert bst.is_valid()
+
 
 def test_max() -> None:
     bst = three_tree()
