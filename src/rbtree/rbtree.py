@@ -1,9 +1,13 @@
-# Implementing Red-Black Tree in Python
-# Adapted from https://www.programiz.com/dsa/red-black-tree
-
-import sys
 from typing import Any, Optional, TypeVar, Iterator
+from enum import Enum
 from rbtree.node import Node
+from rbtree.node_base import NodeBase
+
+
+class IteratorType(Enum):
+    PRE = -1
+    IN = 0
+    POST = 1
 
 
 T = TypeVar('T', bound='RedBlackTree')
@@ -11,21 +15,22 @@ T = TypeVar('T', bound='RedBlackTree')
 
 class RedBlackTree():
     def __init__(self: T) -> None:
-        self.root = Node()
+        self._root: NodeBase = NodeBase.NIL
         self.size = 0
         self._iterator_include_nulls = False
+        self._traversal_type = IteratorType.PRE
 
     # Dunder Methods
 
     def __iter__(self: T) -> Iterator:
         nulls = self._iterator_include_nulls
-        return iter(self.preorder(nulls))
-
-    def __getitem__(self: T, key: Any) -> Any:
-        return self.search(key).value
-
-    def __setitem__(self: T, key: Any, value: Any) -> None:
-        self.search(key).value = value
+        match self._traversal_type:
+            case IteratorType.PRE:
+                return iter(self.preorder(nulls))
+            case IteratorType.IN:
+                return iter(self.inorder(nulls))
+            case IteratorType.POST:
+                return iter(self.postorder(nulls))
 
     def __len__(self: T) -> int:
         return self.size
@@ -34,62 +39,88 @@ class RedBlackTree():
         return self.__print_helper(self.root, "", 'root')
 
     # Getters and Setters and Properties
-
-    def get_root(self: T) -> Node:
-        return self.root
+    @property
+    def root(self: T) -> NodeBase:
+        return self._root
 
     # Public Methods
+
+    def include_nulls(self: T) -> None:
+        """
+        Configure the iterator to include nulls
+        """
+        self._iterator_include_nulls = True
+
+    def exclude_nulls(self: T) -> None:
+        """
+        Configure the iterator to exclude nulls
+        """
+        self._iterator_include_nulls = False
+
+    def use_preorder(self: T) -> None:
+        self._traversal_type = IteratorType.PRE
+
+    def use_postorder(self: T) -> None:
+        self._traversal_type = IteratorType.POST
+
+    def use_inorder(self: T) -> None:
+        self._traversal_type = IteratorType.IN
 
     def preorder(self: T, include_nulls: bool = False) -> list:
         return self._pre_order_helper(self.root, include_nulls)
 
-    def inorder(self: T) -> None:
-        self._in_order_helper(self.root)
+    def inorder(self: T, include_nulls: bool = False) -> list:
+        return self._in_order_helper(self.root, include_nulls)
 
-    def postorder(self: T) -> None:
-        self._post_order_helper(self.root)
+    def postorder(self: T, include_nulls: bool = False) -> list:
+        return self._post_order_helper(self.root, include_nulls)
 
-    def search(self: T, key: Any) -> Node:
+    def search(self: T, key: Any) -> NodeBase:
         """
         Find the node with the given key
         """
-        return self._search_tree_helper(self.root, key)
+        node: NodeBase
+        if isinstance(key, NodeBase):
+            node = key
+        else:
+            node = Node(key)
+        return self._search_tree_helper(self.root, node)
 
-    def minimum(self: T, node: Optional[Node] = None) -> Node:
+    def minimum(self: T, node: Optional[NodeBase] = None) -> NodeBase:
         if node is None:
             node = self.root
         if node.is_null():
-            return Node()
+            return node
         while not node.left.is_null():
             node = node.left
         return node
 
-    def maximum(self: T, node: Optional[Node] = None) -> Node:
+    def maximum(self: T, node: Optional[NodeBase] = None) -> NodeBase:
         if node is None:
             node = self.root
         if node.is_null():
-            return Node()
+            return node
         while not node.right.is_null():
             node = node.right
         return node
 
-    def successor(self: T, x: Node) -> Optional[Node]:
+    def successor(self: T, x: NodeBase) -> Optional[NodeBase]:
         if not x.right.is_null():
             return self.minimum(x.right)
 
         y = x.parent
 
-        while y is not None and not y.is_null() and x == y.right:
+        while not y.is_null() and x == y.right:
             x = y
             y = y.parent
         return y
 
-    def predecessor(self: T,  x: Node) -> Optional[Node]:
+    def predecessor(self: T,  x: NodeBase) -> Optional[NodeBase]:
         if (not x.left.is_null()):
             return self.maximum(x.left)
 
         y = x.parent
-        while y is not None and not y.is_null() and x == y.left:
+        while not y.is_null() and x == y.left:
             x = y
             y = y.parent
 
@@ -97,19 +128,12 @@ class RedBlackTree():
 
     def insert(self: T, key: Any) -> None:
         # Allow the user to provide a custom node.
-        if isinstance(key, Node):
+        node: NodeBase
+        if isinstance(key, NodeBase):
             node = key
         else:
             node = Node(key)
-        node.parent = None
-        node.key = key
-        node.left = Node()
-        node.left.parent = node
-        node.right = Node()
-        node.right.parent = node
-        node.set_color("red")
-
-        y = None
+        y: NodeBase = NodeBase.NIL
         x = self.root
 
         while not x.is_null():
@@ -122,8 +146,8 @@ class RedBlackTree():
                 x = x.right
 
         node.parent = y
-        if y is None:
-            self.root = node
+        if y.is_null():
+            self._root = node
         elif node < y:
             y.left = node
         else:
@@ -131,88 +155,88 @@ class RedBlackTree():
 
         self.size += 1
 
-        if node.parent is None:
-            node.set_color("black")
+        if node.parent.is_null():
+            node.color = "black"
             return
 
-        if node.parent.parent is None:
+        if node.parent.parent.is_null():
             return
 
         self._fix_insert(node)
 
     def delete(self: T, key: Any) -> None:
-        self._delete_node_helper(self.root, key)
-
-    def print_tree(self: T) -> None:
-        print(self.__print_helper(self.root, "", 'root'))
+        node: NodeBase
+        if isinstance(key, NodeBase):
+            node = key
+        else:
+            node = Node(key)
+        self._delete_node_helper(self.root, node)
 
     def to_mindmap(self: T) -> str:
+        null_depths = []
         output = "@startmindmap\n"
         for node in self.preorder(True):
-            key = "" if node.key is None else node.key
+            if not node.is_null():
+                if node.right.is_null():
+                    null_depths.append(node.depth() + 1)
+                if node.left.is_null():
+                    null_depths.append(node.depth() + 1)
             color = "white" if node.is_black() else "red"
-            output += ("-" * (node.depth() + 1)
-                       + "[#" + color + "] <latex>\\rotatebox{-90}{"
-                       + str(key)
-                       + "}</latex>\n")
+            depth = null_depths.pop() if node.is_null() else node.depth()
+            output += (
+                "-" * (depth + 1) + "[#" + color +
+                r"] <latex>\rotatebox{-90}{" + str(node) + "}</latex>\n"
+            )
         return output + "@endmindmap"
 
     # Protected Methods
 
     # Balance the tree after insertion
-    def _fix_insert(self: T, node: Node) -> None:
-        assert isinstance(node.parent, Node)
+    def _fix_insert(self: T, node: NodeBase) -> None:
         while node.parent.is_red():
             np = node.parent
-            assert isinstance(np, Node)
             ngp = node.parent.parent
-            assert isinstance(ngp, Node)
-            if np == ngp.right:
+            if not ngp.right.is_null() and np == ngp.right:
                 u = ngp.left
                 if u.is_red():
-                    u.set_color("black")
-                    np.set_color("black")
-                    ngp.set_color("red")
+                    u.color = "black"
+                    np.color = "black"
+                    ngp.color = "red"
                     node = ngp
                 else:
-                    if node == np.left:
+                    if not np.left.is_null() and node == np.left:
                         node = np
                         self._right_rotate(node)
                     np_new = node.parent
-                    assert isinstance(np_new, Node)
                     np = np_new
-                    np.set_color("black")
+                    np.color = "black"
                     ngp = np.parent
-                    assert isinstance(ngp, Node)
-                    ngp.set_color("red")
+                    ngp.color = "red"
                     self._left_rotate(ngp)
             else:
                 u = ngp.right
 
                 if u.is_red():
-                    u.set_color("black")
-                    np.set_color("black")
-                    ngp.set_color("red")
+                    u.color = "black"
+                    np.color = "black"
+                    ngp.color = "red"
                     node = ngp
                 else:
-                    if node == np.right:
+                    if not np.right.is_null() and node == np.right:
                         node = np
                         self._left_rotate(node)
                     np_new = node.parent
-                    assert isinstance(np_new, Node)
                     np = np_new
-                    np.set_color("black")
+                    np.color = "black"
                     ngp = np.parent
-                    assert isinstance(ngp, Node)
-                    ngp.set_color("red")
+                    ngp.color = "red"
                     self._right_rotate(ngp)
             if node == self.root:
                 break
-            assert isinstance(node.parent, Node)
-        self.root.set_color("black")
+        self.root.color = "black"
 
     # Printing the tree
-    def __print_helper(self: T, node: Node, indent: str, last: str) -> str:
+    def __print_helper(self: T, node: NodeBase, indent: str, last: str) -> str:
         output = ''
         if not node.is_null():
             output += indent
@@ -226,20 +250,25 @@ class RedBlackTree():
                 indent += "|    "
 
             s_color = "RED" if node.is_red() else "BLACK"
-            output += str(node.key) + "(" + s_color + ")\n"
+            output += str(node) + "(" + s_color + ")\n"
             output += self.__print_helper(node.left, indent, 'not_last')
             output += self.__print_helper(node.right, indent, 'last')
         return output
 
-    # Node deletion
-    def _delete_node_helper(self: T, node: Node, key: Any) -> None:
-        z = self.search(key)
+    def _delete_node_helper(
+            self: T, node: NodeBase, node_to_delete: NodeBase) -> None:
+        """
+        Remove the node from the tree.
+        Reorganize the tree to maintain validity.
+        """
+        z = self.search(node_to_delete)
         if z.is_null():
-            # print("Cannot find key in the tree")
+            # Key not in tree.
             return
 
         y = z
-        y_original_color = y.get_color()
+        y_original_color = y.color
+        np = z.parent
         if z.left.is_null():
             # If no left child, just scoot the right subtree up
             x = z.right
@@ -250,105 +279,104 @@ class RedBlackTree():
             self.__rb_transplant(z, z.left)
         else:
             y = self.minimum(z.right)
-            y_original_color = y.get_color()
+            y_original_color = y.color
             x = y.right
-            if y.parent == z:
+            if y.parent == z and not x.is_null():
                 x.parent = y
             else:
                 self.__rb_transplant(y, y.right)
                 y.right = z.right
-                y.right.parent = y
+                if not y.right.is_null():
+                    y.right.parent = y
 
             self.__rb_transplant(z, y)
             y.left = z.left
-            y.left.parent = y
-            y.set_color(z.get_color())
+            if not y.left.is_null():
+                y.left.parent = y
+            y.color = z.color
         if y_original_color == "black":
-            self._delete_fix(x)
+            self._delete_fix(x, np)
 
         self.size -= 1
 
     # Balancing the tree after deletion
-    def _delete_fix(self: T, x: Node) -> None:
+    def _delete_fix(self: T, x: NodeBase, np: NodeBase) -> None:
         while x != self.root and x.is_black():
-            np = x.parent
-            assert isinstance(np, Node)
             if x == np.left:
                 s = np.right
                 if s.is_red():
-                    s.set_color("black")
-                    np.set_color("red")
+                    s.color = "black"
+                    np.color = "red"
                     self._left_rotate(np)
                     np_new = x.parent
-                    assert isinstance(np_new, Node)
                     np = np_new
                     s = np.right
 
                 if s.left.is_black() and s.right.is_black():
-                    s.set_color("red")
+                    s.color = "red"
                     x = np
                 else:
                     if s.right.is_black():
-                        s.left.set_color("black")
-                        s.set_color("red")
+                        s.left.color = "black"
+                        s.color = "red"
                         self._right_rotate(s)
                         np_new = x.parent
-                        assert isinstance(np_new, Node)
                         np = np_new
                         s = np.right
 
-                    s.set_color(np.get_color())
-                    np.set_color("black")
-                    s.right.set_color("black")
+                    s.color = np.color
+                    np.color = "black"
+                    s.right.color = "black"
                     self._left_rotate(np)
                     x = self.root
             else:
                 s = np.left
                 if s.is_red():
-                    s.set_color("black")
-                    np.set_color("red")
+                    s.color = "black"
+                    np.color = "red"
                     self._right_rotate(np)
                     np_new = x.parent
-                    assert isinstance(np_new, Node)
                     np = np_new
                     s = np.left
 
                 if s.left.is_black() and s.right.is_black():
-                    s.set_color("red")
+                    s.color = "red"
                     x = np
                 else:
                     if s.left.is_black():
-                        s.right.set_color("black")
-                        s.set_color("red")
+                        s.right.color = "black"
+                        s.color = "red"
                         self._left_rotate(s)
                         np_new = x.parent
-                        assert isinstance(np_new, Node)
                         np = np_new
                         s = np.left
 
-                    s.set_color(np.get_color())
-                    np.set_color("black")
-                    s.left.set_color("black")
+                    s.color = np.color
+                    np.color = "black"
+                    s.left.color = "black"
                     self._right_rotate(np)
                     x = self.root
-        x.set_color("black")
+        x.color = "black"
 
-    def __rb_transplant(self: T, u: Node, v: Node) -> None:
-        if u.parent is None:
-            self.root = v
+    def __rb_transplant(self: T, u: NodeBase, v: NodeBase) -> None:
+        if u.parent.is_null():  # We are removing the root node
+            self._root = v
         elif u == u.parent.left:
             u.parent.left = v
         else:
             u.parent.right = v
-        v.parent = u.parent
+        if not v.is_null():
+            v.parent = u.parent
+        u.parent = NodeBase.NIL
 
-    def _left_rotate(self: T, x: Node) -> None:
+    def _left_rotate(self: T, x: NodeBase) -> None:
         y = x.right
         x.right = y.left
-        y.left.parent = x
+        if not y.left.is_null():
+            y.left.parent = x
         y.parent = x.parent
-        if x.parent is None:
-            self.root = y
+        if x.parent.is_null():
+            self._root = y
         elif x == x.parent.left:
             x.parent.left = y
         else:
@@ -356,14 +384,14 @@ class RedBlackTree():
         y.left = x
         x.parent = y
 
-    def _right_rotate(self: T, x: Node) -> None:
+    def _right_rotate(self: T, x: NodeBase) -> None:
         y = x.left
         x.left = y.right
-        y.right.parent = x
-
+        if not y.right.is_null():
+            y.right.parent = x
         y.parent = x.parent
-        if x.parent is None:
-            self.root = y
+        if x.parent.is_null():
+            self._root = y
         elif x == x.parent.right:
             x.parent.right = y
         else:
@@ -372,15 +400,19 @@ class RedBlackTree():
         x.parent = y
 
     # Search the tree
-    def _search_tree_helper(self: T, node: Node, key: Any) -> Node:
-        if node.is_null() or key == node.key:
+    def _search_tree_helper(
+            self: T, node: NodeBase, node_to_find: NodeBase) -> NodeBase:
+
+        if node.is_null() or node_to_find.is_null():
+            return NodeBase.NIL
+        if node == node_to_find:
             return node
 
-        if key < node.key:
-            return self._search_tree_helper(node.left, key)
-        return self._search_tree_helper(node.right, key)
+        if node_to_find < node:
+            return self._search_tree_helper(node.left, node_to_find)
+        return self._search_tree_helper(node.right, node_to_find)
 
-    def _pre_order_helper(self: T, node: Node,
+    def _pre_order_helper(self: T, node: NodeBase,
                           include_nulls: bool = False) -> list:
         """
         Create an array of child elements following
@@ -393,28 +425,102 @@ class RedBlackTree():
             basenode = [node]
             left = self._pre_order_helper(node.left, include_nulls)
             right = self._pre_order_helper(node.right, include_nulls)
-        if include_nulls:
+        elif include_nulls:
             basenode = [node]
         basenode.extend(left)
         basenode.extend(right)
         return basenode
 
-    def _in_order_helper(self: T, node: Node) -> None:
+    def _in_order_helper(self: T, node: NodeBase,
+                         include_nulls: bool = False) -> list:
         """
-        Create an array of child elements following
-        a inorder traversal of the tree.
+        Create an array of child elements following a inorder traversal of the
+        tree.
         """
+        basenode = []
         if not node.is_null():
-            self._in_order_helper(node.left)
-            sys.stdout.write(str(node.key) + " ")
-            self._in_order_helper(node.right)
+            basenode = self._in_order_helper(node.left, include_nulls)
+            basenode.extend([node])
+            basenode.extend(self._in_order_helper(node.right, include_nulls))
+        elif include_nulls:
+            basenode = [node]
+        return basenode
 
-    def _post_order_helper(self: T, node: Node) -> None:
+    def _post_order_helper(self: T, node: NodeBase,
+                           include_nulls: bool = False) -> list:
         """
-        Create an array of child elements following
-        a postorder traversal of the tree.
+        Create an array of child elements following a postorder traversal of
+        the tree.
         """
+        basenode = []
         if not node.is_null():
-            self._post_order_helper(node.left)
-            self._post_order_helper(node.right)
-            sys.stdout.write(str(node.key) + " ")
+            basenode = self._post_order_helper(node.left, include_nulls)
+            basenode.extend(self._post_order_helper(node.right, include_nulls))
+            basenode.extend([node])
+        elif include_nulls:
+            basenode = [node]
+        return basenode
+
+    @staticmethod
+    def validate_red_black_tree(
+            node: NodeBase,
+            min_val: Optional[NodeBase] = None,
+            max_val: Optional[NodeBase] = None) -> tuple[bool, int]:
+        """
+        Validates all Red-Black Tree properties in one pass.
+        Returns (is_valid, black_height) or (False, -1).
+        """
+        # 1. Leaf Property: NIL nodes are always valid and have black height 0
+        if node.is_null():
+            return True, 0
+
+        # 2. BST Property: Key must be within valid range
+        if min_val is not None:
+            if max_val is not None:
+                if not min_val < node < max_val:
+                    return False, -1
+            else:
+                if not min_val < node:
+                    return False, -1
+        else:
+            if max_val is not None:
+                if not node < max_val:
+                    return False, -1
+
+        # 3. Red Property: No red node can have a red child
+        # Note: node._red is True if red, False if black
+        if node.is_red():
+            if node.left.is_red() or node.right.is_red():
+                return False, -1
+
+        # Recursive checks for children
+        left_valid, left_bh = RedBlackTree.validate_red_black_tree(
+            node.left, min_val, node
+        )
+        right_valid, right_bh = RedBlackTree.validate_red_black_tree(
+            node.right, node, max_val
+        )
+
+        if not left_valid or not right_valid:
+            return False, -1
+
+        # 4. Black Height Property: Left and right subtrees must have same
+        # black height
+        if left_bh != right_bh:
+            return False, -1
+
+        # Calculate current node's black height contribution
+        # If node is black, height increases by 1
+        current_bh = left_bh + (0 if node.is_red() else 1)
+        return True, current_bh
+
+    def is_valid(self: T) -> bool:
+        if self._root.is_null():
+            return True
+
+        # 5. Root Property: Root must be black
+        if self._root.is_red():
+            return False
+
+        valid, _ = RedBlackTree.validate_red_black_tree(self._root)
+        return valid

@@ -6,7 +6,8 @@ build-backend = "setuptools.build_meta"
 name = "python-red-black-trees"
 version = "0.0.1"
 authors = [
-  { name="Emily Dolson", email="me@me.com" },
+  { name="Emily Dolson", email="emilyldolson@gmail.com" },
+  { name="Kevin Nowaczyk", email="beakerboy99@yahoo.com"},
 ]
 description = "Red-black tree implementation in Python."
 readme = "README.md"
@@ -17,6 +18,16 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
+[project.optional-dependencies]
+tests = [
+  'mypy',
+  'pytest',
+  'pytest-cov',
+  'pytest-mock',
+  'coveralls',
+  'pep8-naming',
+  'flake8-annotations'
+]
 [project.urls]
 "Homepage" = "https://github.com/emilydolson/python-red-black-trees"
 "Bug Tracker" = "https://github.com/emilydolson/python-red-black-trees/issues"
