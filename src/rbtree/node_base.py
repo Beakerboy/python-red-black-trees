@@ -81,7 +81,7 @@ class NullNode(NodeBase):
         return self._right
 
     @right.setter
-    def righy(self: N, node: NodeBase) -> None:
+    def right(self: N, node: NodeBase) -> None:
         raise Exception("Cannot Change Null Node Child")
 
     def __eq__(self: T, other: Any) -> bool: return other.is_null()
