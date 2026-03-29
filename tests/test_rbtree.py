@@ -38,6 +38,12 @@ def test_tree_check() -> RedBlackTree:
     three.left = zero
     assert not bst.is_valid()
 
+def check_red_root() -> None:
+    bst = RedBlackTree()
+    zero = Node(0)
+    bst._root = zero
+    assert not bst.is_valid()
+
 
 def test_insert() -> None:
     bst = RedBlackTree()
