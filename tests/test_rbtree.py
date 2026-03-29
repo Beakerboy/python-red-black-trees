@@ -86,6 +86,7 @@ def test_tree_check() -> RedBlackTree:
     zero.parent = three
     three.left = zero
     check_valid(bst)
+    assert.bst.to_mindmap() == ''
 
 
 def test_insert() -> None:
