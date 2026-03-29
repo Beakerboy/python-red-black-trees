@@ -461,6 +461,7 @@ class RedBlackTree():
             basenode = [node]
         return basenode
 
+@staticmethod
 def validate_red_black_tree(node: NodeBase, min_val=float('-inf'), max_val=float('inf')):
     """
     Validates all Red-Black Tree properties in one pass.
@@ -496,12 +497,13 @@ def validate_red_black_tree(node: NodeBase, min_val=float('-inf'), max_val=float
     current_bh = left_bh + (0 if node._red else 1)
     return True, current_bh
 
-def is_valid(self) -> bool:
+def is_valid(self: T) -> bool:
     if self._root.is_null():
         return True
     
     # 5. Root Property: Root must be black
-    if tree._root._red: return False
+    if self._root._red:
+        return False
         
-    valid, _ = validate_red_black_tree(tree._root)
+    valid, _ = RedBlackTree.validate_red_black_tree(self._root)
     return valid
