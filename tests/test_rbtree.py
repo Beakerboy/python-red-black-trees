@@ -290,6 +290,11 @@ def test_empty_successor() -> None:
     assert bst.successor(bst.root).is_null()
 
 
+def test_null_right_successor() -> None:
+    bst = three_tree()
+    bst.insert(0)
+    assert bst.successor(1).key == 2
+
 def test_predecessor() -> None:
     bst = three_tree()
     assert bst.predecessor(bst.root).key == 1
@@ -299,6 +304,11 @@ def test_empty_predecessor() -> None:
     bst = RedBlackTree()
     assert bst.predecessor(bst.root).is_null()
 
+
+def test_null_left_predecessor() -> None:
+    bst = three_tree()
+    bst.insert(4)
+    assert bst.predecessor(3).key == 2
 
 def test_non_int_float() -> None:
     bst = RedBlackTree()
