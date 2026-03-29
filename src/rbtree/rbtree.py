@@ -465,7 +465,7 @@ class RedBlackTree():
     def validate_red_black_tree(
             node: NodeBase,
             min_val: Any=float('-inf'),
-            max_val: Any=float('inf')):
+            max_val: Any=float('inf')) -> tuple(bool, int):
         """
         Validates all Red-Black Tree properties in one pass.
         Returns (is_valid, black_height) or (False, -1).
