@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "python-red-black-trees"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="Emily Dolson", email="emilyldolson@gmail.com" },
   { name="Kevin Nowaczyk", email="beakerboy99@yahoo.com"},
